@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import Unpresensied from "./components/presensi/data/Unpresensied.jsx";
 import Login from "./pages/Auth/Login.jsx";
 import Guru from "./pages/Guru/Guru.jsx";
@@ -15,6 +15,8 @@ import { EditKelas } from "./pages/Kelas/EditKelas.jsx";
 import RfidReader from "./utils/RFID/RfidReader.jsx";
 import { Siswa } from "./pages/Siswa/Siswa.jsx";
 import { EditSiswa } from "./pages/Siswa/EditSiswa.jsx";
+import { AuthGuard } from "./utils/AuthGuard.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
 
 function App() {
   return (
@@ -22,7 +24,19 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Guru />} />
+          <Route
+          path="/dashboard"
+          element={
+            <AuthGuard>
+              <Dashboard/>
+            </AuthGuard>
+          }>
+
+            <Route index element={<Guru/>} />
+            
+          </Route>
+          
+          <Route path="/guru" element={<Guru />} />
 
           <Route path="/presensi" element={<Presensi />} />
           <Route path="/presensi/:id" element={<PresensiStarted />} />

@@ -41,11 +41,12 @@ function Sidebar() {
             <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
           </svg>
         </button>
-        <div className="logo">
+        <div className="logo flex gap-2" style={{padding: "0.77rem"}}>
           <img src="/images/logo.png" alt="tunas.png" width="60px" />
           <div>
-            <h3>SMK Tunas Harapan Pati</h3>
-            <p>Disiplin, Terampil, Siap Kerja</p>
+            <p className="text-4xl uppercase font-semibold">Sipren</p>
+            <p className="text-xs">SMK Tunas Harapan Pati</p>
+            {/* <p>Disiplin, Terampil, Siap Kerja</p> */}
           </div>
         </div>
         <div className="navbar">

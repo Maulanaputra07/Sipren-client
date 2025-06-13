@@ -33,18 +33,18 @@ function Login() {
   }
 
   return (
-    <div className="w-full h-screen flex flex-col justify-center items-center ">
+    <div className="login w-full h-screen flex flex-col justify-center items-center ">
       <div id="logo">
         <img src="/images/logo.png" alt="Ini Logo" style={{ width: "10em" }} />
       </div>
 
-      <div className="main-text">
+      <div className="main-text leading-none pb-4">
         <h3>Sistem Presensi Siswa</h3>
         <h4>SMK Tunas Harapan Pati</h4>
       </div>
 
       <form className="login" method="POST" onSubmit={handleSubmit}>
-        <div className="input">
+        {/* <div className="input">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="43"
@@ -76,6 +76,7 @@ function Login() {
             className="px-3"
             placeholder="Username"
             name="username"
+            autoComplete="username"
           />
         </div>
 
@@ -102,13 +103,66 @@ function Login() {
             name="password"
             autoComplete="password"
           />
+        </div> */}
+
+        <div className="card-login d-flex flex-col backdrop-blur-md bg-black/20 rounded-2xl shadow-lg p-10 w-full max-w-md text-white">
+          <div className="input relative ">
+            <input
+            type="text"
+            required
+            className="p-5 text-white peer w-full text-xl h-10 pt-7 border-2 border-gray/30 rounded-lg outline-none placeholder-transparent bg-transparent transition-all focus:border-orange_main"
+            placeholder="Username"
+            name="username"
+            autoComplete="username"
+          />
+          <label
+            className="absolute left-0 -top-7 text-orange_main text-lg transition-all 
+            peer-placeholder-shown:top-3.5 
+            peer-placeholder-shown:left-2 
+            peer-placeholder-shown:text-xl 
+            peer-placeholder-shown:text-gray 
+            peer-focus:-top-7
+            peer-focus:left-0
+            peer-focus:text-xl 
+            peer-focus:text-orange_main 
+            px-1"
+          >
+            Username
+          </label>
+          </div>
+
+          <div className="input relative mt-8">
+            <input
+            type="password"
+            required
+            className="p-5 text-white peer w-full text-xl h-10 pt-7 border-2 border-gray/30 rounded-lg outline-none placeholder-transparent bg-transparent transition-all focus:border-orange_main"
+            placeholder="Password"
+            name="password"
+            autoComplete="password"
+          />
+          <label
+            className="absolute left-0 -top-7 text-orange_main text-lg transition-all 
+            peer-placeholder-shown:top-3.5 
+            peer-placeholder-shown:left-2 
+            peer-placeholder-shown:text-xl 
+            peer-placeholder-shown:text-gray 
+            peer-focus:-top-7
+            peer-focus:left-0
+            peer-focus:text-xl 
+            peer-focus:text-orange_main 
+            px-1"
+          >
+            Password
+          </label>
+          </div>
+
+          <div className="btn-parent mt-4">
+            <button className="btn bg-orange_main p-4 text-2xl max-w-lg w-full rounded-xl font-poppins" type="submit">
+              Login
+            </button>
+          </div>
         </div>
 
-        <div className="btn-parent">
-          <button className="btn btn-warning fs-4" type="submit">
-            Login
-          </button>
-        </div>
       </form>
     </div>
   );

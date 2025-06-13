@@ -8,7 +8,7 @@
   --border-radius: 10px;
   --sidebar-background-color: #d8dbe0;
   --footer-color: #004674;
-  --sidebar-width: 300px;
+  --sidebar-width: 256px;
   --blue-100: #0085ff;
   --blue-200: #729ae9;
   --blue-300: #004674;
@@ -18,7 +18,7 @@
   --gray: #d2d2d2;
   --gray-100: #d9d9d9;
   --gray-200: #9a9a9a;
-  --header-height: 77px;
+  --header-height: 81px;
 }
 
 @layer base {
@@ -51,13 +51,9 @@ nav ul li a {
   border: none;
 }
 
-body {
-  background-image: url(../images/rectangle-1.png);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-}
+/* .login {
+
+} */
 
 body > div.container {
   display: flex;
@@ -69,10 +65,10 @@ body > div.container {
   gap: 20px;
 }
 
-.hero {
-  /* height: 98vh; */
+/* .hero {
+  height: 98vh;
   width: 100vw;
-}
+} */
 
 /* .main > div {
   width: 40% !important;
@@ -84,15 +80,19 @@ body > div.container {
 }
 
 .login {
-  margin-top: 2%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  background-image: url(../images/rectangle-1.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
 }
 
-.btn {
+/* .btn {
   width: 200px;
   border-radius: 10px;
   padding: 10px 25px;
@@ -100,16 +100,19 @@ body > div.container {
   background-color: var(--orange);
   font-size: 30px;
   font-weight: 700;
-  font-family: Poppins;
-}
+  } */
 
-.btn-parent {
+  .btn{
+    font-family: Poppins;
+  }
+  
+  /* .btn-parent {
   margin-top: 30px;
   display: flex;
   justify-content: center;
-}
+} */
 
-.input {
+/* .input {
   gap: 10px;
   padding: 10px;
   display: flex;
@@ -119,10 +122,10 @@ body > div.container {
   border: 3px solid #000;
   width: fit-content;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
+} */
 
-.input input {
-  color: #000;
+/* .input input {
+  color: #ffff;
   font-family: Poppins;
   font-size: 22px;
   font-style: normal;
@@ -131,14 +134,14 @@ body > div.container {
   border: none;
   width: 325px;
   border-radius: 10px;
-  height: 40px;
+  height: 50px;
   background-color: transparent;
-}
+} */
 
-input:focus {
+/* input:focus {
   border: none;
   outline: none;
-}
+} */
 
 .main-text {
   display: flex;
@@ -169,7 +172,7 @@ input:focus {
   height: 100vh;
 }
 
-.sidebar .logo {
+/* .sidebar .logo {
   padding: 10px;
   font-size: 14px;
   font-family: Poppins;
@@ -177,7 +180,7 @@ input:focus {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #fff;
-}
+} */
 
 .sidebar .navbar .footer #timestamp {
   color: var(--orange);
@@ -377,9 +380,10 @@ main {
   position: absolute;
   right: 0;
 }
+
 .main {
   /* background-image: url(../images/rectangle-1.png); */
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
@@ -388,31 +392,31 @@ main {
   justify-content: space-between;
   align-items: start;
   max-width: 75vw;
-  margin-left: calc(var(--sidebar-width) + 2em);
-  margin-right: 2em;
+  margin-right: 2em; */
+  /* margin-left: calc(var(--sidebar-width) + 2em); */
   margin-top: calc(var(--header-height) + 2em);
 }
 
-.main > div {
+/* .main > div {
   display: flex;
   flex-direction: column;
   width: 100% !important;
-}
+} */
 
-.card {
+/* .card {
   padding: 15px;
   border-radius: 10px;
-}
+} */
 
-.welcome {
+/* .welcome {
   background-color: var(--blue-300);
   color: var(--text-white);
   font-weight: 500;
-}
+} */
 
-.welcome > span {
+/* .welcome > span {
   font-size: 25px;
-}
+} */
 
 .welcome > h3 {
   font-size: 30px;
@@ -460,24 +464,24 @@ main {
   background-color: var(--orange-100);
 }
 
-.date-time {
+/* .date-time {
   background-color: var(--orange-100);
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
+} */
 
-.date-time div {
+/* .date-time div {
   gap: 10px;
   display: flex;
   align-items: center;
   font-size: 1.4rem;
   color: white;
-}
+} */
 
-.date-time div .alert {
+/* .date-time div .alert {
   color: var(--red);
-}
+} */
 
 .history {
   background-color: var(--blue-400);
@@ -486,10 +490,10 @@ main {
   overflow: auto;
 }
 
-.history-date {
+/* .history-date {
   gap: 2em;
   height: 100%;
-}
+} */
 
 .history h3 {
   border-bottom: 2px solid var(--text-white);
@@ -935,11 +939,11 @@ dialog[open] {
   gap: 10px;
 }
 
-.welcome-selayang {
+/* .welcome-selayang {
   gap: 2em;
   justify-content: space-between;
   height: 100%;
-}
+} */
 
 .container > div > button:focus > .user-dropdown {
   display: block;
@@ -1131,9 +1135,9 @@ dialog[open] {
     gap: 30px;
   }
 
-  .welcome > span {
+  /* .welcome > span {
     font-size: inherit;
-  }
+  } */
 
   .welcome > h3 {
     font-size: 20px;
@@ -1161,7 +1165,7 @@ dialog[open] {
   }
 
   div.main {
-    max-width: 900px;
+    /* max-width: 900px; */
     max-height: 500px;
     height: 65% !important;
   }
