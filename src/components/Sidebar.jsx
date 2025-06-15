@@ -13,7 +13,7 @@ function Sidebar() {
     currentPeriod: "-",
   });
 
-  const pathname = window.location.pathname;
+  const {pathname} = useLocation();
 
   const [isChevronDown, setIsChevronDown] = useState(true);
 
@@ -26,6 +26,14 @@ function Sidebar() {
   };
 
   const auth = useAuth();
+
+  const isActive = (path) => pathname === path;
+  const isParentActive = (prefix) => pathname.startsWith(prefix);
+
+  const isAdmin = auth.user.level === 1;
+  const isGuru = auth.user.level === 0;
+
+  const dashboardActive = isAdmin ? pathname === "/admin" : pathname === "/guru";
 
   return (
     <>
@@ -41,7 +49,7 @@ function Sidebar() {
             <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path>
           </svg>
         </button>
-        <div className="logo flex gap-2" style={{padding: "0.77rem"}}>
+        <div className="logo flex gap-2" style={{padding: "0.79rem"}}>
           <img src="/images/logo.png" alt="tunas.png" width="60px" />
           <div>
             <p className="text-4xl uppercase font-semibold">Sipren</p>
@@ -52,8 +60,8 @@ function Sidebar() {
         <div className="navbar">
           <nav>
             <ul>
-              <li className={pathname.includes("dashboard") ? "active" : ""}>
-                <Link to="/dashboard">
+              <li className={dashboardActive ? "active" : ""}>
+                <Link to={auth.user.level === 1 ? "/admin" : "/guru"}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="35"
@@ -89,9 +97,10 @@ function Sidebar() {
                   )}
                 </Link>
               </li>
-              {!auth.user.level && (
-                <li className={pathname.includes("/presensi") ? "active" : "w"}>
-                  <Link to="/presensi">
+
+              {isGuru && (
+                <li className={pathname === "guru/presensi" ? "active" : "w"}>
+                  <Link to="presensi">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="35"
@@ -167,68 +176,70 @@ function Sidebar() {
                 </li>
               )}
 
-              <li
-                className={pathname.includes("/data_presensi") ? "active" : "w"}
-              >
-                <Link to="/data_presensi">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="29"
-                    height="34"
-                    viewBox="0 0 29 34"
-                    fill="none"
-                  >
-                    <path
-                      d="M25.7131 16.8207V7.55558C25.7131 7.31973 25.6194 7.09356 25.4527 6.92678L20.7862 2.26046C20.6195 2.09368 20.3934 2 20.1576 2H2.88924C2.39813 2 2 2.39813 2 2.88924V30.7521C2 31.2433 2.39813 31.6414 2.88924 31.6414H12.3745"
-                      stroke="black"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M7.92828 13.8565H19.7848M7.92828 7.92822H13.8566M7.92828 19.7848H12.3745"
-                      stroke="black"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M22.6809 24.1412L24.163 22.6591C24.812 22.0101 25.8642 22.0101 26.5132 22.6591C27.1622 23.3081 27.1622 24.3604 26.5132 25.0094L25.0311 26.4914M22.6809 24.1412L18.2479 28.5742C18.0257 28.7964 17.8799 29.0834 17.8316 29.3938L17.4719 31.7005L19.7784 31.3409C20.0889 31.2925 20.3758 31.1466 20.598 30.9245L25.0311 26.4914M22.6809 24.1412L25.0311 26.4914"
-                      stroke="black"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M19.7848 2V7.03903C19.7848 7.53014 20.1829 7.92827 20.674 7.92827H25.7131"
-                      stroke="black"
-                      strokeWidth="3"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <span>Data Presensi</span>
-                  {pathname.includes("/data_presensi") && (
+              {isAdmin && (
+                <li
+                  className={pathname === "/admin/data_presensi" ? "active" : ""}
+                >
+                  <Link to="data_presensi">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="11"
-                      height="17"
-                      viewBox="0 0 11 17"
+                      width="29"
+                      height="34"
+                      viewBox="0 0 29 34"
                       fill="none"
                     >
                       <path
-                        d="M2 2L8.5 8.5L2 15"
+                        d="M25.7131 16.8207V7.55558C25.7131 7.31973 25.6194 7.09356 25.4527 6.92678L20.7862 2.26046C20.6195 2.09368 20.3934 2 20.1576 2H2.88924C2.39813 2 2 2.39813 2 2.88924V30.7521C2 31.2433 2.39813 31.6414 2.88924 31.6414H12.3745"
                         stroke="black"
-                        strokeWidth="4"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M7.92828 13.8565H19.7848M7.92828 7.92822H13.8566M7.92828 19.7848H12.3745"
+                        stroke="black"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M22.6809 24.1412L24.163 22.6591C24.812 22.0101 25.8642 22.0101 26.5132 22.6591C27.1622 23.3081 27.1622 24.3604 26.5132 25.0094L25.0311 26.4914M22.6809 24.1412L18.2479 28.5742C18.0257 28.7964 17.8799 29.0834 17.8316 29.3938L17.4719 31.7005L19.7784 31.3409C20.0889 31.2925 20.3758 31.1466 20.598 30.9245L25.0311 26.4914M22.6809 24.1412L25.0311 26.4914"
+                        stroke="black"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M19.7848 2V7.03903C19.7848 7.53014 20.1829 7.92827 20.674 7.92827H25.7131"
+                        stroke="black"
+                        strokeWidth="3"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                     </svg>
-                  )}
-                </Link>
-              </li>
+                    <span>Data Presensi</span>
+                    {pathname.includes("/data_presensi") && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="11"
+                        height="17"
+                        viewBox="0 0 11 17"
+                        fill="none"
+                      >
+                        <path
+                          d="M2 2L8.5 8.5L2 15"
+                          stroke="black"
+                          strokeWidth="4"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                  </Link>
+                </li>
+              )}
 
-              {auth.user.level == 1 && (
+              {isAdmin && (
                 <>
                   <li
                     className={pathname.includes("/data_user") ? "active" : ""}
@@ -298,6 +309,7 @@ function Sidebar() {
                       )}
                     </Link>
                   </li>
+
                   <li className={pathname.includes("/kelas") ? "active" : ""}>
                     <Link to="/kelas">
                       <svg
@@ -364,6 +376,7 @@ function Sidebar() {
                       )}
                     </Link>
                   </li>
+
                   <li className={pathname.includes("/siswa") ? "active" : ""}>
                     <Link to="/siswa">
                       <svg

@@ -374,11 +374,11 @@ body > div.container {
 }
 
 main {
-  z-index: -10;
+  /* z-index: -10;
   width: calc(100% - var(--sidebar-width));
   height: 100vh;
   position: absolute;
-  right: 0;
+  right: 0; */
 }
 
 .main {

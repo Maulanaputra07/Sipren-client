@@ -114,9 +114,9 @@ function Presensi() {
 
   return (
     <AuthGuard>
-      <div className="hero">
-        <Navbar />
-        <Sidebar />
+      <div className="hero pl-64">
+        {/* <Navbar />
+        <Sidebar /> */}
         <form className="main w-[100%]" onSubmit={handleSubmit}>
           <div className="form-kelas bg-white bg-opacity-65 w-[70vw] flex flex-col justify-start align-top gap-3 rounded">
             <div className="heading-choose-kelas text-center bg-blue_scale text-white rounded-t p-[0.65rem]">

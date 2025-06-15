@@ -25,20 +25,33 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route
-          path="/dashboard"
+          path="/guru"
           element={
-            <AuthGuard>
+            <AuthGuard allowedLevels={[0]}>
               <Dashboard/>
             </AuthGuard>
           }>
 
             <Route index element={<Guru/>} />
-            
+            {/* <Route path="guru" element={<Guru />} /> */}
+            <Route path="presensi" element={<Presensi />} />
+          </Route>
+
+          <Route
+          path="/admin"
+          element={
+            <AuthGuard allowedLevels={[1]}>
+              <Dashboard/>
+            </AuthGuard>
+          }>
+
+            <Route index element={<Guru/>} />
+            <Route path="data_presensi" element={<DataPresensi />} />
+            <Route path="guru" element={<Guru />} />
+            <Route path="presensi" element={<Presensi />} />
           </Route>
           
-          <Route path="/guru" element={<Guru />} />
 
-          <Route path="/presensi" element={<Presensi />} />
           <Route path="/presensi/:id" element={<PresensiStarted />} />
 
           <Route path="/kelas" element={<Kelas />} />

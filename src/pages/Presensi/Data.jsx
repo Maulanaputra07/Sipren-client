@@ -22,33 +22,32 @@ export function DataPresensi() {
 
   return (
     <AuthGuard>
-      <Navbar />
-      <Sidebar />
-
-      <div className="main">
-        <table className="w-full table">
-          <thead>
-            <tr>
-              <th>Waktu</th>
-              <th>Kelas</th>
-              <th>Nama Guru</th>
-              <th>Materi</th>
-              <th>Deskripsi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {presensi &&
-              presensi.map((pre, i) => (
-                <tr key={i}>
-                  <td>{formatDateTime(new Date(pre.hari_tanggal))}</td>
-                  <td>{`${pre.tingkat} ${pre.akronim} ${pre.no_kelas}`}</td>
-                  <td>{pre.nama}</td>
-                  <td>{pre.nama_materi}</td>
-                  <td>{pre.deskripsi}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+      <div className="hero pl-64">
+        <div className="main w-full">
+          <table className="w-full table">
+            <thead>
+              <tr>
+                <th>Waktu</th>
+                <th>Kelas</th>
+                <th>Nama Guru</th>
+                <th>Materi</th>
+                <th>Deskripsi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {presensi &&
+                presensi.map((pre, i) => (
+                  <tr key={i}>
+                    <td>{formatDateTime(new Date(pre.hari_tanggal))}</td>
+                    <td>{`${pre.tingkat} ${pre.akronim} ${pre.no_kelas}`}</td>
+                    <td>{pre.nama}</td>
+                    <td>{pre.nama_materi}</td>
+                    <td>{pre.deskripsi}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </AuthGuard>
   );

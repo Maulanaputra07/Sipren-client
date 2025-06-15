@@ -20,7 +20,11 @@ function Login() {
         console.log(res.data);
         setEncryptedData("token", res.data.accessToken);
         setEncryptedData("user", res.data.user); // simpan user langsung
-        window.location = "/dashboard";
+        if(res.data.user.level){
+          window.location = "/admin";
+        }else{
+          window.location = "/guru";
+        }
       })
       .catch((err) => {
         Swal.fire({
