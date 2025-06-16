@@ -37,7 +37,7 @@ function Sidebar() {
 
   return (
     <>
-      <header className="sidebar">
+      <header className="sidebar shadow-xl">
         <button className="menu-btn">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@ function Sidebar() {
                     />
                   </svg>
                   <span>Beranda</span>
-                  {pathname.includes("/dashboard") && (
+                  {pathname === "/admin" || pathname === "/guru" && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="11"
@@ -99,7 +99,7 @@ function Sidebar() {
               </li>
 
               {isGuru && (
-                <li className={pathname === "guru/presensi" ? "active" : "w"}>
+                <li className={pathname === "/guru/presensi" ? "active" : "w"}>
                   <Link to="presensi">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +151,7 @@ function Sidebar() {
                       />
                     </svg>
                     <span>Presensi</span>
-                    {pathname.includes("/presensi") && (
+                    {pathname.includes("guru/presensi") && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="11"
@@ -176,9 +176,9 @@ function Sidebar() {
                 </li>
               )}
 
-              {isAdmin && (
+              {isGuru && (
                 <li
-                  className={pathname === "/admin/data_presensi" ? "active" : ""}
+                  className={pathname === "/guru/data_presensi" ? "active" : ""}
                 >
                   <Link to="data_presensi">
                     <svg

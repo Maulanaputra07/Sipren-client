@@ -117,12 +117,12 @@ function Presensi() {
       <div className="hero pl-64">
         {/* <Navbar />
         <Sidebar /> */}
-        <form className="main w-[100%]" onSubmit={handleSubmit}>
+        <form className="main w-[100%] flex items-center flex-col" onSubmit={handleSubmit}>
           <div className="form-kelas bg-white bg-opacity-65 w-[70vw] flex flex-col justify-start align-top gap-3 rounded">
             <div className="heading-choose-kelas text-center bg-blue_scale text-white rounded-t p-[0.65rem]">
               Kelas
             </div>
-            <div className="flex-kelas-input flex gap-2 p-4">
+            <div className="flex-kelas-input flex gap-2 pb-4">
               <div className="kelas-input w-4/12 bg-orange_fade border-2 rounded pt-2 pb-4">
                 <h2 className="px-3">Kelas:</h2>
                 <hr className="pb-2" />
@@ -176,7 +176,7 @@ function Presensi() {
               </div>
             </div>
 
-            <div className="p-kls-input w-full px-4 pb-4">
+            <div className="p-kls-input w-full pb-4">
               <div className="kelas-input w-full bg-orange_fade border-2 rounded pt-2 pb-4">
                 <h2 className="px-3">Mapel:</h2>
                 <hr className="pb-2" />
@@ -235,7 +235,7 @@ function Presensi() {
                 </div>
               </div>
             </div>
-            <div className="flex-kelas-input flex gap-2 px-4 pb-4">
+            <div className="flex-kelas-input flex gap-2 pb-4">
               <div className="kelas-input w-full bg-orange_fade border-2 rounded pt-2 pb-4">
                 <h2 className="px-3">Jam Pelajaran:</h2>
                 <hr className="pb-2" />
@@ -267,35 +267,36 @@ function Presensi() {
             </div>
           </div>
           <div className="jurnalisme">
-            <div
-              className="card-2 h-[25vh] rounded bg-white"
-              style={{ width: "40vw" }}
-            >
-              <h3 className="rounded-t">Judul Materi</h3>
-              <div className="h-4/5 px-[1.1em] pt-[1em] pb-[1.3em] rounded">
-                <textarea
-                  style={{ resize: "none" }}
-                  className="h-full"
-                  name="materi"
-                  placeholder="Isi judul materi"
-                  value={titleMatter}
-                  onChange={(e) => setTitleMatter(e.target.value)}
-                ></textarea>
+            <div className="w-full flex gap-2">
+              <div className="card-2 h-[25vh] flex flex-col items-center rounded bg-white"
+                style={{ width: "30vw" }}
+              >
+                <h3 className="rounded-t">Judul Materi</h3>
+                <div className="h-4/5 w-full pt-[1em] pb-[1.3em] rounded">
+                  <textarea
+                    style={{ resize: "none" }}
+                    className="h-full"
+                    name="materi"
+                    placeholder="Isi judul materi"
+                    value={titleMatter}
+                    onChange={(e) => setTitleMatter(e.target.value)}
+                  ></textarea>
+                </div>
+              </div>
+              <div className="card-2 rounded" style={{ width: "40vw" }}>
+                <h3 className="rounded-t">Deskripsi Mapel Hari Ini</h3>
+                <div className="h-4/5 pt-[1em] pb-[1.3em] rounded">
+                  <textarea
+                    style={{ height: "200px", resize: "none" }}
+                    placeholder="Isi Deskripsi...."
+                    name="deskripsi"
+                    value={descriptionMatter}
+                    onChange={(e) => setDescriptionMatter(e.target.value)}
+                  ></textarea>
+                </div>
               </div>
             </div>
 
-            <div className="card-2 rounded" style={{ width: "40vw" }}>
-              <h3 className="rounded-t">Deskripsi Mapel Hari Ini</h3>
-              <div className="h-4/5 px-[1.1em] pt-[1em] pb-[1.3em] rounded">
-                <textarea
-                  style={{ height: "200px", resize: "none" }}
-                  placeholder="Isi Deskripsi...."
-                  name="deskripsi"
-                  value={descriptionMatter}
-                  onChange={(e) => setDescriptionMatter(e.target.value)}
-                ></textarea>
-              </div>
-            </div>
 
             <div
               className="d-flex justify-end button"

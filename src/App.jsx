@@ -35,6 +35,8 @@ function App() {
             <Route index element={<Guru/>} />
             {/* <Route path="guru" element={<Guru />} /> */}
             <Route path="presensi" element={<Presensi />} />
+            <Route path="presensi/:id" element={<PresensiStarted />} />
+            <Route path="data_presensi" element={<DataPresensi />} />
           </Route>
 
           <Route
@@ -46,13 +48,12 @@ function App() {
           }>
 
             <Route index element={<Guru/>} />
-            <Route path="data_presensi" element={<DataPresensi />} />
+            {/* <Route path="data_presensi" element={<DataPresensi />} /> */}
             <Route path="guru" element={<Guru />} />
             <Route path="presensi" element={<Presensi />} />
           </Route>
           
 
-          <Route path="/presensi/:id" element={<PresensiStarted />} />
 
           <Route path="/kelas" element={<Kelas />} />
           <Route path="/kelas/update/:id" element={<EditKelas />} />
