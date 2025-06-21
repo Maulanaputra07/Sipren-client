@@ -41,7 +41,7 @@ export const EditKelas = () => {
           no_kelas: current.no_kelas,
         })
         .then((res) => {
-          window.location = `/kelas/${id}/addsiswa`;
+          window.location = `/admin/kelas/${id}/addsiswa`;
         })
         .catch((err) => {
           Swal.fire({
@@ -76,7 +76,7 @@ export const EditKelas = () => {
                 no_kelas: current.no_kelas,
               })
               .then((res) => {
-                window.location = `/kelas/${id}/addsiswa`;
+                window.location = `/admin/kelas/${id}/addsiswa`;
               })
               .catch((err) => {
                 Swal.fire({
@@ -140,78 +140,78 @@ export const EditKelas = () => {
 
   return (
     <AuthGuard>
-      <Navbar />
-      <Sidebar />
-      <div className="main">
-        <form
-          className="p-5 w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
-          onSubmit={handleSubmitForm}
-        >
-          <h1 className="text-3xl font-bold pb-7">
-            {pathname.includes("/update") ? "Update " : "Add "} Kelas
-          </h1>
+      <div className="hero pl-64">
+        <div className="main">
+          <form
+            className="p-5 max-h-fit w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
+            onSubmit={handleSubmitForm}
+          >
+            <h1 className="text-3xl font-bold pb-7">
+              {pathname.includes("/update") ? "Update " : "Add "} Kelas
+            </h1>
 
-          <div className="flex flex-col mb-5">
-            <label htmlFor="tingkat" className="p-2">
-              Tingkat:
-            </label>
-            <select
-              id="tingkat"
-              name="tingkat"
-              onChange={handleChangeTingkat}
-              value={current.tingkat}
-              className="text-blue_dark rounded p-2 px-3 w-24"
-            >
-              <option value="X">X</option>
-              <option value="XI">XI</option>
-              <option value="XII">XII</option>
-            </select>
-          </div>
+            <div className="flex flex-col mb-5">
+              <label htmlFor="tingkat" className="p-2">
+                Tingkat:
+              </label>
+              <select
+                id="tingkat"
+                name="tingkat"
+                onChange={handleChangeTingkat}
+                value={current.tingkat}
+                className="text-blue_dark rounded p-2 px-3 w-24"
+              >
+                <option value="X">X</option>
+                <option value="XI">XI</option>
+                <option value="XII">XII</option>
+              </select>
+            </div>
 
-          <div className="flex flex-col mb-5">
-            <label htmlFor="jurusan" className="p-2">
-              Jurusan:
-            </label>
-            <select
-              id="jurusan"
-              name="jurusan"
-              onChange={handleChangeJurusan}
-              className="text-blue_dark rounded p-2 px-3"
-            >
-              {jurusan &&
-                jurusan.map((jur, i) => (
-                  <option key={i} value={jur.id_jurusan}>
-                    {jur.akronim}
-                  </option>
-                ))}
-            </select>
-          </div>
+            <div className="flex flex-col mb-5">
+              <label htmlFor="jurusan" className="p-2">
+                Jurusan:
+              </label>
+              <select
+                id="jurusan"
+                name="jurusan"
+                onChange={handleChangeJurusan}
+                className="text-blue_dark rounded p-2 px-3"
+              >
+                {jurusan &&
+                  jurusan.map((jur, i) => (
+                    <option key={i} value={jur.id_jurusan}>
+                      {jur.akronim}
+                    </option>
+                  ))}
+              </select>
+            </div>
 
-          <div className="flex flex-col mb-5">
-            <label htmlFor="no_kelas" className="p-2">
-              No Kelas:
-            </label>
-            <input
-              type="number"
-              id="no_kelas"
-              name="no_kelas"
-              value={current.no_kelas}
-              onChange={(e) =>
-                setCurrent({ ...current, no_kelas: e.target.value })
-              }
-              className="text-blue_dark rounded p-2 px-3"
-            />
-          </div>
+            <div className="flex flex-col mb-5">
+              <label htmlFor="no_kelas" className="p-2">
+                No Kelas:
+              </label>
+              <input
+                type="number"
+                id="no_kelas"
+                name="no_kelas"
+                value={current.no_kelas}
+                onChange={(e) =>
+                  setCurrent({ ...current, no_kelas: e.target.value })
+                }
+                className="text-blue_dark rounded p-2 px-3"
+              />
+            </div>
 
-          <div className="flex float-end gap-3">
-            <Link to="/kelas" className="p-4 py-2 rounded bg-red">
-              Kembali
-            </Link>
-            <button type="submit" className="p-4 py-2 rounded bg-blue">
-              Kirim
-            </button>
-          </div>
-        </form>
+            <div className="flex w-full justify-end gap-3">
+              <Link to="/admin/kelas" className="p-4 py-2 rounded bg-red">
+                Kembali
+              </Link>
+              <button type="submit" className="p-4 py-2 rounded bg-blue">
+                Kirim
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </AuthGuard>
   );

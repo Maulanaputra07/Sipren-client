@@ -45,22 +45,29 @@ function Guru() {
           </div>
         </div>
         {!auth?.user?.level && (
-          <div className="jadwal">
-            <div className="w-full h-full flex rounded-md gap-2">
-              <div className="w-1/2 shadow-md">
-                <p className="text-2xl bg-orange_fade rounded py-3 px-4 font-semibold font-poppins">JADWAL HARI INI</p>
-                <div className="h-64 bg-white">
 
+          <div>
+            <div className="jadwal">
+              <div className="w-full h-full flex rounded-md gap-2">
+                <div className="w-1/2 shadow-md">
+                  <p className="text-2xl bg-orange_fade rounded py-3 px-4 font-semibold font-poppins">JADWAL HARI INI</p>
+                  <div className="h-64 bg-white">
+
+                  </div>
                 </div>
-              </div>
-              <div className="w-1/2 shadow-md">
-                <p className="text-2xl bg-orange_fade rounded py-3 px-4 font-semibold font-poppins">HISTORY</p>
-                <div className="h-64 bg-white">
+                <div className="w-1/2 shadow-md">
+                  <p className="text-2xl bg-orange_fade rounded py-3 px-4 font-semibold font-poppins">HISTORY</p>
+                  <div className="h-64 bg-white">
 
+                  </div>
                 </div>
               </div>
             </div>
+            <div className="h-[50vh] mt-5 rounded-lg p-10 bg-skyblue">
+              <h1>Lorem ipsum dolor sit amet.</h1>
+            </div>
           </div>
+
         )}
       </div>
     </AuthGuard>

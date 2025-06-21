@@ -42,7 +42,7 @@ export const EditSiswa = () => {
       axios
         .put(`/siswa/${nis}`, payload)
         .then((res) => {
-          window.location = "/siswa";
+          window.location = "/admin/siswa";
         })
         .catch((err) => {
           Swal.fire({
@@ -56,7 +56,7 @@ export const EditSiswa = () => {
       axios
         .post(`/siswa`, payload)
         .then((res) => {
-          window.location = "/siswa";
+          window.location = "/admin/siswa";
         })
         .catch((err) => {
           console.log(payload);
@@ -100,83 +100,83 @@ export const EditSiswa = () => {
 
   return (
     <AuthGuard>
-      <Navbar />
-      <Sidebar />
-      <div className="main">
-        <form
-          className="p-5 w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
-          onSubmit={handleSubmitForm}
-        >
-          <h1 className="text-3xl font-bold pb-7">
-            {pathname.includes("/update") ? "Update " : "Add "} Siswa
-          </h1>
+      <div className="hero pl-64">
+        <div className="main">
+          <form
+            className="p-5 w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
+            onSubmit={handleSubmitForm}
+          >
+            <h1 className="text-3xl font-bold pb-7">
+              {pathname.includes("/update") ? "Update " : "Add "} Siswa
+            </h1>
 
-          <div className="flex flex-col mb-5">
-            <label htmlFor="rfid" className="p-2">
-              RFID :
-            </label>
-            <input
-              type="text"
-              id="rfid"
-              name="rfid"
-              value={current.rfid || ""}
-              onChange={(e) => setCurrent({ ...current, rfid: e.target.value })}
-              className="text-blue_dark rounded p-2 px-3"
-            />
-          </div>
-          <div className="flex flex-col mb-5">
-            <label htmlFor="nama" className="p-2">
-              Nama :
-            </label>
-            <input
-              type="text"
-              id="nama"
-              name="nama"
-              value={current.nama || ""}
-              onChange={(e) => setCurrent({ ...current, nama: e.target.value })}
-              className="text-blue_dark rounded p-2 px-3"
-            />
-          </div>
+            <div className="flex flex-col mb-5">
+              <label htmlFor="rfid" className="p-2">
+                RFID :
+              </label>
+              <input
+                type="text"
+                id="rfid"
+                name="rfid"
+                value={current.rfid || ""}
+                onChange={(e) => setCurrent({ ...current, rfid: e.target.value })}
+                className="text-blue_dark rounded p-2 px-3"
+              />
+            </div>
+            <div className="flex flex-col mb-5">
+              <label htmlFor="nama" className="p-2">
+                Nama :
+              </label>
+              <input
+                type="text"
+                id="nama"
+                name="nama"
+                value={current.nama || ""}
+                onChange={(e) => setCurrent({ ...current, nama: e.target.value })}
+                className="text-blue_dark rounded p-2 px-3"
+              />
+            </div>
 
-          <div className="flex flex-col mb-5">
-            <label htmlFor="nis" className="p-2">
-              NIS :
-            </label>
-            <input
-              type="text"
-              id="nis"
-              name="nis"
-              value={current.nis || ""}
-              onChange={(e) => setCurrent({ ...current, nis: e.target.value })}
-              className="text-blue_dark rounded p-2 px-3"
-            />
-          </div>
+            <div className="flex flex-col mb-5">
+              <label htmlFor="nis" className="p-2">
+                NIS :
+              </label>
+              <input
+                type="text"
+                id="nis"
+                name="nis"
+                value={current.nis || ""}
+                onChange={(e) => setCurrent({ ...current, nis: e.target.value })}
+                className="text-blue_dark rounded p-2 px-3"
+              />
+            </div>
 
-          {/* <div className="flex flex-col mb-5">
-            <label htmlFor="jenis_kelamin" className="p-2">
-              Jenis Kelamin :
-            </label>
-            <select
-              id="jenis_kelamin"
-              name="jenis_kelamin"
-              onChange={handleChangeTingkat}
-              value={current.jenis_kelamin}
-              className="text-blue_dark rounded p-2 px-3 w-2/12"
-            >
-              <option value="1">Laki-Laki</option>
-              <option value="0">Perempuan</option>
-            </select>
-          </div> */}
+            {/* <div className="flex flex-col mb-5">
+              <label htmlFor="jenis_kelamin" className="p-2">
+                Jenis Kelamin :
+              </label>
+              <select
+                id="jenis_kelamin"
+                name="jenis_kelamin"
+                onChange={handleChangeTingkat}
+                value={current.jenis_kelamin}
+                className="text-blue_dark rounded p-2 px-3 w-2/12"
+              >
+                <option value="1">Laki-Laki</option>
+                <option value="0">Perempuan</option>
+              </select>
+            </div> */}
 
-          <div className="flex float-end gap-3">
-            <Link to="/siswa" className="p-4 py-2 rounded bg-red">
-              Kembali
-            </Link>
-            <button type="submit" className="p-4 py-2 rounded bg-blue">
-              Kirim
-            </button>
-          </div>
-        </form>
+            <div className="flex w-full justify-end gap-3">
+              <Link to="/admin/siswa" className="p-4 py-2 rounded bg-red">
+                Kembali
+              </Link>
+              <button type="submit" className="p-4 py-2 rounded bg-blue">
+                Kirim
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </AuthGuard>
   );

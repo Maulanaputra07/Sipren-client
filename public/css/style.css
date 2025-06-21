@@ -79,7 +79,7 @@ body > div.container {
   justify-content: center;
 }
 
-.login {
+/* .login {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -90,7 +90,7 @@ body > div.container {
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
-}
+} */
 
 /* .btn {
   width: 200px;
@@ -141,6 +141,61 @@ body > div.container {
 /* input:focus {
   border: none;
   outline: none;
+} */
+
+.trapedzoid{
+  /* height: 100px;
+  background-color: #3498db;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 10% 100%);
+  background-image: url(/images/bg-2.png); */
+
+  position: relative;
+  height: 100px;
+  background-color: #3498db;
+  border-bottom-left-radius: 30px; /* Tetap rounded */
+  
+}
+
+.trapedzoid::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90%;
+  height: 100%;
+  background: inherit; /* warna latar belakang di bawahnya */
+  transform: skewX(-10deg);
+  transform-origin: right;
+}
+
+.imgLogin{
+background-image: url(/images/bg-2.png);
+filter: brightness(50%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+/* .img-right{
+  background-image: url(../images/cardImg.png);
+    background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size:contain;
+  background-position: center;
+} */
+
+/* .trapedzoid::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90%;
+  height: 100%;
+  background-color: red; 
+  transform: skewX(-10deg);
+  transform-origin: right;
 } */
 
 .main-text {

@@ -51,23 +51,32 @@ function App() {
             {/* <Route path="data_presensi" element={<DataPresensi />} /> */}
             <Route path="guru" element={<Guru />} />
             <Route path="presensi" element={<Presensi />} />
+            <Route path="data_user" element={<DataUser />} />
+            <Route path="data_user/add" element={<EditDataUser />} />
+            <Route path="data_user/update/:id" element={<EditDataUser />} />
+
+
+            <Route path="kelas" element={<Kelas />} />
+            <Route path="kelas/update/:id" element={<EditKelas />} />
+            <Route path="kelas/add" element={<EditKelas />} />
+            <Route path="kelas/:id_kelas/addsiswa" element={<EditSiswa />} />
+
+            <Route path="siswa" element={<Siswa />} />
+            <Route path="siswa/add" element={<EditSiswa />} />
+            <Route path="siswa/update/:nis" element={<EditSiswa />} />
           </Route>
           
 
 
-          <Route path="/kelas" element={<Kelas />} />
-          <Route path="/kelas/update/:id" element={<EditKelas />} />
-          <Route path="/kelas/add" element={<EditKelas />} />
-          <Route path="/kelas/:id_kelas/addsiswa" element={<EditSiswa />} />
 
           <Route path="/data_presensi" element={<DataPresensi />} />
 
-          <Route path="/data_user" element={<DataUser />} />
-          <Route path="/data_user/add" element={<EditDataUser />} />
-          <Route path="/data_user/update/:id" element={<EditDataUser />} />
+          {/* <Route path="/data_user" element={<DataUser />} /> */}
+          {/* <Route path="/data_user/add" element={<EditDataUser />} />
+          <Route path="/data_user/update/:id" element={<EditDataUser />} /> */}
 
-          <Route path="/siswa" element={<Siswa />} />
-          <Route path="/siswa/update/:nis" element={<EditSiswa />} />
+          {/* <Route path="/siswa" element={<Siswa />} />
+          <Route path="/siswa/update/:nis" element={<EditSiswa />} /> */}
 
           <Route path="/unpre" element={<Unpresensied />} />
           <Route path="/rfid" element={<RfidReader />} />

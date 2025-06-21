@@ -93,14 +93,14 @@ function Presensi() {
       window.location = "/dashboard";
     }
 
-    axios
-      .get("/jurusan")
-      .then((res) => {
-        setJurusan(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .get("/jurusan")
+    //   .then((res) => {
+    //     setJurusan(res.data.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
     axios
       .get("/mapel/false")
@@ -138,7 +138,7 @@ function Presensi() {
                   </select>
                 </div>
               </div>
-              <div className="kelas-input w-1/2 bg-orange_fade border-2 rounded pt-2 pb-4">
+              {/* <div className="kelas-input w-1/2 bg-orange_fade border-2 rounded pt-2 pb-4">
                 <h2 className="px-3">Jurusan:</h2>
                 <hr className="pb-2" />
                 <div className="input-kelas flex justify-between gap-1 px-2">
@@ -155,7 +155,7 @@ function Presensi() {
                       ))}
                   </select>
                 </div>
-              </div>
+              </div> */}
               <div className="kelas-input w-1/4 bg-orange_fade border-2 rounded pt-2 pb-4">
                 <h2 className="px-3">No.:</h2>
                 <hr className="pb-2" />

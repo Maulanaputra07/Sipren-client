@@ -244,7 +244,7 @@ function Sidebar() {
                   <li
                     className={pathname.includes("/data_user") ? "active" : ""}
                   >
-                    <Link to="/data_user">
+                    <Link to="data_user">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="36"
@@ -311,7 +311,7 @@ function Sidebar() {
                   </li>
 
                   <li className={pathname.includes("/kelas") ? "active" : ""}>
-                    <Link to="/kelas">
+                    <Link to="kelas">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="36"
@@ -378,7 +378,7 @@ function Sidebar() {
                   </li>
 
                   <li className={pathname.includes("/siswa") ? "active" : ""}>
-                    <Link to="/siswa">
+                    <Link to="siswa">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="36"
