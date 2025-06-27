@@ -56,7 +56,7 @@ export function DataPresensi() {
               <div key={i} className="card bg-white w-full shadow-lg border border-gray/50 p-5 rounded-lg">
                 <div className="flex justify-between items-center mb-5">
                   <p className="text-3xl font-poppins font-semibold rounded-lg mb-3 bg-blue_light p-3">
-                    {pre.tingkat + " " + pre.akronim + " " + pre.no_kelas + " id : " + pre.id_presensi}
+                    {pre.tingkat + " " + pre.akronim + " " + pre.no_kelas}
                   </p>
                   <p className="text-lg font-poppins font-normal">
                     {formatDateTime(new Date(pre.created_at))}
