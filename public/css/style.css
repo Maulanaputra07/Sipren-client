@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+
 :root {
   --orange: #ffbd15;
   --orange-100: #ffa200;
@@ -42,8 +43,12 @@ nav ul li a {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Poppins;
+  /* font-family: Poppins; */
   /* border: 1px solid greenyellow; */
+}
+
+.nonselect {
+  user-select: none;
 }
 
 .btn {
@@ -218,14 +223,14 @@ filter: brightness(50%);
   text-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
 }
 
-.sidebar {
+/* .sidebar {
   width: var(--sidebar-width);
   position: fixed;
   top: 0;
   z-index: 10;
   background-color: var(--sidebar-background-color);
   height: 100vh;
-}
+} */
 
 /* .sidebar .logo {
   padding: 10px;
@@ -346,20 +351,12 @@ filter: brightness(50%);
 
 .navbar ul li a {
   padding: 10px 30px 10px 30px;
+  margin: 5px;
   display: flex;
   gap: 10px;
   align-items: center;
   font-size: 20px;
   font-weight: 700;
-}
-
-.navbar ul li a:hover {
-  transition: 0.5s;
-  background-color: var(--text-white);
-}
-
-.navbar ul li.active {
-  background-color: var(--text-white);
 }
 
 .navbar > nav > ul {
@@ -370,7 +367,6 @@ filter: brightness(50%);
 
 .header {
   z-index: 20;
-  width: calc(100% - var(--sidebar-width));
   top: 0;
   right: 0;
   position: fixed;
@@ -428,50 +424,9 @@ filter: brightness(50%);
   font-size: 15px;
 }
 
-main {
-  /* z-index: -10;
-  width: calc(100% - var(--sidebar-width));
-  height: 100vh;
-  position: absolute;
-  right: 0; */
-}
-
 .main {
-  /* background-image: url(../images/rectangle-1.png); */
-  /* background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  gap: 2em;
-  justify-content: space-between;
-  align-items: start;
-  max-width: 75vw;
-  margin-right: 2em; */
-  /* margin-left: calc(var(--sidebar-width) + 2em); */
   margin-top: calc(var(--header-height) + 2em);
 }
-
-/* .main > div {
-  display: flex;
-  flex-direction: column;
-  width: 100% !important;
-} */
-
-/* .card {
-  padding: 15px;
-  border-radius: 10px;
-} */
-
-/* .welcome {
-  background-color: var(--blue-300);
-  color: var(--text-white);
-  font-weight: 500;
-} */
-
-/* .welcome > span {
-  font-size: 25px;
-} */
 
 .welcome > h3 {
   font-size: 30px;
@@ -519,36 +474,12 @@ main {
   background-color: var(--orange-100);
 }
 
-/* .date-time {
-  background-color: var(--orange-100);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-} */
-
-/* .date-time div {
-  gap: 10px;
-  display: flex;
-  align-items: center;
-  font-size: 1.4rem;
-  color: white;
-} */
-
-/* .date-time div .alert {
-  color: var(--red);
-} */
-
 .history {
   background-color: var(--blue-400);
   color: var(--text-white);
   height: 20.5rem;
   overflow: auto;
 }
-
-/* .history-date {
-  gap: 2em;
-  height: 100%;
-} */
 
 .history h3 {
   border-bottom: 2px solid var(--text-white);
@@ -697,17 +628,6 @@ main.presensi {
   padding: 10px;
   border-radius: 10px;
 }
-
-/* .btn-blue {
-  background-color: var(--blue-200);
-  padding: 5px 20px;
-  border-radius: 10px;
-  font-size: 1em;
-  font-weight: 600;
-  font-family: Poppins;
-  border: none;
-  grid-area: button;
-} */
 
 .d-flex {
   display: flex;
@@ -994,21 +914,11 @@ dialog[open] {
   gap: 10px;
 }
 
-/* .welcome-selayang {
-  gap: 2em;
-  justify-content: space-between;
-  height: 100%;
-} */
-
-.container > div > button:focus > .user-dropdown {
-  display: block;
-}
-
 .user-dropdown:hover {
   display: block;
 }
 
-.user-dropdown {
+/* .user-dropdown {
   transition: all 300ms;
   display: none;
   background-color: #ffffff;
@@ -1017,7 +927,7 @@ dialog[open] {
   right: 0;
   padding: 10px 20px;
   border-radius: 10px;
-}
+} */
 
 .user-dropdown h3 {
   font-size: 20px;
@@ -1026,8 +936,8 @@ dialog[open] {
 .user-dropdown-content {
   margin-top: 10px;
   display: grid;
-  gap: 10px;
-  margin-right: 10px;
+  /* gap: 10px; */
+  /* margin-right: 10px; */
 }
 
 .user-dropdown-content a {

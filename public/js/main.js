@@ -1,7 +1,7 @@
 const statusHideBtn = document.getElementById('status-hide');
 const showSideBtn = document.querySelector('button.menu-btn');
 const statusContent = document.querySelector('.footer .status .content');
-const sidebar = document.querySelector('.sidebar');
+// const sidebar = document.querySelector('.sidebar');
 
 const dashboardWelcome = document.querySelector('.main .welcome-selayang');
 
@@ -73,48 +73,50 @@ async function classOption(classes) {
     });
 }
 
-selectById('produktif')?.addEventListener('click', async () => {
-    const produktif = await siprenApi('/api/subjects', "POST", {
-        class_id: selectById('classes-select').value
-    });
+// selectById('produktif')?.addEventListener('click', async () => {
+//     const produktif = await siprenApi('/api/subjects', "POST", {
+//         class_id: selectById('classes-select').value
+//     });
 
-    produktif.subjects.productives.forEach(subject => {
-        let option = document.createElement('option');
-        option.innerHTML = subject.toUpperCase();
-        option.value = subject;
-        selectById('subjects-select').append(option)
-    })
-});
+//     produktif.subjects.productives.forEach(subject => {
+//         let option = document.createElement('option');
+//         option.innerHTML = subject.toUpperCase();
+//         option.value = subject;
+//         selectById('subjects-select').append(option)
+//     })
+// });
 
-selectById('normada')?.addEventListener('click', async () => {
-    const normada = await siprenApi('/api/subjects', "POST", {
-        class_id: selectById('classes-select').value
-    });
+// selectById('normada')?.addEventListener('click', async () => {
+//     const normada = await siprenApi('/api/subjects', "POST", {
+//         class_id: selectById('classes-select').value
+//     });
 
-    normada.subjects.normada.forEach(subject => {
-        let option = document.createElement('option');
-        option.innerHTML = subject.toUpperCase();
-        option.value = subject;
-        selectById('subjects-select').append(option);
-    })
-});
+//     normada.subjects.normada.forEach(subject => {
+//         let option = document.createElement('option');
+//         option.innerHTML = subject.toUpperCase();
+//         option.value = subject;
+//         selectById('subjects-select').append(option);
+//     })
+// });
 
-selectById('menu-confirm').addEventListener('click', () => {
-    if (selectById('subjects-select').value) {
-        titleMatter.disabled = false;
-        descriptionMatter.disabled = false;
-        confirmMatter.disabled = false;
-        selectById('menu_dialog').close()
-    }
-})
+// selectById('menu-confirm').addEventListener('click', () => {
+//     if (selectById('subjects-select').value) {
+//         titleMatter.disabled = false;
+//         descriptionMatter.disabled = false;
+//         confirmMatter.disabled = false;
+//         selectById('menu_dialog').close()
+//     }
+// })
 
-selectById('confirmMatter')?.addEventListener('click', () => {
-    selectById('materi-form-name').value = selectById('titleMatter').value;
-    selectById('materi-form-description').value = selectById('descriptionMatter').value;
-    selectById('materi-form-kelas').value = selectById('classes-select').value;
+// selectById('confirmMatter')?.addEventListener('click', () => {
+//     selectById('materi-form-name').value = selectById('titleMatter').value;
+//     selectById('materi-form-description').value = selectById('descriptionMatter').value;
+//     selectById('materi-form-kelas').value = selectById('classes-select').value;
 
-    selectById('materi-form').submit();
-})
+//     selectById('materi-form').submit();
+// })
+
+window.addEventListener("DOMContentLoaded" , () => {
 
 document.addEventListener('keydown', (e) => {
     if (!isNaN(e.key)) {
@@ -132,6 +134,31 @@ document.addEventListener('DOMContentLoaded', (e) => {
     setTimeout(() => selectById('error_presensi').close(), 3000)
 })
 
+const resizer = document.getElementById("resizer");
+const sidebar = document.getElementById("sidebar");
+console.log("sidebar: "+sidebar);
+
+let isResizing = false;
+console.log(isResizing);
+
+resizer.addEventListener("mousedown", (e) => {
+    isResizing = true;
+    console.log(isResizing);
+    document.body.style.cursor = "col-resize";
+});
+
+document.addEventListener("mousemove", (e) => {
+    if (!isResizing) return;
+
+    const newWidth = Math.max(200, Math.min(e.clientX, 400));
+    sidebar.style.width = `${newWidth}px`;
+})
+
+document.addEventListener("mouseup", () => {
+    isResizing = false;
+    document.body.style.cursor = "default"
+})
+})
 // function menuConfirm(){
 //     if()
 // selectById('menu_dialog').close()

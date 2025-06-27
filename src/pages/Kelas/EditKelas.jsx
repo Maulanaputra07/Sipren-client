@@ -15,6 +15,7 @@ export const EditKelas = () => {
     tingkat: "X",
     jurusan: 1,
   });
+  
   const pathname = window.location.pathname;
 
   const handleChangeJurusan = (e) => {
@@ -46,7 +47,8 @@ export const EditKelas = () => {
         .catch((err) => {
           Swal.fire({
             title: "Error!",
-            text: err.response.data.message,
+            // text: err.response.data.message,
+            text: "terjadi masalah",
             icon: "error",
             confirmButtonText: "Tutup",
           });
@@ -76,12 +78,13 @@ export const EditKelas = () => {
                 no_kelas: current.no_kelas,
               })
               .then((res) => {
-                window.location = `/admin/kelas/${id}/addsiswa`;
+                // console.log("add kelas dengan id kelas : " + res.data.data.id_kelas);
+                window.location = `/admin/kelas/${res.data.data.id_kelas}/addsiswa`;
               })
               .catch((err) => {
                 Swal.fire({
                   title: "Error!",
-                  text: err.response.data.message,
+                  text: "err.response.data.message",
                   icon: "error",
                   confirmButtonText: "Tutup",
                 });
@@ -103,14 +106,13 @@ export const EditKelas = () => {
   useEffect(() => {
     if (pathname.includes("/update")) {
       axios
-        .get(`/kelas/detail?id_kelas=${id}`)
+        .get(`/kelas/${id}`)
         .then((res) => {
-          console.log(res.data);
-          setKelas(res.data.data[0]);
+          setKelas(res.data.data);
           setCurrent({
-            jurusan: res.data.data[0].id_jurusan,
-            tingkat: res.data.data[0].tingkat,
-            no_kelas: res.data.data[0].no_kelas,
+            jurusan: res.data.data.id_jurusan,
+            tingkat: res.data.data.tingkat,
+            no_kelas: res.data.data.no_kelas,
           });
         })
         .catch((err) => {
@@ -140,8 +142,8 @@ export const EditKelas = () => {
 
   return (
     <AuthGuard>
-      <div className="hero pl-64">
-        <div className="main">
+      <div className="hero">
+        <div className="">
           <form
             className="p-5 max-h-fit w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
             onSubmit={handleSubmitForm}
@@ -175,6 +177,7 @@ export const EditKelas = () => {
                 id="jurusan"
                 name="jurusan"
                 onChange={handleChangeJurusan}
+                value={current.jurusan}
                 className="text-blue_dark rounded p-2 px-3"
               >
                 {jurusan &&

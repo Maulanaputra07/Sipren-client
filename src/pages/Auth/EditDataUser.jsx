@@ -90,8 +90,8 @@ export const EditDataUser = () => {
 
   return (
     <AuthGuard>
-      <div className="hero pl-64">
-        <div className="main">
+      <div className="hero">
+        <div className="">
           <form
             className="p-5 w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
             onSubmit={handleSubmitForm}

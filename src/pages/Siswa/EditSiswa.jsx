@@ -7,7 +7,7 @@ import { useAxios } from "../../utils/Provider";
 import Swal from "sweetalert2";
 
 export const EditSiswa = () => {
-  const { nis, id_kelas } = useParams();
+  const { nis, id } = useParams();
   const axios = useAxios();
   const [current, setCurrent] = useState({
     rfid: "",
@@ -31,11 +31,10 @@ export const EditSiswa = () => {
     e.preventDefault();
 
     const payload = {
+      nis: current.nis,
       rfid: current.rfid,
       nama: current.nama,
-      nis: current.nis,
-      jenis_kelamin: current.jenis_kelamin,
-      id_kelas: id_kelas,
+      id_kelas: id,
     };
 
     if (pathname.includes("/update")) {
@@ -75,7 +74,7 @@ export const EditSiswa = () => {
       axios
         .get(`/siswa/${nis}`)
         .then((res) => {
-          setCurrent(res.data.data[0]);
+          setCurrent(res.data.data);
         })
         .catch((err) => {
           console.log(err);
@@ -100,8 +99,8 @@ export const EditSiswa = () => {
 
   return (
     <AuthGuard>
-      <div className="hero pl-64">
-        <div className="main">
+      <div className="hero">
+        <div className="">
           <form
             className="p-5 w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
             onSubmit={handleSubmitForm}

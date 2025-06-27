@@ -17,6 +17,8 @@ import { Siswa } from "./pages/Siswa/Siswa.jsx";
 import { EditSiswa } from "./pages/Siswa/EditSiswa.jsx";
 import { AuthGuard } from "./utils/AuthGuard.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+import { DetailPresensi } from "./pages/Presensi/DetailPresensi.jsx";
+import { Mapel } from "./pages/mapel/Mapel.jsx";
 
 function App() {
   return (
@@ -37,6 +39,7 @@ function App() {
             <Route path="presensi" element={<Presensi />} />
             <Route path="presensi/:id" element={<PresensiStarted />} />
             <Route path="data_presensi" element={<DataPresensi />} />
+            <Route path="data_presensi/update/:id" element={<DetailPresensi />} />
           </Route>
 
           <Route
@@ -55,11 +58,12 @@ function App() {
             <Route path="data_user/add" element={<EditDataUser />} />
             <Route path="data_user/update/:id" element={<EditDataUser />} />
 
+            <Route path="mapel" element={<Mapel />} />
 
             <Route path="kelas" element={<Kelas />} />
             <Route path="kelas/update/:id" element={<EditKelas />} />
             <Route path="kelas/add" element={<EditKelas />} />
-            <Route path="kelas/:id_kelas/addsiswa" element={<EditSiswa />} />
+            <Route path="kelas/:id/addsiswa" element={<EditSiswa />} />
 
             <Route path="siswa" element={<Siswa />} />
             <Route path="siswa/add" element={<EditSiswa />} />

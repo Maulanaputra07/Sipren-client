@@ -15,9 +15,9 @@ export function PresensiStarted() {
 
   useEffect(() => {
     axios
-      .get(`/det_presensi/${id}`)
+      .get(`/presensi/${id}`)
       .then((res) => {
-        console.log(res.data.data);
+        console.log( "data :" +res.data.data);
         setDetPres(res.data.data);
       })
       .catch((err) => {
@@ -47,9 +47,10 @@ export function PresensiStarted() {
       const key = event.key;
 
       if (key === "Enter") {
+        console.log(buffer);
         setRfidData(buffer);
         axios
-          .put("/det_presensi", {
+          .put(`/detail_presensi/${id}/present`, {
             rfid: buffer,
           })
           .then((res) => {
@@ -72,9 +73,9 @@ export function PresensiStarted() {
 
   return (
     <AuthGuard>
-      <div className="hero pl-64">
-        <div className="main flex-col gap-1">
-          <h1 className="font-bold text-white text-2xl px-5">Presensied</h1>
+      <div className="hero">
+        <div className="flex-col gap-1">
+          <h1 className="font-semibold font-poppins text-2xl px-5">{}</h1>
           <table className="table">
             <thead>
               <tr>
@@ -84,36 +85,42 @@ export function PresensiStarted() {
               </tr>
             </thead>
             <tbody>
-              {detPres &&
-                detPres.map((det, item) => {
-                  if (det.keterangan != "T") {
-                    return (
-                      <tr>
-                        {" "}
-                        <td>{det.nama}</td>
-                        <td>
-                          {det.keterangan == "T"
-                            ? "Tanpa Keterangan"
-                            : det.keterangan == "I"
-                            ? "Izin"
-                            : det.keterangan == "S"
-                            ? "Sakit"
-                            : "Hadir"}
-                        </td>
-                        <td>
-                          <div className="flex justify-center">
-                            <button className="bg-orange_scale p-2 px-8 rounded">
-                              Edit
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  }
-                })}
+              {Array.isArray(detPres?.detail_presensi) && detPres.detail_presensi.length > 0 ? (
+                  detPres.detail_presensi.map((det, index) => {
+                    if (det.keterangan !== "T") {
+                  return (
+                    <tr key={index}>
+                      <td>{det.nama}</td>
+                      <td>
+                        {det.keterangan === "T"
+                          ? "Tanpa Keterangan"
+                          : det.keterangan === "I"
+                          ? "Izin"
+                          : det.keterangan === "S"
+                          ? "Sakit"
+                          : "Hadir"}
+                      </td>
+                      <td>
+                        <div className="flex justify-center">
+                          <button className="bg-orange_scale p-2 px-8 rounded">Edit</button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                    }
+                    return null;
+                  })
+                ) : (
+                <tr>
+                <td colSpan="3" className="text-center text-gray-500 py-4">
+                  Belum terdapat siswa.
+                </td>
+                </tr>
+              )}
             </tbody>
           </table>
-          <h1 className="font-bold text-white text-2xl px-5">Unpresensied</h1>
+                {/* <p className="w-full text-center text-xl font-poppins">Belum terdapat siswa di kelas ini</p> */}
+          <h1 className="font-semibold text-black text-2xl px-5">Belum presensi</h1>
           <table className="table">
             <thead>
               <tr>
@@ -123,36 +130,40 @@ export function PresensiStarted() {
               </tr>
             </thead>
             <tbody>
-              {detPres &&
-                detPres.map((det, item) => {
-                  if (det.keterangan == "T") {
-                    return (
-                      <tr>
-                        {" "}
-                        <td>{det.nama}</td>
-                        <td>
-                          {det.keterangan == "T"
-                            ? "Tanpa Keterangan"
-                            : det.keterangan == "I"
-                            ? "Izin"
-                            : det.keterangan == "S"
-                            ? "Sakit"
-                            : "Hadir"}
-                        </td>
-                        <td>
-                          <div className="flex justify-center">
-                            <button className="bg-orange_scale p-2 px-8 rounded">
-                              Edit
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  }
-                })}
+              {Array.isArray(detPres?.detail_presensi) && detPres.detail_presensi.length > 0 ? (
+                  detPres.detail_presensi.map((det, index) => {
+                    if (det.keterangan === "T") {
+                  return (
+                    <tr key={index}>
+                      <td>{det.nama}</td>
+                      <td>
+                        {det.keterangan === "T"
+                          ? "Tanpa Keterangan"
+                          : det.keterangan === "I"
+                          ? "Izin"
+                          : det.keterangan === "S"
+                          ? "Sakit"
+                          : "Hadir"}
+                      </td>
+                      <td>
+                        <div className="flex justify-center">
+                          <button className="bg-orange_scale p-2 px-8 rounded">Edit</button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                    }
+                    return null;
+                  })
+                ) : (
+                <tr>
+                <td colSpan="3" className="text-center text-gray-500 py-4">
+                  Belum terdapat siswa.
+                </td>
+                </tr>
+              )}
             </tbody>
           </table>
-
           <button
             className="bg-red sticky bottom-5 left-full text-white p-5 py-2 rounded"
             onClick={handleEnded}

@@ -55,13 +55,14 @@ export function Kelas() {
         console.log(err);
       });
   }, []);
+  
   return (
     <AuthGuard>
-      <div className="hero pl-64">
-        <div className="main flex-col gap-1">
+      <div className="hero">
+        <div className="flex-col gap-1">
           <Link
             to={"add"}
-            className="bg-green max-w-fit text-white border-2 border-black font-bold px-4 py-3 mx-5 rounded flex justify-between align-middle"
+            className="bg-green/80 hover:bg-green transition-all duration-200 delay-100 hover:shadow-lg max-w-fit text-white font-bold px-4 py-3 mx-5 rounded flex justify-between align-middle"
           >
             {" "}
             <svg

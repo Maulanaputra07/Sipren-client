@@ -5,6 +5,7 @@ import { AuthGuard } from "../../utils/AuthGuard";
 import { getDecryptedData, useAxios } from "../../utils/Provider";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import addUserIcon from "/icons/LineMdAccountAdd.svg";
 
 export function DataUser() {
   const axios = useAxios();
@@ -61,13 +62,13 @@ export function DataUser() {
 
   return (
     <AuthGuard>
-      <div className="hero pl-64">
-        <div className="main flex-col gap-1">
+      <div className="hero">
+        <div className="flex-col gap-1">
           <Link
             to={"add"}
-            className="bg-green max-w-fit items text-white border-2 border-black font-bold px-4 py-3 mx-5 rounded flex justify-between align-middle"
+            className="bg-green/80 hover:bg-green transition-all duration-200 delay-100 hover:shadow-xl max-w-fit items text-white shadow-md font-bold px-4 py-3 mx-5 rounded flex justify-between items-center"
           >
-            <svg
+            {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -80,7 +81,9 @@ export function DataUser() {
                 strokeLinejoin="round"
                 d="M12 4.5v15m7.5-7.5h-15"
               />
-            </svg>
+            </svg> */}
+            <img src={addUserIcon} className={`transition-all duration-300 group-hover:scale-110 w-[35px]`} color="" alt="presensiIcon" />
+            {/* <img src={addUserIcon} alt="" /> */}
             <span className="px-2">Add user</span>
           </Link>
           <table className="table w-full">

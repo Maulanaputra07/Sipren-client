@@ -25,11 +25,11 @@ export function Siswa() {
 
   return (
     <AuthGuard>
-      <div className="hero pl-64">
-        <div className="main flex-col gap-1">
+      <div className="hero">
+        <div className="flex-col gap-1">
           <Link
             to={"add"}
-            className="bg-green max-w-fit text-white border-2 border-black font-bold px-4 py-3 mx-5 rounded flex justify-between align-middle"
+            className="bg-green/80 hover:bg-green transition-all duration-200 delay-100 hover:shadow-lg max-w-fit text-white border-2 font-bold px-4 py-3 mx-5 rounded-lg flex justify-between align-middle"
           >
             {" "}
             <svg
@@ -68,12 +68,18 @@ export function Siswa() {
                     <td>{`${s.tingkat} ${s.akronim} ${s.no_kelas}`}</td>
                     <td>{s.rfid}</td>
                     <td className="flex gap-2 justify-center">
-                      <a
-                        href={"/siswa/update/" + s.nis}
+                      {/* <a
+                        href={"/update/" + s.nis}
                         className="bg-orange_scale py-1 px-4 rounded"
                       >
                         Edit
-                      </a>
+                      </a> */}
+                      <Link
+                            to={"update/" + s.nis}
+                            className="bg-orange_scale py-1 px-4 rounded"
+                          >
+                            Edit
+                          </Link>
                       <button
                         onClick={handleDeleteSiswa}
                         value={s.nis}

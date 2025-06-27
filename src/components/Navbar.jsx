@@ -23,7 +23,7 @@ function Navbar() {
  
   return (
     <>
-      <header className="header">
+      <header className="header relative">
         <div className="container">
           <h3 className="shadow-none font-bold">
             {pathname.split("/")[1].replace("_", " ").toLocaleUpperCase()}
@@ -31,9 +31,8 @@ function Navbar() {
           <div>
             <div className="user">
               <p>{auth.user.nama}</p>
-              <span>{auth.user.level ? "Admin" : "Guru"}</span>
+              <span className="font-poppins">{auth.user.level ? "Admin" : "Guru"}</span>
             </div>
-            <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="50"
@@ -60,17 +59,18 @@ function Navbar() {
                   strokeWidth="6"
                 />
               </svg>
-              <div className="user-dropdown">
-                <div>
+            {/* <button>
+              <div className="user-dropdown hidden bg-white absolute right-6 rounded shadow-lg border-lg border-gray/20">
+                <div className="rounded-lg">
                   <div
-                    className="d-flex justify-between items-center"
+                    className="d-flex justify-between items-center px-3 py-2"
                     style={{ gap: "10px" }}
                   >
                     <p className="font-bold text-black">{auth?.user?.nama}</p>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="50"
-                      height="50"
+                      width="40"
+                      height="40"
                       viewBox="0 0 63 64"
                       fill="none"
                     >
@@ -94,7 +94,7 @@ function Navbar() {
                       />
                     </svg>
                   </div>
-                  <div className="user-dropdown-content">
+                  <div className="user-dropdown-content rounded px-3 py-2 bg-red/50">
                     <form
                       onSubmit={handleLogout}
                       method="POST"
@@ -132,7 +132,7 @@ function Navbar() {
                   </div>
                 </div>
               </div>
-            </button>
+            </button> */}
           </div>
         </div>
       </header>

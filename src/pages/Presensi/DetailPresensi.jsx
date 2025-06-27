@@ -3,18 +3,19 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { formatDateTime, useAxios } from "../../utils/Provider";
 import { AuthGuard } from "../../utils/AuthGuard";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-export function DataPresensi() {
-  const axios = useAxios();
-  const [presensi, setPresensi] = useState();
+export function DetailPresensi() {
+    const axios = useAxios();
+    const [detailPresensi, setDetailPresensi] = useState();
+    const { id } = useParams();
 
   useEffect(() => {
     axios
-      .get("/presensi")
+      .get(`/presensi/${id}`)
       .then((res) => {
-        setPresensi(res.data.data);
-        console.log(res.data);
+        setDetailPresensi(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -25,7 +26,7 @@ export function DataPresensi() {
     <AuthGuard>
       <div className="hero">
         <div className="w-full flex flex-col gap-5 h-full">
-          <p className="text-xl font-poppins font-semibold">Daftar Presensi</p>
+          <p className="text-xl font-poppins font-semibold">Detail Presensi</p>
           {/* <table className="w-full table">
             <thead>
               <tr>
@@ -49,8 +50,21 @@ export function DataPresensi() {
                 ))}
             </tbody>
           </table> */}
-        {presensi &&
-          [...presensi]
+            {detailPresensi && (
+                <div className="flex-col border border-gray/40 p-5 rounded-lg">
+                  <div className="mb-3 flex items-end gap-2">
+                      <p className="text-3xl font-poppins font-semibold">{detailPresensi.tingkat  + " " + detailPresensi.akronim + " " + detailPresensi.no_kelas}</p>
+                      <p>{detailPresensi.nama_guru}</p>
+                  </div>
+                  <div className="flex">
+                    <p className="font-poppins font-semibold text-xl">{detailPresensi.nama_materi}</p>
+                  </div>
+                </div>
+            )}
+
+
+        {/* {detailPresensi &&
+          [...detailPresensi]
             .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
             .map((pre, i) => (
               <div key={i} className="card bg-white w-full shadow-lg border border-gray/50 p-5 rounded-lg">
@@ -62,21 +76,15 @@ export function DataPresensi() {
                     {formatDateTime(new Date(pre.created_at))}
                   </p>
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between">
                   <div>
                     <p className="text-xl font-poppins font-semibold rounded">{pre.nama_materi}</p>
                     <p className="text-xl font-poppins font-light rounded">{pre.deskripsi}</p>
                   </div>
-                  {/* <button className="border rounded-lg px-4 py-1">Detail</button> */}
-                  <Link
-                    to={"update/" + pre.id_presensi}
-                    className="bg-orange_scale py-1 px-4 rounded"
-                  >
-                    Detail
-                  </Link>
+                  <button className="border rounded-lg px-4 py-1">Detail</button>
                 </div>
               </div>
-            ))}
+            ))} */}
         </div>
       </div>
     </AuthGuard>
