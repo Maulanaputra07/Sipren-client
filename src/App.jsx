@@ -19,6 +19,7 @@ import { AuthGuard } from "./utils/AuthGuard.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import { DetailPresensi } from "./pages/Presensi/DetailPresensi.jsx";
 import { Mapel } from "./pages/mapel/Mapel.jsx";
+import { DetailKelas } from "./pages/Kelas/DetailKelas.jsx";
 
 function App() {
   return (
@@ -64,24 +65,15 @@ function App() {
             <Route path="kelas/update/:id" element={<EditKelas />} />
             <Route path="kelas/add" element={<EditKelas />} />
             <Route path="kelas/:id/addsiswa" element={<EditSiswa />} />
+            <Route path="kelas/detail/:id" element={<DetailKelas/>} />
+            <Route path="kelas/detail/:id/addsiswa" element={<DetailKelas/>} />
 
             <Route path="siswa" element={<Siswa />} />
             <Route path="siswa/add" element={<EditSiswa />} />
             <Route path="siswa/update/:nis" element={<EditSiswa />} />
           </Route>
           
-
-
-
           <Route path="/data_presensi" element={<DataPresensi />} />
-
-          {/* <Route path="/data_user" element={<DataUser />} /> */}
-          {/* <Route path="/data_user/add" element={<EditDataUser />} />
-          <Route path="/data_user/update/:id" element={<EditDataUser />} /> */}
-
-          {/* <Route path="/siswa" element={<Siswa />} />
-          <Route path="/siswa/update/:nis" element={<EditSiswa />} /> */}
-
           <Route path="/unpre" element={<Unpresensied />} />
           <Route path="/rfid" element={<RfidReader />} />
           <Route path="/temp" element={<TimeComponent />} />

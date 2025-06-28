@@ -5,6 +5,7 @@ import { AuthGuard } from "../../utils/AuthGuard";
 import { useAxios } from "../../utils/Provider";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import addIcon from "/icons/addIcon.svg";
 
 export function Kelas() {
   let count = 1;
@@ -62,24 +63,10 @@ export function Kelas() {
         <div className="flex-col gap-1">
           <Link
             to={"add"}
-            className="bg-green/80 hover:bg-green transition-all duration-200 delay-100 hover:shadow-lg max-w-fit text-white font-bold px-4 py-3 mx-5 rounded flex justify-between align-middle"
+            className="bg-green/80 font-poppins text-lg hover:bg-green transition-all duration-200 delay-100 hover:shadow-xl max-w-fit items text-white shadow-md font-bold px-3 py-2 mx-5 rounded-lg flex justify-between items-center"
           >
-            {" "}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2.5}
-              stroke="currentColor"
-              className="size-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4.5v15m7.5-7.5h-15"
-              />
-            </svg>
-            <span className="px-2">Add Kelas</span>
+            <img src={addIcon} className={`transition-all duration-300 group-hover:scale-110 w-[35px]`} color="" alt="presensiIcon" />
+            <span className="px-2">Add kelas</span>
           </Link>
           <table className="table">
             <thead>
@@ -99,6 +86,12 @@ export function Kelas() {
                     >{`${kls.tingkat} ${kls.akronim} ${kls.no_kelas}`}</td>
                     <td colSpan={3}>
                       <div className="flex gap-2 justify-center">
+                        <Link
+                            to={"detail/" + kls.id_kelas}
+                            className="bg-white text-black border-2 border-orange_scale py-1 px-4 rounded"
+                          >
+                            Detail
+                          </Link>
                         <Link
                             to={"update/" + kls.id_kelas}
                             className="bg-orange_scale py-1 px-4 rounded"

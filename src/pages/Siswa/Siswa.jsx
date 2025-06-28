@@ -4,6 +4,7 @@ import { AuthGuard } from "../../utils/AuthGuard";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { Link } from "react-router-dom";
+import addIcon from "/icons/addIcon.svg";
 
 export function Siswa() {
   const axios = useAxios();
@@ -29,23 +30,9 @@ export function Siswa() {
         <div className="flex-col gap-1">
           <Link
             to={"add"}
-            className="bg-green/80 hover:bg-green transition-all duration-200 delay-100 hover:shadow-lg max-w-fit text-white border-2 font-bold px-4 py-3 mx-5 rounded-lg flex justify-between align-middle"
+            className="bg-green/80 font-poppins text-lg hover:bg-green transition-all duration-200 delay-100 hover:shadow-xl max-w-fit items text-white shadow-md font-bold px-3 py-2 mx-5 rounded-lg flex justify-between items-center"
           >
-            {" "}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2.5}
-              stroke="currentColor"
-              className="size-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4.5v15m7.5-7.5h-15"
-              />
-            </svg>
+            <img src={addIcon} className={`transition-all duration-300 group-hover:scale-110 w-[35px]`} color="" alt="presensiIcon" />
             <span className="px-2">Add Siswa</span>
           </Link>
 

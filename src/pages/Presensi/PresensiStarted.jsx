@@ -10,8 +10,33 @@ export function PresensiStarted() {
   const { id } = useParams();
   const auth = useAuth();
   const axios = useAxios();
-
+  const [showModel, setShowModel] = useState();
   const [detPres, setDetPres] = useState();
+  const [current, setCurrent] = useState({keterangan: "T"});
+  const [selectedIdDet, setSelectedIdDet] = useState(null);  
+
+  const handleUpdateketerangan = (e) => {
+    e.preventDefault();
+    console.log("id_det : " + selectedIdDet);
+    axios
+    .put(`detail_presensi/${selectedIdDet}`, {
+      keterangan: current.keterangan
+    })
+    .then((res) => {
+        Swal.fire({
+            title: "Success!",
+            text: `${res.data?.message}`,
+            icon: "success",
+        }).then(() => {
+            window.location.reload();
+        });
+    }).catch((err) => {
+        console.log("error saat post : " + err.response?.data?.message || err.message);
+    });
+
+    setShowModel(false);
+  }
+
 
   useEffect(() => {
     axios
@@ -39,11 +64,15 @@ export function PresensiStarted() {
     });
   }
 
+  const handleKeterangan = (e) => {
+    setCurrent({ ...current, keterangan: e.target.value });
+    console.log("Value Keterangan : " + e.target.value);
+  };
+
   useEffect(() => {
     let buffer = "";
 
     const handleKeyDown = (event) => {
-      // Tangkap semua karakter
       const key = event.key;
 
       if (key === "Enter") {
@@ -102,7 +131,7 @@ export function PresensiStarted() {
                       </td>
                       <td>
                         <div className="flex justify-center">
-                          <button className="bg-orange_scale p-2 px-8 rounded">Edit</button>
+                          <button onClick={() => { setShowModel(true); setSelectedIdDet(det.id_det);}}  className="bg-orange_scale p-2 px-8 rounded">Edit</button>
                         </div>
                       </td>
                     </tr>
@@ -147,7 +176,7 @@ export function PresensiStarted() {
                       </td>
                       <td>
                         <div className="flex justify-center">
-                          <button className="bg-orange_scale p-2 px-8 rounded">Edit</button>
+                          <button onClick={() => { setShowModel(true); setSelectedIdDet(det.id_det);}}  className="bg-orange_scale p-2 px-8 rounded">Edit</button>
                         </div>
                       </td>
                     </tr>
@@ -170,6 +199,45 @@ export function PresensiStarted() {
           >
             Akhiri
           </button>
+
+          {showModel && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white rounded-lg p-6 w-full max-w-md">
+              <h2 className="text-xl font-bold mb-4">Tambah Mapel</h2>
+              <form onSubmit={handleUpdateketerangan} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium">Keterangan</label>
+                  <select
+                    onChange={handleKeterangan}
+                    name="keterangan"
+                    className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
+                    required
+                  >
+                    <option value="">Keterangan</option>
+                    <option value="H">H</option>
+                    <option value="T">T</option>
+                    <option value="S">S</option>
+                  </select>
+                </div>
+                <div className="flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowModel(false)}
+                    className="px-4 py-2 bg-gray-300 rounded"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-green text-white rounded"
+                  >
+                    Simpan
+                  </button>
+                </div>
+              </form>
+                    </div>
+                </div>
+            )}
         </div>
       </div>
     </AuthGuard>

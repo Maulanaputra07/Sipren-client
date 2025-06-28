@@ -68,22 +68,7 @@ export function DataUser() {
             to={"add"}
             className="bg-green/80 hover:bg-green transition-all duration-200 delay-100 hover:shadow-xl max-w-fit items text-white shadow-md font-bold px-4 py-3 mx-5 rounded flex justify-between items-center"
           >
-            {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2.5}
-              stroke="currentColor"
-              className="size-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4.5v15m7.5-7.5h-15"
-              />
-            </svg> */}
             <img src={addUserIcon} className={`transition-all duration-300 group-hover:scale-110 w-[35px]`} color="" alt="presensiIcon" />
-            {/* <img src={addUserIcon} alt="" /> */}
             <span className="px-2">Add user</span>
           </Link>
           <table className="table w-full">

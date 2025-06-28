@@ -43,6 +43,7 @@ export const EditKelas = () => {
         })
         .then((res) => {
           window.location = `/admin/kelas/${id}/addsiswa`;
+          // window.location = `/admin/kelas/detail/${id}/addsiswa`;
         })
         .catch((err) => {
           Swal.fire({
@@ -79,7 +80,8 @@ export const EditKelas = () => {
               })
               .then((res) => {
                 // console.log("add kelas dengan id kelas : " + res.data.data.id_kelas);
-                window.location = `/admin/kelas/${res.data.data.id_kelas}/addsiswa`;
+                // window.location = `/admin/kelas/${res.data.data.id_kelas}/addsiswa`;
+                  window.location = `/admin/kelas/detail/${res.data.data.id_kelas}/addsiswa`;
               })
               .catch((err) => {
                 Swal.fire({

@@ -93,8 +93,7 @@ export function DetailPresensi() {
                               <th className="border px-4 py-2 text-left">No</th>
                               <th className="border px-4 py-2 text-left">Nama</th>
                               <th className="border px-4 py-2 text-left">Keterangan</th>
-                              <th className="border px-4 py-2 text-left">Present At</th>
-                              <th className="border px-4 py-2 text-left">Aksi</th>
+                              <th className="border px-4 py-2 text-left">Hadir pada</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -103,10 +102,7 @@ export function DetailPresensi() {
                                 <td className="border px-4 py-2">{index + 1}</td>
                                 <td className="border px-4 py-2">{siswa.nama}</td>
                                 <td className="border px-4 py-2">{siswa.keterangan}</td>
-                                <td className="border px-4 py-2">{siswa.present_at ? siswa.present_at : "-"}</td>
-                                <td className="border px-4 py-2">
-                                  <button className="rounded bg-orange_scale px-2 py-1">Edit</button>
-                                </td>
+                                <td className="border px-4 py-2">{formatDateTime(new Date(siswa.present_at))}</td>
                               </tr>
                             ))}
                           </tbody>

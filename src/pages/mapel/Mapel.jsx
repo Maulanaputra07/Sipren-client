@@ -3,6 +3,7 @@ import { AuthGuard } from "../../utils/AuthGuard";
 import { useAxios } from "../../utils/Provider";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import addIcon from "/icons/addIcon.svg";
 
 export function Mapel(){
     let count = 1;
@@ -92,9 +93,12 @@ export function Mapel(){
 
     return(
         <AuthGuard>
-            <div className="hero">
+        <div className="hero">
         <div className="flex-col gap-1">
-            <button onClick={() => setShowModel(true)} className="bg-green px-3 py-2 rounded text-lg font-poppins font-semibold text-white">Add Mapel</button>
+            <button onClick={() => setShowModel(true)} className="bg-green/80 ml-2.5 flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-green text-lg font-poppins font-semibold text-white">
+              <img src={addIcon} className={`transition-all duration-300 group-hover:scale-110 w-[35px]`} color="" alt="presensiIcon" />
+              Add Mapel
+              </button>
             <div>
                 <table className="table">
                     <thead>
