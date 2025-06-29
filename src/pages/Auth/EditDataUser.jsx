@@ -37,15 +37,6 @@ export const EditDataUser = () => {
 
   function handleSubmitForm(e) {
     e.preventDefault();
-
-    // console.log({
-    //   nama: e.target.nama.value,
-    //   username: e.target.username.value,
-    //   password: e.target.password.value,
-    //   level: role,
-    // });
-
-    // return;
     if (pathname.includes("/update")) {
       axios
         .put(`/users/${id}`, {
@@ -149,7 +140,7 @@ export const EditDataUser = () => {
                 <select
                   className="rounded text-blue_dark p-2 px-3"
                   name="role"
-                  value={role} // Menggunakan value agar dinamis
+                  value={role}
                   onChange={handleRoleChange}
                 >
                   <option value="0">Guru</option>

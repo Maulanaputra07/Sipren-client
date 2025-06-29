@@ -155,22 +155,6 @@ const fetchKelas = () => {
               />
             </div>
 
-            {/* <div className="flex flex-col mb-5">
-              <label htmlFor="jenis_kelamin" className="p-2">
-                Jenis Kelamin :
-              </label>
-              <select
-                id="jenis_kelamin"
-                name="jenis_kelamin"
-                onChange={handleChangeTingkat}
-                value={current.jenis_kelamin}
-                className="text-blue_dark rounded p-2 px-3 w-2/12"
-              >
-                <option value="1">Laki-Laki</option>
-                <option value="0">Perempuan</option>
-              </select>
-            </div> */}
-
             <div className="flex w-full justify-end gap-3">
               <button type="submit" className="p-4 py-2 rounded bg-blue">
                 Add

@@ -46,7 +46,6 @@ function Guru() {
               </div>
             </div>
             <div className="h-[50vh] mt-5 rounded-lg border border-gray/20 p-10 bg-white">
-              {/* <h1>Lorem ipsum dolor sit amet.</h1> */}
             </div>
           </div>
 

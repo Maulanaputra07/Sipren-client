@@ -124,7 +124,6 @@ function Sidebar() {
             <div>
               <p className="text-4xl uppercase font-black font-urbanist">Sipren</p>
               <p className="text-xs font-poppins">SMK Tunas Harapan Pati</p>
-              {/* <p>Disiplin, Terampil, Siap Kerja</p> */}
             </div>
           )}
         </div>

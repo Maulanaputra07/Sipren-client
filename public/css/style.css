@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-
 :root {
   --orange: #ffbd15;
   --orange-100: #ffa200;
@@ -43,8 +42,6 @@ nav ul li a {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: Poppins; */
-  /* border: 1px solid greenyellow; */
 }
 
 .nonselect {
@@ -56,10 +53,6 @@ nav ul li a {
   border: none;
 }
 
-/* .login {
-
-} */
-
 body > div.container {
   display: flex;
   flex-direction: column;
@@ -70,95 +63,20 @@ body > div.container {
   gap: 20px;
 }
 
-/* .hero {
-  height: 98vh;
-  width: 100vw;
-} */
-
-/* .main > div {
-  width: 40% !important;
-} */
-
 #logo {
   display: flex;
   justify-content: center;
 }
 
-/* .login {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  background-image: url(../images/rectangle-1.png);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-} */
-
-/* .btn {
-  width: 200px;
-  border-radius: 10px;
-  padding: 10px 25px;
-  box-shadow: 7px 7px 4px 0px rgba(0, 0, 0, 0.25);
-  background-color: var(--orange);
-  font-size: 30px;
-  font-weight: 700;
-  } */
-
-  .btn{
-    font-family: Poppins;
-  }
-  
-  /* .btn-parent {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-} */
-
-/* .input {
-  gap: 10px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  background-color: var(--input-color);
-  border-radius: 10px;
-  border: 3px solid #000;
-  width: fit-content;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-} */
-
-/* .input input {
-  color: #ffff;
+.btn{
   font-family: Poppins;
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  border: none;
-  width: 325px;
-  border-radius: 10px;
-  height: 50px;
-  background-color: transparent;
-} */
-
-/* input:focus {
-  border: none;
-  outline: none;
-} */
+}
 
 .trapedzoid{
-  /* height: 100px;
-  background-color: #3498db;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 10% 100%);
-  background-image: url(/images/bg-2.png); */
-
   position: relative;
   height: 100px;
   background-color: #3498db;
-  border-bottom-left-radius: 30px; /* Tetap rounded */
-  
+  border-bottom-left-radius: 30px;
 }
 
 .trapedzoid::after{
@@ -168,7 +86,7 @@ body > div.container {
   right: 0;
   width: 90%;
   height: 100%;
-  background: inherit; /* warna latar belakang di bawahnya */
+  background: inherit;
   transform: skewX(-10deg);
   transform-origin: right;
 }
@@ -182,26 +100,6 @@ filter: brightness(50%);
   background-position: center;
   overflow: hidden;
 }
-
-/* .img-right{
-  background-image: url(../images/cardImg.png);
-    background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size:contain;
-  background-position: center;
-} */
-
-/* .trapedzoid::after{
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 90%;
-  height: 100%;
-  background-color: red; 
-  transform: skewX(-10deg);
-  transform-origin: right;
-} */
 
 .main-text {
   display: flex;
@@ -222,25 +120,6 @@ filter: brightness(50%);
   font-weight: 700;
   text-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
 }
-
-/* .sidebar {
-  width: var(--sidebar-width);
-  position: fixed;
-  top: 0;
-  z-index: 10;
-  background-color: var(--sidebar-background-color);
-  height: 100vh;
-} */
-
-/* .sidebar .logo {
-  padding: 10px;
-  font-size: 14px;
-  font-family: Poppins;
-  gap: 10px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #fff;
-} */
 
 .sidebar .navbar .footer #timestamp {
   color: var(--orange);
@@ -917,18 +796,6 @@ dialog[open] {
 .user-dropdown:hover {
   display: block;
 }
-
-/* .user-dropdown {
-  transition: all 300ms;
-  display: none;
-  background-color: #ffffff;
-  border: 1px solid #000000;
-  position: absolute;
-  right: 0;
-  padding: 10px 20px;
-  border-radius: 10px;
-} */
-
 .user-dropdown h3 {
   font-size: 20px;
 }
@@ -936,8 +803,6 @@ dialog[open] {
 .user-dropdown-content {
   margin-top: 10px;
   display: grid;
-  /* gap: 10px; */
-  /* margin-right: 10px; */
 }
 
 .user-dropdown-content a {
@@ -1100,10 +965,6 @@ dialog[open] {
     gap: 30px;
   }
 
-  /* .welcome > span {
-    font-size: inherit;
-  } */
-
   .welcome > h3 {
     font-size: 20px;
   }
@@ -1130,7 +991,6 @@ dialog[open] {
   }
 
   div.main {
-    /* max-width: 900px; */
     max-height: 500px;
     height: 65% !important;
   }
@@ -1172,7 +1032,3 @@ td button {
 td button:focus {
   border: none;
 }
-
-/* .jurnalisme {
-  gap: 2em;
-} */

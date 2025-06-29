@@ -148,7 +148,6 @@ export function PresensiStarted() {
               )}
             </tbody>
           </table>
-                {/* <p className="w-full text-center text-xl font-poppins">Belum terdapat siswa di kelas ini</p> */}
           <h1 className="font-semibold text-black text-2xl px-5">Belum presensi</h1>
           <table className="table">
             <thead>

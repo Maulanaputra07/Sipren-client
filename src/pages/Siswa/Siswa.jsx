@@ -55,12 +55,6 @@ export function Siswa() {
                     <td>{`${s.tingkat} ${s.akronim} ${s.no_kelas}`}</td>
                     <td>{s.rfid}</td>
                     <td className="flex gap-2 justify-center">
-                      {/* <a
-                        href={"/update/" + s.nis}
-                        className="bg-orange_scale py-1 px-4 rounded"
-                      >
-                        Edit
-                      </a> */}
                       <Link
                             to={"update/" + s.nis}
                             className="bg-orange_scale py-1 px-4 rounded"
