@@ -59,14 +59,20 @@ export const EditDataUser = () => {
         });
     } else {
       axios
-        .post(`/users/create`, {
+        .post(`/users`, {
           nama: e.target.nama.value,
           username: e.target.username.value,
           password: e.target.password.value,
           level: role,
         })
         .then((res) => {
-          window.location = "/admin/data_user";
+          Swal.fire({
+            title: "Success!!",
+            text: "Berhsil menambahkan user.",
+            icon: "success",
+          }).then(() => {
+            window.location = "/admin/data_user";
+          });
         })
         .catch((err) => {
           Swal.fire({

@@ -32,6 +32,9 @@ export function DataUser() {
               title: "Deleted!",
               text: "Your file has been deleted.",
               icon: "success",
+            })
+            .then(()=> {
+              window.location.reload();
             });
           })
           .catch((err) => {
