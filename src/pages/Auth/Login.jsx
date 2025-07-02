@@ -30,7 +30,7 @@ function Login() {
       .catch((err) => {
         Swal.fire({
           title: "Error!",
-          text: err.response.data.message,
+          text: err.response?.data?.message,
           icon: "error",
           confirmButtonText: "Tutup",
         });

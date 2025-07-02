@@ -5,10 +5,9 @@ import { useContext } from "react";
 
 export const useAxios = () => {
   const api_url = import.meta.env.VITE_API_URL;
-  const api_port = import.meta.env.VITE_API_PORT;
   const token = getDecryptedData("token");
   return axios.create({
-    baseURL: `${api_url}:${api_port}`,
+    baseURL: `${api_url}`,
     headers: {
       Authorization: "Bearer " + token,
     },
