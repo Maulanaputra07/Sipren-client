@@ -329,7 +329,7 @@ const fetchKelas = () => {
                                 Edit
                               </Link>
                               <button
-                                onClick={handleDeleteSiswa}
+                                onClick={handleDeleteSiswa} 
                                 value={kls.nis}
                                 className="bg-red py-1 px-4 rounded ml-4"
                               >
