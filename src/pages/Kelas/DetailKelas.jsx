@@ -5,6 +5,8 @@ import { AuthGuard } from "../../utils/AuthGuard";
 import { useAxios } from "../../utils/Provider";
 import Swal from "sweetalert2";
 import { Link, useLocation, useParams } from "react-router-dom";
+import addIcon from "/icons/addIcon.svg";
+
 
 export function DetailKelas() {
     const {id} = useParams();
@@ -47,6 +49,42 @@ export function DetailKelas() {
 //       }
 //     });
 //   }
+
+function handleImport(){
+
+}
+
+function handleDeleteSiswa(e) {
+  Swal.fire({
+      title: "Yakin Ingin Menghapus siswa ini?",
+      text: "Siswa yang hilang tidak bisa dikembalikan!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if(result.isConfirmed){
+        axios.delete(`/siswa/${e.target.value}`)
+        .then((res) => {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+          }).then(() => {
+            window.location.reload();
+          });
+        }).catch((err) => {
+          Swal.fire({
+            title: "Error!",
+            text: err.response?.data?.message,
+            icon: "error",
+            confirmButtonText: "Tutup",
+          });
+        })
+      }
+    })
+}
 
 const fetchKelas = () => {
     axios
@@ -101,13 +139,25 @@ const fetchKelas = () => {
     <AuthGuard>
       <div className="hero">
         <div className="flex-col gap-1">
-            <div className="flex p-4 justify-between">
+            <div className="flex p-4 justify-between items-center">
                 <p className="text-2xl font-poppins font-semibold">Detail kelas {kelas?.tingkat + " " + kelas?.akronim + " " + kelas?.no_kelas}</p>
-                {pathname.includes("/detail/") && pathname.includes("/addsiswa") && (
-                    <Link to="/admin/kelas" className="p-4 py-2 text-white font-semibold rounded-lg bg-green/80">
-                        Simpan
-                    </Link>
-                )}
+                {pathname.includes("/detail/") && pathname.includes("/addsiswa") ? (
+                  <div className="flex gap-5">
+                      <button onClick={handleImport} className="bg-blue/80 text-white font-poppins rounded-md px-2 py-1">Import CSV</button>
+                      <Link to="/admin/kelas" className="p-4 py-2 text-white font-semibold rounded-lg bg-green/80">
+                          Simpan
+                      </Link>
+                    </div>
+                ) : (
+                  <Link
+                    to={`/admin/siswa/add/${id}`}
+                    className="bg-green/80 font-poppins text-lg hover:bg-green transition-all duration-200 delay-100 hover:shadow-xl max-w-fit items text-white shadow-md font-bold px-3 py-2 mx-5 rounded-lg flex justify-between items-center"
+                  >
+                    <img src={addIcon} className={`transition-all duration-300 group-hover:scale-110 w-[35px]`} color="" alt="presensiIcon" />
+                    <span className="px-2">Add Siswa</span>
+                  </Link>
+                )
+              }
             </div>
             
             {pathname.includes("/detail/") && pathname.includes("/addsiswa") && (
@@ -115,9 +165,12 @@ const fetchKelas = () => {
             className="p-5 w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
             onSubmit={handleSubmitForm}
           >
+            <div>
             <h1 className="text-xl font-bold">
                 Add Siswa
             </h1>
+
+            </div>
             <div className="flex flex-col mb-2">
               <label htmlFor="nama" className="p-2">
                 Nama :
@@ -170,7 +223,12 @@ const fetchKelas = () => {
                 <th colSpan={2}>NIS</th>
                 <th colSpan={3}>RFID</th>
                 <th colSpan={4}>Nama</th>
-                {/* <th colSpan={3}>Aksi</th> */}
+                {pathname.includes("/detail/") && pathname.includes("/addsiswa") ? (
+                  ""
+                ) : (
+                  <th colSpan={3}>Aksi</th>
+                )
+              }
               </tr>
             </thead>
                 <tbody>
@@ -181,6 +239,24 @@ const fetchKelas = () => {
                             <td colSpan={2}>{kls.nis}</td>
                             <td colSpan={3}>{kls.rfid}</td>
                             <td colSpan={4}>{kls.nama}</td>
+                            {pathname.includes("/detail/") && pathname.includes("/addsiswa") ? 
+                            (
+                              ""
+                            ) : (
+                              <td colSpan={3}>
+                              <Link to={"/admin/siswa/update/" + kls.nis} className="bg-orange_scale py-1.5 px-4 rounded">
+                                Edit
+                              </Link>
+                              <button
+                                onClick={handleDeleteSiswa}
+                                value={kls.nis}
+                                className="bg-red py-1 px-4 rounded ml-4"
+                              >
+                                Delete
+                              </button>{" "}
+                            </td>
+                            )
+                          }
                         </tr>
                     ))
                     ) : (

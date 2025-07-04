@@ -13,7 +13,6 @@ export const EditSiswa = () => {
     rfid: "",
     nama: "",
     nis: "",
-    jenis_kelamin: 1,
     kelas: 1,
   });
   const pathname = window.location.pathname;
@@ -41,7 +40,7 @@ export const EditSiswa = () => {
       axios
         .put(`/siswa/${nis}`, payload)
         .then((res) => {
-          window.location = "/admin/siswa";
+          window.location = `/admin/kelas/detail/${current.id_kelas}`;
         })
         .catch((err) => {
           Swal.fire({
@@ -55,7 +54,7 @@ export const EditSiswa = () => {
       axios
         .post(`/siswa`, payload)
         .then((res) => {
-          window.location = "/admin/siswa";
+          window.location = `/admin/kelas/detail/${id}`;
         })
         .catch((err) => {
           console.log("payload :" + payload);
@@ -150,7 +149,7 @@ export const EditSiswa = () => {
               />
             </div>
             <div className="flex w-full justify-end gap-3">
-              <Link to="/admin/siswa" className="p-4 py-2 rounded bg-red">
+              <Link to={"/admin/kelas/detail/" + (id ? id : current.id_kelas)}  className="p-4 py-2 rounded bg-red">
                 Kembali
               </Link>
               <button type="submit" className="p-4 py-2 rounded bg-blue">

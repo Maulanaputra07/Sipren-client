@@ -68,8 +68,8 @@ function App() {
             <Route path="kelas/detail/:id" element={<DetailKelas/>} />
             <Route path="kelas/detail/:id/addsiswa" element={<DetailKelas/>} />
 
-            <Route path="siswa" element={<Siswa />} />
-            <Route path="siswa/add" element={<EditSiswa />} />
+            {/* <Route path="siswa" element={<Siswa />} /> */}
+            <Route path="siswa/add/:id" element={<EditSiswa />} />
             <Route path="siswa/update/:nis" element={<EditSiswa />} />
           </Route>
           
