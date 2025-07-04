@@ -6,7 +6,8 @@ import { useAxios } from "../../utils/Provider";
 import Swal from "sweetalert2";
 import { Link, useLocation, useParams } from "react-router-dom";
 import addIcon from "/icons/addIcon.svg";
-
+import arrowDownIcon from "/icons/arrowDown.svg";
+import * as XLSX from "xlsx";
 
 export function DetailKelas() {
     const {id} = useParams();
@@ -14,8 +15,14 @@ export function DetailKelas() {
     const axios = useAxios();
     const [kelas, setKelas] = useState();
     const {pathname} = useLocation();
-    const [current, setCurrent] = useState();
-
+    const [current, setCurrent] = useState({
+      nis: "",
+      rfid: "",
+      nama: "",
+    });
+    const [toggleHide, setToggleHide] = useState(false);
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
 //   function handleDeleteKelas(e) {
 //     Swal.fire({
 //       title: "Yakin Ingin Menghapus Kelas?",
@@ -50,8 +57,58 @@ export function DetailKelas() {
 //     });
 //   }
 
-function handleImport(){
+const handleImport = async () => {
+  console.log("handle clicked")
+  setLoading(true);
+  try{
+    const payload = {
+      data: data.map((siswa) => ({
+        nis: siswa.NIS,
+        rfid: siswa.RFID,
+        nama: siswa.NAMA,
+        id_kelas: id
+      })),
+    };
 
+    console.log("data payload: "+payload);
+
+    await axios.post("/siswa/lots", payload)
+
+    .then((res) => {
+      Swal.fire({
+        title: "Sukses!",
+        text: res.data?.message,
+        icon: "success",
+        confirmButtonText: "OK",
+      })
+    });
+
+    fetchKelas();
+    setData([]);
+  }catch(err){
+    console.error(err);
+    alert("import gagal");
+  }finally{
+    setLoading(false);
+  }
+}
+
+const handleFileUpload = (e) => {
+  const file = e.target.files[0];
+  const reader = new FileReader();
+
+
+  reader.onload = (evt) => {
+    const bstr = evt.target.result;
+    const workbook = XLSX.read(bstr, {type: "binary"});
+    const wsname = workbook.SheetNames[0];
+    const ws = workbook.Sheets[wsname];
+    const jsonData = XLSX.utils.sheet_to_json(ws, {header: 0});
+    console.log("data excel " + jsonData);
+    setData(jsonData);
+  }
+
+  reader.readAsArrayBuffer(file);
 }
 
 function handleDeleteSiswa(e) {
@@ -118,6 +175,12 @@ const fetchKelas = () => {
         confirmButtonText: "OK",
       });
 
+      setCurrent({
+        nis: "",
+        rfid: "",
+        nama: "",
+      });
+
       fetchKelas();
       })
       .catch((err) => {
@@ -142,12 +205,11 @@ const fetchKelas = () => {
             <div className="flex p-4 justify-between items-center">
                 <p className="text-2xl font-poppins font-semibold">Detail kelas {kelas?.tingkat + " " + kelas?.akronim + " " + kelas?.no_kelas}</p>
                 {pathname.includes("/detail/") && pathname.includes("/addsiswa") ? (
-                  <div className="flex gap-5">
-                      <button onClick={handleImport} className="bg-blue/80 text-white font-poppins rounded-md px-2 py-1">Import CSV</button>
-                      <Link to="/admin/kelas" className="p-4 py-2 text-white font-semibold rounded-lg bg-green/80">
-                          Simpan
-                      </Link>
-                    </div>
+                  <div className="">
+                    <Link to="/admin/kelas" className="p-4 py-2 text-white font-semibold rounded-lg bg-green/80">
+                        Simpan
+                    </Link>
+                  </div>
                 ) : (
                   <Link
                     to={`/admin/siswa/add/${id}`}
@@ -161,59 +223,78 @@ const fetchKelas = () => {
             </div>
             
             {pathname.includes("/detail/") && pathname.includes("/addsiswa") && (
-                <form
-            className="p-5 w-full bg-blue_dark text-white bg-opacity-90 rounded-lg"
-            onSubmit={handleSubmitForm}
-          >
-            <div>
-            <h1 className="text-xl font-bold">
-                Add Siswa
-            </h1>
+                <div>
+                  <div className="mb-5 flex w-full justify-between border border-blue_light p-1.5 rounded-lg">
+                    <input type="file" accept=".xlsx, .xls, .csv"  name="" id="" onChange={handleFileUpload} />
+                      {data.length > 0 && (
+                        <div>
+                          <button >Cancel</button>
+                          <button type="button" onClick={handleImport} disabled={loading} className="bg-blue/80 text-white font-poppins rounded-md px-2 py-1">{loading ? "Importing.." : "Import"}</button>
+                        </div>
+                      )}
+                  </div>
+                  <form
+              className= {`p-5 w-full ${toggleHide ? "h-fit" : "h-16" } overflow-hidden bg-blue_dark transition-all duration-200 text-white bg-opacity-90 rounded-lg`}
+              onSubmit={handleSubmitForm}
+            >
+              <div className="flex justify-between">
+                <h1 className="text-xl font-bold">
+                    Add Siswa
+                </h1>
+                <img src={arrowDownIcon} onClick={() => setToggleHide(prev => !prev)} className={`transition-all hover:cursor-pointer duration-300 group-hover:scale-110 w-[35px] ${toggleHide ? "-rotate-180" : "rotate-0"}`} color="" alt="arrowDown" />
+              </div>
+              {toggleHide && (
+                <div>
+                  <div className="flex flex-col mb-2">
+                    <label htmlFor="nama" className="p-2">
+                      Nama :
+                    </label>
+                    <input
+                      type="text"
+                      id="nama"
+                      name="nama"
+                      value={current.nama}
+                      onChange={(e) => setCurrent({ ...current, nama: e.target.value })}
+                      className="text-blue_dark rounded p-2 px-3"
+                    />
+                  </div>
+                  <div className="flex flex-col mb-2">
+                    <label htmlFor="nis" className="p-2">
+                      NIS :
+                    </label>
+                    <input
+                      type="text"
+                      id="nis"
+                      name="nis"
+                      value={current.nis}
+                      onChange={(e) => setCurrent({ ...current, nis: e.target.value })}
+                      className="text-blue_dark rounded p-2 px-3"
+                    />
+                  </div>
+                  <div className="flex flex-col mb-3">
+                    <label htmlFor="rfid" className="p-2">
+                      RFID :
+                    </label>
+                    <input
+                      type="text"
+                      id="rfid"
+                      name="rfid"
+                      value={current.rfid}
+                      onChange={(e) => setCurrent({ ...current, rfid: e.target.value })}
+                      className="text-blue_dark rounded p-2 px-3"
+                    />
+                  </div>
 
-            </div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="nama" className="p-2">
-                Nama :
-              </label>
-              <input
-                type="text"
-                id="nama"
-                name="nama"
-                onChange={(e) => setCurrent({ ...current, nama: e.target.value })}
-                className="text-blue_dark rounded p-2 px-3"
-              />
-            </div>
-            <div className="flex flex-col mb-2">
-              <label htmlFor="nis" className="p-2">
-                NIS :
-              </label>
-              <input
-                type="text"
-                id="nis"
-                name="nis"
-                onChange={(e) => setCurrent({ ...current, nis: e.target.value })}
-                className="text-blue_dark rounded p-2 px-3"
-              />
-            </div>
-            <div className="flex flex-col mb-3">
-              <label htmlFor="rfid" className="p-2">
-                RFID :
-              </label>
-              <input
-                type="text"
-                id="rfid"
-                name="rfid"
-                onChange={(e) => setCurrent({ ...current, rfid: e.target.value })}
-                className="text-blue_dark rounded p-2 px-3"
-              />
-            </div>
+                  <div className="flex w-full justify-end gap-3">
+                    <button type="submit" className="p-4 py-2 rounded bg-blue">
+                      Add
+                    </button>
+                  </div>
 
-            <div className="flex w-full justify-end gap-3">
-              <button type="submit" className="p-4 py-2 rounded bg-blue">
-                Add
-              </button>
-            </div>
-          </form>
+                </div>
+              )}
+                  </form>
+                </div>
             )}
             
             <table className="table">
@@ -261,7 +342,7 @@ const fetchKelas = () => {
                     ))
                     ) : (
                         <tr>
-                            <td colSpan={10} className="bg-blue_light text-center py-3">
+                            <td colSpan={13} className="bg-blue_light text-center py-3">
                                 Belum terdapat siswa di kelas ini
                             </td>
                         </tr>
