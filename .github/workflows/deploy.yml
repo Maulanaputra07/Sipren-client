@@ -14,7 +14,6 @@ jobs:
         run: |
           cd /home/github_runner/Sipren-client
           git config --global --add safe.directory /home/github_runner/Sipren-client
-          git config pull.rebase true
-          git reset --hard HEAD
+          git fetch origin
+          git reset --hard origin/master
           git clean -fd
-          git pull origin master
