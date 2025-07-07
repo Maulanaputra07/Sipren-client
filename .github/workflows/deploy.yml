@@ -12,5 +12,5 @@ jobs:
     steps:
       - name: Pull latest code from master
         run: |
-          cd /home/github_runner/Siprent-client
+          cd /home/github_runner/Sipren-client
           git pull origin master
