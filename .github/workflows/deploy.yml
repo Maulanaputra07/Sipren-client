@@ -3,17 +3,14 @@ name: Deploy to Server
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Pull latest code
+      - name: Pull latest code from master
         run: |
           cd /home/github_runner/Siprent-client
-          git pull
+          git pull origin master
