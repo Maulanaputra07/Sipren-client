@@ -13,5 +13,5 @@ jobs:
       - name: Pull latest code from master
         run: |
           cd /home/github_runner/Sipren-client
-          git config --global --add safe.directory ${pwd}
+          git config --global --add safe.directory /home/github_runner/Sipren-client
           git pull origin master
