@@ -11,7 +11,7 @@ export function DataPresensi() {
 
   useEffect(() => {
     axios
-      .get("/presensi")
+      .get("/presensi/mine")
       .then((res) => {
         setPresensi(res.data.data);
         console.log(res.data);
@@ -26,7 +26,7 @@ export function DataPresensi() {
       <div className="hero">
         <div className="w-full flex flex-col gap-5 h-full">
           <p className="text-xl font-poppins font-semibold">Daftar Presensi</p>
-        {presensi &&
+        {presensi && presensi.length > 0 ? (
           [...presensi]
             .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
             .map((pre, i) => (
@@ -52,7 +52,11 @@ export function DataPresensi() {
                   </Link>
                 </div>
               </div>
-            ))}
+            ))
+          ) : (
+            <p>Belum terdapat daftar presensi</p>
+          )
+          }
         </div>
       </div>
     </AuthGuard>

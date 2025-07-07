@@ -139,22 +139,36 @@ function Sidebar() {
               </li>
 
               {isGuru && (
+                <>
+                <li>
+                  <Link to="jadwal_guru" className={`group flex item-center gap-3 transition-all py-2 duration-300 ease-in-out ${pathname === "/guru/presensi" ? "active py-2 rounded-lg bg-white" : "py-2 hover:bg-white hover:rounded-lg"}`}>
+                  <img src={presensiIcon} className={`transition-all duration-300 group-hover:scale-110 ${widthSidebar > 220 ? "w-[35px]" : "w-[40px]"}`} color="" alt="presensiIcon" />
+                  {widthSidebar > 220 && ( <span>Jadwal</span> )}
+                  </Link>
+                </li>
+
                 <li>
                   <Link to="presensi" className={`group flex item-center gap-3 transition-all py-2 duration-300 ease-in-out ${pathname === "/guru/presensi" ? "active py-2 rounded-lg bg-white" : "py-2 hover:bg-white hover:rounded-lg"}`}>
                   <img src={presensiIcon} className={`transition-all duration-300 group-hover:scale-110 ${widthSidebar > 220 ? "w-[35px]" : "w-[40px]"}`} color="" alt="presensiIcon" />
                   {widthSidebar > 220 && ( <span>Presensi</span> )}
                   </Link>
                 </li>
-              )}
 
-              {isGuru && (
                 <li>
                   <Link to="data_presensi" className={`group flex item-center gap-3 transition-all py-2 duration-300 ease-in-out ${pathname === "/guru/data_presensi" ? "active py-2 rounded-lg bg-white" : "py-2 hover:bg-white hover:rounded-lg"}`}>
                   <img src={dataPresensiIcon} className={`transition-all duration-300 group-hover:scale-110 ${widthSidebar > 220 ? "w-[35px]" : "w-[40px]"}`} color="" alt="dataPresensiIcon" />
                   {widthSidebar > 220 && ( <span>Data Presensi</span> )}
                   </Link>
                 </li>
+                </>
               )}
+
+              {/* {isGuru && (
+              )}
+
+              {isGuru && (
+                
+              )} */}
 
               {isAdmin && (
                 <>
@@ -169,6 +183,13 @@ function Sidebar() {
                     <Link to="mapel" className={`group flex item-center gap-3 transition-all py-2 duration-300 ease-in-out ${pathname.includes("/mapel") ? "active py-2 rounded-lg bg-white" : "py-2 hover:bg-white hover:rounded-lg"}`}>
                     <img src={mapelIcon} className={`transition-all duration-300 group-hover:scale-110 ${widthSidebar > 220 ? "w-[35px]" : "w-[40px]"}`} color="" alt="dataPresensiIcon" />
                       {widthSidebar > 220 && (<span>Data Mapel</span>)}
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="jadwal" className={`group flex item-center gap-3 transition-all py-2 duration-300 ease-in-out ${pathname.includes("/jadwal") ? "active py-2 rounded-lg bg-white" : "py-2 hover:bg-white hover:rounded-lg"}`}>
+                    <img src={mapelIcon} className={`transition-all duration-300 group-hover:scale-110 ${widthSidebar > 220 ? "w-[35px]" : "w-[40px]"}`} color="" alt="dataPresensiIcon" />
+                      {widthSidebar > 220 && (<span>Data Jadwal</span>)}
                     </Link>
                   </li>
 

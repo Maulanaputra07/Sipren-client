@@ -129,7 +129,7 @@ export const EditKelas = () => {
       .get("/jurusan")
       .then((res) => {
         setJurusan(res.data.data);
-        console.log(res.data.data);
+        console.log("data jurusan : " +res.data.data);
       })
       .catch((err) => {
         console.log(err);

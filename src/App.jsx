@@ -20,6 +20,9 @@ import Dashboard from "./pages/Dashboard.jsx";
 import { DetailPresensi } from "./pages/Presensi/DetailPresensi.jsx";
 import { Mapel } from "./pages/mapel/Mapel.jsx";
 import { DetailKelas } from "./pages/Kelas/DetailKelas.jsx";
+import { JadwalGuru } from "./pages/Jadwal/JadwalGuru.jsx";
+import { Jadwal } from "./pages/Jadwal/Jadwal.jsx";
+import { EditJadwal } from "./pages/Jadwal/editJadwal.jsx";
 
 function App() {
   return (
@@ -37,6 +40,7 @@ function App() {
 
             <Route index element={<Guru/>} />
             {/* <Route path="guru" element={<Guru />} /> */}
+            <Route path="jadwal_guru" element={<JadwalGuru/>}/>
             <Route path="presensi" element={<Presensi />} />
             <Route path="presensi/:id" element={<PresensiStarted />} />
             <Route path="data_presensi" element={<DataPresensi />} />
@@ -60,6 +64,9 @@ function App() {
             <Route path="data_user/update/:id" element={<EditDataUser />} />
 
             <Route path="mapel" element={<Mapel />} />
+
+            <Route path="jadwal" element={<Jadwal/>} />
+            <Route path="jadwal/add" element={<EditJadwal/>} />
 
             <Route path="kelas" element={<Kelas />} />
             <Route path="kelas/update/:id" element={<EditKelas />} />
