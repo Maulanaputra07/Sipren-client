@@ -1,0 +1,19 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull latest code from master
+        run: |
+          cd /home/github_runner/Sipren-client
+          git config --global --add safe.directory /home/github_runner/Sipren-client
+          git fetch origin
+          git reset --hard origin/master
+          git clean -fd
