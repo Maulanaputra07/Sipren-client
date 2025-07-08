@@ -147,7 +147,7 @@ export function Mapel(){
                   <input
                     type="text"
                     name="nama_mapel"
-                    className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
+                    className="mt-1 block w-full border rounded px-3 py-2"
                     required
                   />
                 </div>

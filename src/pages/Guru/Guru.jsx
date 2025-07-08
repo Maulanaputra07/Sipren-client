@@ -58,12 +58,12 @@ function Guru() {
                       <div className="flex relative gap-4 p-2 overflow-y-hidden">
                         {jadwal.map((item) => (
                           <div key={item.id_jadwal} className="relative">
-                            <div className="absolute hover:cursor-pointer z-30 right-2.5 top-2 rounded-full bg-transparent border border-gray/50">
+                            <div className={`absolute hover:cursor-pointer z-30 right-2.5 top-2 rounded-full ${item.status === true ? "bg-blue_light" : "bg-transparent"} border border-gray/50`}>
                               <Link to="">
                                 <img src={arrow} width={35} alt="" />
                               </Link>
                             </div>
-                            <div className={`w-[12rem] h-40 rounded-md ${item.status === "true" ? "bg-green" : "bg-[#F2F2F0]"}`}
+                            <div className={`w-[12rem] h-40 rounded-md ${item.status === true ? "bg-blue_light text-black" : "bg-[#F2F2F0] text-gray"}`}
                               style={{
                                   maskImage: 'url(/images/cardLayout1.png)',
                                   WebkitMaskImage: 'url(/images/cardLayout1.png)',
@@ -73,12 +73,12 @@ function Guru() {
                                   WebkitMaskSize: 'cover',
                               }}>
                                 <div className="flex-col justify-between">
-                                      <p className="pl-3 text-black pt-5 text-2xl font-poppins font-semibold">{item.tingkat} {item.akronim} {item.no_kelas}</p>
+                                      <p className="pl-3 pt-5 text-2xl font-poppins font-semibold">{item.tingkat} {item.akronim} {item.no_kelas}</p>
                                       <p className="pl-3 text-sm font-poppins">{item.jadwal_mulai} - {item.jadwal_selesai}</p>
                                 </div>
                                 <div className="flex-col w-full h-[80%] p-5">
-                                      <p className="text-black font-poppins font-semibold text-lg">{item.nama_mapel}</p>
-                                      <p className="text-black font-poppins text-end font-normal text-lg">{item.nama_ruang}</p>
+                                      <p className="font-poppins font-semibold text-lg">{item.nama_mapel}</p>
+                                      <p className="font-poppins text-end font-normal text-lg">{item.nama_ruang}</p>
                                 </div>
                             </div>
                           </div>

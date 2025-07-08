@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
-import Sidebar from "../../components/Sidebar";
 import { formatDateTime, useAxios } from "../../utils/Provider";
 import { AuthGuard } from "../../utils/AuthGuard";
 import { Link } from "react-router-dom";
@@ -14,7 +12,7 @@ export function DataPresensi() {
       .get("/presensi/mine")
       .then((res) => {
         setPresensi(res.data.data);
-        console.log(res.data);
+        console.log("presensi: " + res.data?.data?.length);
       })
       .catch((err) => {
         console.log(err);

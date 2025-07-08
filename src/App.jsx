@@ -67,6 +67,7 @@ function App() {
 
             <Route path="jadwal" element={<Jadwal/>} />
             <Route path="jadwal/add" element={<EditJadwal/>} />
+            <Route path="jadwal/update/:id" element={<EditJadwal/>} />
 
             <Route path="kelas" element={<Kelas />} />
             <Route path="kelas/update/:id" element={<EditKelas />} />

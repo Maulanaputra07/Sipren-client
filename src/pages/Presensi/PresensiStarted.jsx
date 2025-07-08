@@ -104,7 +104,7 @@ export function PresensiStarted() {
     <AuthGuard>
       <div className="hero">
         <div className="flex-col gap-1">
-          <h1 className="font-semibold font-poppins text-2xl px-5">{}</h1>
+          <h1 className="font-semibold font-poppins text-2xl px-5">Telah presensi</h1>
           <table className="table">
             <thead>
               <tr>
@@ -216,6 +216,7 @@ export function PresensiStarted() {
                     <option value="H">H</option>
                     <option value="T">T</option>
                     <option value="S">S</option>
+                    <option value="I">I</option>
                   </select>
                 </div>
                 <div className="flex justify-end gap-2">
