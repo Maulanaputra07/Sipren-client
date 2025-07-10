@@ -7,7 +7,7 @@ import dataPresensiIcon from "/icons/HugeiconsTaskEdit01.svg";
 import dataUserIcon from "/icons/HeroiconsUsers.svg";
 import booksIcon from "/icons/booksIcon.svg";
 import mapelIcon from "/icons/mapelIcon.svg";
-import studentsIcon from "/icons/studentsIcon.svg";
+import scheduleIcon from "/icons/scheduleIcon.svg";
 import logoutIcon from "/icons/logoutIcon.svg";
 import { useAxios } from "../utils/Provider";
 
@@ -147,12 +147,12 @@ function Sidebar() {
                   </Link>
                 </li>
 
-                <li>
+                {/* <li>
                   <Link to="presensi" className={`group flex item-center gap-3 transition-all py-2 duration-300 ease-in-out ${pathname === "/guru/presensi" ? "active py-2 rounded-lg bg-white" : "py-2 hover:bg-white hover:rounded-lg"}`}>
                   <img src={presensiIcon} className={`transition-all duration-300 group-hover:scale-110 ${widthSidebar > 220 ? "w-[35px]" : "w-[40px]"}`} color="" alt="presensiIcon" />
                   {widthSidebar > 220 && ( <span>Presensi</span> )}
                   </Link>
-                </li>
+                </li> */}
 
                 <li>
                   <Link to="data_presensi" className={`group flex item-center gap-3 transition-all py-2 duration-300 ease-in-out ${pathname === "/guru/data_presensi" ? "active py-2 rounded-lg bg-white" : "py-2 hover:bg-white hover:rounded-lg"}`}>
@@ -188,7 +188,7 @@ function Sidebar() {
 
                   <li>
                     <Link to="jadwal" className={`group flex item-center gap-3 transition-all py-2 duration-300 ease-in-out ${pathname.includes("/jadwal") ? "active py-2 rounded-lg bg-white" : "py-2 hover:bg-white hover:rounded-lg"}`}>
-                    <img src={mapelIcon} className={`transition-all duration-300 group-hover:scale-110 ${widthSidebar > 220 ? "w-[35px]" : "w-[40px]"}`} color="" alt="dataPresensiIcon" />
+                    <img src={scheduleIcon} className={`transition-all duration-300 group-hover:scale-110 ${widthSidebar > 220 ? "w-[35px]" : "w-[40px]"}`} color="" alt="dataPresensiIcon" />
                       {widthSidebar > 220 && (<span>Data Jadwal</span>)}
                     </Link>
                   </li>

@@ -3,6 +3,7 @@ import { AuthGuard } from "../../utils/AuthGuard";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function EditJadwal(){
     const axios = useAxios();
@@ -10,6 +11,7 @@ export function EditJadwal(){
     const {id} = useParams();
     const [guru, setGuru] = useState();
     const [mapel, setMapel] = useState();
+    const [isProduktif, setIsProduktif] = useState(null);
     const [current, setCurrent] = useState({
         id_user: ""
     });
@@ -45,6 +47,13 @@ export function EditJadwal(){
     const handleChangeMapel = (e) => {
         setCurrent({...current, id_mapel: e.target.value})
     }
+
+    const handleJenisChange = (e) => {
+        console.log("clicked")
+        setIsProduktif(Number(e.target.value));
+        console.log("value mapel : " + e.target.value);
+    };
+
 
     const handleChangeRuang = (e) => {
         setCurrent({...current, id_ruang: e.target.value});
@@ -95,7 +104,7 @@ export function EditJadwal(){
             .catch((err) => {
                 Swal.fire({
                     title: "Error!",
-                    text: "terjadi masalah",
+                    text: err.response?.data?.message,
                     icon: "error",
                     confirmButtonText: "Tutup",
                 });
@@ -197,16 +206,16 @@ export function EditJadwal(){
     return(
         <AuthGuard>
             <div className="hero">
-                <h1>Form Jadwal</h1>
                 <div>
                     <form action="" className="w-full h-full rounded-md border border-gray/20 shadow-lg" onSubmit={handleSubmit}>
                         <div className="p-2 text-xl shadow-md w-fit rounded-br-lg rounded-tl-lg font-poppins font-semibold text-black/70 bg-blue_light">CREATE JADWAL GURU</div>
                         <div className="p-10 flex-col w-full">
-                            <div className="flex w-full gap-5 justify-evenly mb-5">
-                                <div className="font-poppins">
-                                    <p>Guru</p>
-                                    <select name="user" id="user" value={current.id_user} onChange={handleChangeGuru} className="block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
-                                        <option value="">Pilih guru</option>
+                            <div className="flex w-full gap-5 justify-between mb-5">
+                                {/* Guru */}
+                                <div className="font-poppins w-full">
+                                    <p className="font-semibold mb-5">Guru <span className="text-red/65 select-none">*</span></p>
+                                    <select name="user" id="user" value={current.id_user} onChange={handleChangeGuru} className="w-full block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
+                                        <option value="" disabled hidden>Pilih guru</option>
                                         {guru && 
                                             guru
                                             .filter((item) => item.level === 0)
@@ -218,8 +227,63 @@ export function EditJadwal(){
                                         }
                                     </select>
                                 </div>
-                                <div>
-                                    <p className="font-poppins">Kelas</p>
+
+                                {/* Mapel */}
+                                <div className="font-poppins w-full">
+                                        <div className="mb-5 flex justify-between items-center space-x-2">
+                                            <p className="font-semibold">Mapel <span className="text-red/65 select-none">*</span></p>
+                                            <div className="flex gap-2">
+                                                <label>
+                                                    <input
+                                                    type="radio"
+                                                    name="type"
+                                                    value={0}
+                                                    className="hidden peer"
+                                                    onChange={handleJenisChange}
+                                                    />
+                                                    <span className="font-poppins text-sm text-black/40 font-medium bg-gray/40 peer-checked:bg-blue/60 peer-checked:text-white peer-checked:shadow-md px-4 py-2 rounded-full cursor-pointer border border-gray/40">
+                                                        Normada
+                                                    </span>
+                                                </label>
+                                                <label>
+                                                        <input
+                                                        type="radio"
+                                                        name="type"
+                                                        value={1}
+                                                        className="hidden peer"
+                                                        onChange={handleJenisChange}
+                                                        />
+                                                        <span className="font-poppins text-sm peer-checked:bg-blue/60 text-black/40 font-medium bg-gray/40 peer-checked:text-white peer-checked:shadow-md px-4 py-2 rounded-full cursor-pointer border border-gray/40">
+                                                        Produktif
+                                                        </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <select name="mapel" id="mapel" onChange={handleChangeMapel} value={current.id_mapel} className="w-full block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
+                                            <option value="" disabled hidden className="font-poppins">Pilih mapel</option>
+                                            {isProduktif !== null && (
+                                                isProduktif ? mapel.map((item, i) => (
+                                                    item.produktif === 1 ? (
+                                                        <option key={i} value={item.id_mapel}>
+                                                            {item.nama_mapel}
+                                                        </option>
+                                                    ) : null
+                                                )) : 
+                                                mapel.map((item, i) => (
+                                                    item.produktif === 0 ? (
+                                                        <option key={i} value={item.id_mapel}>
+                                                            {item.nama_mapel}
+                                                        </option>
+                                                    ) : null
+                                                ))
+                                            )}
+                                        </select>
+                                </div>
+                            </div>
+                            <div className="flex w-full gap-5 justify-evenly mb-5">
+                                {/* Kelas */}
+                                <div className="w-full font-poppins">
+                                    <p className="font-semibold mb-1">Kelas <span className="text-red/65 select-none">*</span></p>
                                     <div className="flex gap-2">
                                         <select name="akronim" id="akronim" onChange={handleChangeAkronim} className="block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
                                             {jurusan && 
@@ -231,8 +295,8 @@ export function EditJadwal(){
                                                 ))
                                             }
                                         </select>
-                                        <select name="kelas" id="kelas" value={current.id_kelas} onChange={handleChangeKelas} className="block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
-                                            <option value="">Pilih kelas</option>
+                                        <select name="kelas" id="kelas" value={current.id_kelas} onChange={handleChangeKelas} className="w-full block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
+                                            <option value="" disabled hidden>Pilih kelas</option>
                                             {kelasFiltered &&  kelasFiltered.length > 0 ? (
                                                 kelasFiltered.map((kls, i) => (
                                                     <option key={i} value={kls.id_kelas}>
@@ -240,29 +304,19 @@ export function EditJadwal(){
                                                     </option>
                                                 ))
                                             ) : (
-                                                <option value="">Tidak ada kelas tersedia</option>
+                                                <option value="" disabled>Tidak terdapat kelas</option>
                                             )
                                             }
                                         </select>
                                     </div>
                                 </div>
-                                <div>
-                                    <p className="font-poppins">Mapel</p>
-                                    <select name="mapel" id="mapel" onChange={handleChangeMapel} value={current.id_mapel} className="block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
-                                        <option value="">Pilih mapel</option>
-                                        {mapel && 
-                                            mapel.map((item, i) => (
-                                                <option key={i} value={item.id_mapel}>
-                                                    <p>{`${item.nama_mapel} (${item.produktif === 1 ? "Produktif" : "Normada"})`}</p>
-                                                </option>
-                                            ))
-                                        }
-                                    </select>
-                                </div>
-                                <div>
-                                    <p className="font-poppins">Hari</p>
-                                    <select name="hari" id="hari" onChange={handleChangeHari} value={current.hari} className="block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
-                                        <option value="">Pilih hari</option>
+                            </div>
+                            <div className="flex gap-2 w-full mb-5">
+                                {/* Hari */}
+                                <div className="w-full">
+                                    <p className="font-poppins font-semibold mb-1">Hari <span className="text-red/65 select-none">*</span></p>
+                                    <select name="hari" id="hari" onChange={handleChangeHari} value={current.hari} className="w-full block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
+                                        <option value="" disabled hidden>Pilih hari</option>
                                         <option value="senin">Senin</option>
                                         <option value="selasa">Selasa</option>
                                         <option value="rabu">Rabu</option>
@@ -271,38 +325,41 @@ export function EditJadwal(){
                                         <option value="sabtu">Sabtu</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div className="flex gap-2">
-                                <div>
-                                    <p className="font-poppins">Jam Dimulai</p>
-                                    <select name="jadwal_dimulai" id="jadwal_dimulai" value={mulai} onChange={(e) => {setMulai(e.target.value); console.log("jam dimulai: " + e.target.value)}} className="block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
-                                        <option value="">Pilih jam mulai</option>
+                                {/* Jam Dimulai */}
+                                <div className="w-full">
+                                    <p className="font-poppins font-semibold mb-1">Jam Dimulai <span className="text-red/65 select-none">*</span></p>
+                                    <select name="jadwal_dimulai" id="jadwal_dimulai" value={mulai} onChange={(e) => {setMulai(e.target.value); console.log("jam dimulai: " + e.target.value)}} className="w-full block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
+                                        <option value="" disabled hidden>Pilih jam mulai</option>
                                         {jamBoundary.map((jam, i) => (
                                             <option key={i} value={jam}>{jam}</option>
                                         ))}
                                     </select>
                                 </div>
-                                <div>
-                                    <p className="font-poppins">Jam Selesai</p>
-                                    <select name="jadwal_selesai" id="jadwal_selesai" value={selesai} onChange={(e) => {setSelesai(e.target.value); console.log("jam selesai: " + e.target.value)}} className="block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
-                                        <option value="">Pilih jam Selesai</option>
+                                {/* Jam Selesai */}
+                                <div className="w-full">
+                                    <p className="font-poppins font-semibold mb-1">Jam Selesai <span className="text-red/65 select-none">*</span></p>
+                                    <select name="jadwal_selesai" id="jadwal_selesai" value={selesai} onChange={(e) => {setSelesai(e.target.value); console.log("jam selesai: " + e.target.value)}} className="w-full block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
+                                        <option value="" disabled hidden>Pilih jam Selesai</option>
                                         {filteredSelesai.map((jam, i) => (
                                             <option key={i} value={jam}>{jam}</option>
                                         ))}
                                     </select>
                                 </div>
-                                <div>
-                                    <p className="font-poppins">Ruang</p>
-                                    <select name="ruang" id="ruang" onChange={handleChangeRuang} value={current.id_ruang} className="block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
-                                        <option value="">Pilih ruang</option>
-                                        {ruang && 
-                                            ruang.map((r, i) => (
-                                                <option key={i} value={r.id_ruang}>{r.nama_ruang}</option>
-                                            ))}
-                                    </select>
-                                </div>
                             </div>
-                            <div className="w-full text-end">
+                            <div className="w-full mb-5">
+                                <p className="font-poppins font-semibold mb-1">Ruang <span className="text-red/65 select-none">*</span></p>
+                                <select name="ruang" id="ruang" onChange={handleChangeRuang} value={current.id_ruang} className="w-full block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
+                                    <option value="" disabled hidden>Pilih ruang</option>
+                                    {ruang && 
+                                        ruang.map((r, i) => (
+                                            <option key={i} value={r.id_ruang}>{r.nama_ruang}</option>
+                                        ))}
+                                </select>
+                            </div>
+                            <div className="w-full flex justify-end gap-2 items-center">
+                                <Link to={"/admin/jadwal"}>
+                                    <p className="bg-red px-3 py-2 rounded-lg text-white">Kembali</p>
+                                </Link>
                                 <button type="submit" className="bg-blue/50 px-3 py-2 rounded-lg">Simpan</button>
                             </div>
                         </div>

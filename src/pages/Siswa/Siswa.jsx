@@ -1,3 +1,5 @@
+// Page ini tidak terpakai
+
 import { useEffect, useState } from "react";
 import { useAxios } from "../../utils/Provider";
 import { AuthGuard } from "../../utils/AuthGuard";
