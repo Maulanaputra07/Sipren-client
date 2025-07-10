@@ -106,7 +106,7 @@ export function DetailPresensi() {
                             {detailPresensi.detail_presensi.map((siswa, index) => (
                               <tr key={index} className="hover:bg-gray-100">
                                 <td className="border px-4 py-2">{index + 1}</td>
-                                <td className="border px-4 py-2">{siswa.nama} {siswa.id_det}</td>
+                                <td className="border px-4 py-2">{siswa.nama}</td>
                                 <td className="border px-4 py-2">{siswa.keterangan}</td>
                                 <td className="border px-4 py-2">{formatDateTime(new Date(siswa.present_at))}</td>
                                 <td className="border px-4 py-2">

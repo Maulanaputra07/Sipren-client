@@ -70,10 +70,9 @@ const handleImport = async () => {
       })),
     };
 
-    console.log("data payload: "+payload);
+    console.log("data payload: ", JSON.stringify(payload, null, 2));
 
     await axios.post("/siswa/lots", payload)
-
     .then((res) => {
       Swal.fire({
         title: "Sukses!",
@@ -100,7 +99,7 @@ const handleFileUpload = (e) => {
 
   reader.onload = (evt) => {
     const bstr = evt.target.result;
-    const workbook = XLSX.read(bstr, {type: "binary"});
+    const workbook = XLSX.read(bstr, {type: "array"});
     const wsname = workbook.SheetNames[0];
     const ws = workbook.Sheets[wsname];
     const jsonData = XLSX.utils.sheet_to_json(ws, {header: 0});
@@ -211,13 +210,21 @@ const fetchKelas = () => {
                     </Link>
                   </div>
                 ) : (
-                  <Link
-                    to={`/admin/siswa/add/${id}`}
-                    className="bg-green/80 font-poppins text-lg hover:bg-green transition-all duration-200 delay-100 hover:shadow-xl max-w-fit items text-white shadow-md font-bold px-3 py-2 mx-5 rounded-lg flex justify-between items-center"
-                  >
-                    <img src={addIcon} className={`transition-all duration-300 group-hover:scale-110 w-[35px]`} color="" alt="presensiIcon" />
-                    <span className="px-2">Add Siswa</span>
-                  </Link>
+                  <div className="flex items-center">
+                    <input type="file" accept=".xlsx, .xls, .csv"  name="" id="" onChange={handleFileUpload} />
+                    {data.length > 0 && (
+                        <div>
+                          <button type="button" onClick={handleImport} disabled={loading} className="bg-blue/80 text-white font-poppins rounded-md px-2 py-1">{loading ? "Importing.." : "Import"}</button>
+                        </div>
+                    )}
+                    <Link
+                      to={`/admin/siswa/add/${id}`}
+                      className="bg-green/80 font-poppins text-lg hover:bg-green transition-all duration-200 delay-100 hover:shadow-xl max-w-fit items text-white shadow-md font-bold px-3 py-2 mx-5 rounded-lg flex justify-between items-center"
+                    >
+                      <img src={addIcon} className={`transition-all duration-300 group-hover:scale-110 w-[35px]`} color="" alt="presensiIcon" />
+                      <span className="px-2">Add Siswa</span>
+                    </Link>
+                  </div>
                 )
               }
             </div>
@@ -241,6 +248,7 @@ const fetchKelas = () => {
                 <h1 className="text-xl font-bold">
                     Add Siswa
                 </h1>
+                
                 <img src={arrowDownIcon} onClick={() => setToggleHide(prev => !prev)} className={`transition-all hover:cursor-pointer duration-300 group-hover:scale-110 w-[35px] ${toggleHide ? "-rotate-180" : "rotate-0"}`} color="" alt="arrowDown" />
               </div>
               {toggleHide && (
