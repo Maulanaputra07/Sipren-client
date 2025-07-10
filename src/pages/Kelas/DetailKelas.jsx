@@ -342,7 +342,7 @@ const fetchKelas = () => {
                     ))
                     ) : (
                         <tr>
-                            <td colSpan={13} className="bg-blue_light text-center py-3">
+                            <td colSpan={pathname.includes("/addsiswa") ? 10 : 13} className="bg-blue_light text-center py-3">
                                 Belum terdapat siswa di kelas ini
                             </td>
                         </tr>

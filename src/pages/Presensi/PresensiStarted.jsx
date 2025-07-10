@@ -28,7 +28,8 @@ export function PresensiStarted() {
             text: `${res.data?.message}`,
             icon: "success",
         }).then(() => {
-            window.location.reload();
+            // window.location.reload();
+            fetchSiswa();
         });
     }).catch((err) => {
         console.log("error saat post : " + err.response?.data?.message || err.message);
@@ -37,8 +38,7 @@ export function PresensiStarted() {
     setShowModel(false);
   }
 
-
-  useEffect(() => {
+  const fetchSiswa = () => {
     axios
       .get(`/presensi/${id}`)
       .then((res) => {
@@ -48,11 +48,13 @@ export function PresensiStarted() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }
 
   const [rfidData, setRfidData] = useState("");
 
   function handleEnded() {
+    localStorage.removeItem("sedangPresensi");
+
     Swal.fire({
       position: "center",
       icon: "success",
@@ -70,6 +72,25 @@ export function PresensiStarted() {
   };
 
   useEffect(() => {
+    const presensi = JSON.parse(localStorage.getItem("sedangPresensi"));
+
+    if(presensi && presensi.status && presensi.detail_presensi) {
+      console.log("Sedang presensi dengan ID: ", presensi.id_presensi);
+
+      if(window.location.pathname !== `/presensi/${presensi.id_presensi}`){
+        window.location = `/presensi/${presensi.id_presensi}`
+      }
+    }
+
+    
+    fetchSiswa();
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
     let buffer = "";
 
     const handleKeyDown = (event) => {
@@ -83,7 +104,8 @@ export function PresensiStarted() {
             rfid: buffer,
           })
           .then((res) => {
-            window.location.reload();
+            fetchSiswa();
+            // window.location.reload();
           })
           .catch((err) => {
             console.log(err);
@@ -95,7 +117,9 @@ export function PresensiStarted() {
     };
 
     window.addEventListener("keydown", handleKeyDown);
+
     return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload)
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);

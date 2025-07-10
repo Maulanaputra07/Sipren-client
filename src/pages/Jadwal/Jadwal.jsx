@@ -4,6 +4,7 @@ import { useAxios } from "../../utils/Provider";
 import addIcon from "/icons/addIcon.svg";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import userSelect from "/icons/userSelect.svg";
 
 export function Jadwal(){
     const axios = useAxios();
@@ -99,18 +100,17 @@ export function Jadwal(){
         <AuthGuard>
             <div className="hero">
                 <div className="w-full flex flex-col gap-5 h-full">
-                    <h1>Daftar user dan jadwalnya</h1>
                     <div className="flex-col">
                         <Link
                             to={"add"}
-                            className="bg-green/80 font-poppins text-lg hover:bg-green transition-all duration-200 delay-100 hover:shadow-xl max-w-fit items text-white shadow-md font-bold px-3 py-2 mx-5 rounded-lg flex justify-between items-center"
+                            className="bg-green/80 mb-3 font-poppins text-lg hover:bg-green transition-all duration-200 delay-100 hover:shadow-xl max-w-fit items text-white shadow-md font-bold px-3 py-2 mx-5 rounded-lg flex justify-between items-center"
                         >
                             <img src={addIcon} className={`transition-all duration-300 group-hover:scale-110 w-[35px]`} color="" alt="presensiIcon" />
                             <span className="px-2">Add Jadwal</span>
                             <div></div>
                         </Link>
-                        <div className="w-full h-full flex mt-2">
-                            <div className="w-1/3 max-h-[23rem] px-2 border-r-blue border-r-2 overflow-x-auto">
+                        <div className="w-full h-full flex mt-2 border border-gray/40 rounded-md p-1 shadow-lg">
+                            <div className="w-1/3 max-h-[23rem] px-2 border-r-black/30 border-r-2 overflow-x-auto">
                                 {guruCount && 
                                     guruCount
                                     .map((gru, i) => (
@@ -154,7 +154,10 @@ export function Jadwal(){
                                         </div>
                                     ))
                                 ): (
-                                    <p>Pilih guru untuk melihat detail jadwal guru</p>
+                                    <div className="w-full h-full justify-center items-center bg-gray/10 flex flex-col">
+                                        <img src={userSelect} alt="" width={100} className="bg-blue_light rounded-lg p-2"/>
+                                        <p className="font-semibold text-xl">Pilih guru untuk melihat detail jadwal guru</p>
+                                    </div>
                                 )}
                             </div>
                         </div>

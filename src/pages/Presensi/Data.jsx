@@ -26,7 +26,7 @@ export function DataPresensi() {
           <p className="text-xl font-poppins font-semibold">Daftar Presensi</p>
         {presensi && presensi.length > 0 ? (
           [...presensi]
-            .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+            .sort((a, b) => new Date(b.presensi_mulai) - new Date(a.presensi_mulai))
             .map((pre, i) => (
               <div key={i} className="card bg-white w-full shadow-lg border border-gray/50 p-5 rounded-lg">
                 <div className="flex justify-between items-center mb-5">
@@ -34,12 +34,12 @@ export function DataPresensi() {
                     {pre.tingkat + " " + pre.akronim + " " + pre.no_kelas}
                   </p>
                   <p className="text-lg font-poppins font-normal">
-                    {formatDateTime(new Date(pre.created_at))}
+                    {formatDateTime(new Date(pre.presensi_mulai))}
                   </p>
                 </div>
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="text-xl font-poppins font-semibold rounded">{pre.nama_materi}</p>
+                    <p className="text-xl font-poppins font-semibold rounded">{pre.nama_mapel} - {pre.nama_materi}</p>
                     <p className="text-xl font-poppins font-light rounded">{pre.deskripsi}</p>
                   </div>
                   <Link

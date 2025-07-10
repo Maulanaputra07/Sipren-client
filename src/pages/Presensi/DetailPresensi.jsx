@@ -9,12 +9,15 @@ export function DetailPresensi() {
     const axios = useAxios();
     const [detailPresensi, setDetailPresensi] = useState();
     const { id } = useParams();
+    const [showModel, setShowModel] = useState();
+    const [selectedIdDet, setSelectedIdDet] = useState(null);  
+    const [current, setCurrent] = useState({keterangan: "H"});
     const totalSiswa = detailPresensi?.detail_presensi?.length || 0;
     const hadirCount = detailPresensi?.detail_presensi?.filter(s => s.keterangan === 'H').length;
     const tidakHadirCount = detailPresensi?.detail_presensi?.filter(s => s.keterangan === 'T').length;
 
-  useEffect(() => {
-    axios
+    const fetchSiswa = () => {
+      axios
       .get(`/presensi/${id}`)
       .then((res) => {
         setDetailPresensi(res.data.data);
@@ -23,6 +26,31 @@ export function DetailPresensi() {
       .catch((err) => {
         console.log(err);
       });
+    }
+
+  const handleUpdateketerangan = (e) => {
+      e.preventDefault();
+      console.log("id_det : " + selectedIdDet);
+      axios
+      .put(`detail_presensi/${selectedIdDet}`, {
+        keterangan: current.keterangan
+      })
+      .then((res) => {
+          fetchSiswa();
+      }).catch((err) => {
+          console.log("error saat post : " + err.response?.data?.message || err.message);
+      });
+  
+      setShowModel(false);
+  }
+
+  const handleKeterangan = (e) => {
+    setCurrent({ ...current, keterangan: e.target.value });
+    console.log("Value Keterangan : " + e.target.value);
+  };
+
+  useEffect(() => {
+    fetchSiswa();
   }, []);
 
   return (
@@ -71,15 +99,19 @@ export function DetailPresensi() {
                               <th className="border px-4 py-2 text-left">Nama</th>
                               <th className="border px-4 py-2 text-left">Keterangan</th>
                               <th className="border px-4 py-2 text-left">Hadir pada</th>
+                              <th className="border px-4 py-2 text-left">Aksi</th>
                             </tr>
                           </thead>
                           <tbody>
                             {detailPresensi.detail_presensi.map((siswa, index) => (
                               <tr key={index} className="hover:bg-gray-100">
                                 <td className="border px-4 py-2">{index + 1}</td>
-                                <td className="border px-4 py-2">{siswa.nama}</td>
+                                <td className="border px-4 py-2">{siswa.nama} {siswa.id_det}</td>
                                 <td className="border px-4 py-2">{siswa.keterangan}</td>
                                 <td className="border px-4 py-2">{formatDateTime(new Date(siswa.present_at))}</td>
+                                <td className="border px-4 py-2">
+                                  <button onClick={() => { setShowModel(true); setSelectedIdDet(siswa.id_det);}}  className="bg-orange_scale p-2 px-3 rounded">Edit</button>
+                                </td>
                               </tr>
                             ))}
                           </tbody>
@@ -92,6 +124,45 @@ export function DetailPresensi() {
               </div>
             )}
 
+            {showModel && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white rounded-lg p-6 w-full max-w-md">
+              <h2 className="text-xl font-bold mb-4">Tambah Mapel</h2>
+              <form onSubmit={handleUpdateketerangan} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium">Keterangan</label>
+                  <select
+                    onChange={handleKeterangan}
+                    name="keterangan"
+                    className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
+                    required
+                  >
+                    <option value="">Pilih Keterangan</option>
+                    <option value="H">H</option>
+                    <option value="T">T</option>
+                    <option value="S">S</option>
+                    <option value="I">I</option>
+                  </select>
+                </div>
+                <div className="flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowModel(false)}
+                    className="px-4 py-2 bg-gray-300 rounded"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-green text-white rounded"
+                  >
+                    Simpan
+                  </button>
+                </div>
+              </form>
+                    </div>
+                </div>
+            )}
 
         {/* {detailPresensi &&
           [...detailPresensi]
