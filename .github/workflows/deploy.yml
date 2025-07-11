@@ -11,4 +11,4 @@ jobs:
 
     steps:
       - name: Pull latest code
-        run: /home/github_runner/actions-runner/deploy.sh
+        run: sh /home/github_runner/actions-runner/test_deploy.sh
