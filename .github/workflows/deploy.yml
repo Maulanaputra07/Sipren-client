@@ -10,12 +10,5 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Pull latest code from master
-        run: |
-          cd /var/www/html/Sipren-client
-          git config --global --add safe.directory /var/www/html/Sipren-client
-          git fetch origin
-          git reset --hard origin/master
-          git clean -fd
-          npm install
-          npm build
+      - name: Pull latest code
+        run: /home/github_runner/actions-runner/deploy.sh
