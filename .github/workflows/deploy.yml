@@ -6,9 +6,30 @@ on:
       - master
 
 jobs:
-  deploy:
-    runs-on: self-hosted
+  test:
+    name: Test React App
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Pull latest code
-        run: sh /home/github_runner/actions-runner/deploy.sh
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Dependencies
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: | 
+          npm ci
+          npm run build
+
+  deploy:
+    name: Deploy To Production
+    runs-on: self-hosted
+    needs: test
+
+    steps:
+      - name: Setup Automation to Server
+        run: |
+          sh /home/github_runner/actions-runner/test_deploy.sh
