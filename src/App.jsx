@@ -23,6 +23,7 @@ import { DetailKelas } from "./pages/Kelas/DetailKelas.jsx";
 import { JadwalGuru } from "./pages/Jadwal/JadwalGuru.jsx";
 import { Jadwal } from "./pages/Jadwal/Jadwal.jsx";
 import { EditJadwal } from "./pages/Jadwal/editJadwal.jsx";
+import { Profile } from "./pages/Guru/profile.jsx";
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
           }>
 
             <Route index element={<Guru/>} />
-            {/* <Route path="guru" element={<Guru />} /> */}
+            <Route path="profile" element={<Profile />} />
             <Route path="jadwal_guru" element={<JadwalGuru/>}/>
             <Route path="presensi" element={<Presensi />} />
             <Route path="presensi/:id" element={<PresensiStarted />} />

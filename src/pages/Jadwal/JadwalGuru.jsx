@@ -102,8 +102,8 @@ return (
                                 } else{
                                     Swal.fire({
                                         icon: "info",
-                                        title: `Pembelajaran ${item.nama_mapel} telah selesai`,
-                                        text: "Sesi pembelajaran ini sudah selesai",
+                                        title: `Tidak dapat mengakses pembelajaran ${item.nama_mapel}`,
+                                        text: "Pembelajaran ini hanya dapat diakses sesuai jadwal yang ditentukan.",
                                         confirmButtonColor: "#3085d6",
                                         confirmButtonText: "OK",
                                     });

@@ -9,18 +9,13 @@ function Navbar() {
 
   const pathname = window.location.pathname;
 
-  function handleLogout(e) {
-    e.preventDefault();
-    axios
-      .delete("/auth/logout")
-      .then((res) => {
-        localStorage.setItem("user", null);
-        localStorage.setItem("token", null);
-        navigate("/");
-      })
-      .catch((err) => console.log(err));
+  const handleClick = () => {
+    if(auth.user.level === 0){
+      navigate("/guru/profile")
+    }
   }
- 
+
+
   return (
     <>
       <header className="header relative">
@@ -28,7 +23,7 @@ function Navbar() {
           <h3 className="shadow-none font-bold">
             {pathname.split("/")[1].replace("_", " ").toLocaleUpperCase()}
           </h3>
-          <div>
+          <div onClick={handleClick} className={`${auth.user.level ? "" : "hover:cursor-pointer px-2 py-1 rounded-lg hover:bg-white/70 transition-all duration-300"}`}>
             <div className="user">
               <p>{auth.user.nama}</p>
               <span className="font-poppins">{auth.user.level ? "Admin" : "Guru"}</span>
@@ -59,80 +54,6 @@ function Navbar() {
                   strokeWidth="6"
                 />
               </svg>
-            {/* <button>
-              <div className="user-dropdown hidden bg-white absolute right-6 rounded shadow-lg border-lg border-gray/20">
-                <div className="rounded-lg">
-                  <div
-                    className="d-flex justify-between items-center px-3 py-2"
-                    style={{ gap: "10px" }}
-                  >
-                    <p className="font-bold text-black">{auth?.user?.nama}</p>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="40"
-                      height="40"
-                      viewBox="0 0 63 64"
-                      fill="none"
-                    >
-                      <path
-                        d="M17.25 48.9125V46.0625C17.25 38.1925 23.63 31.8125 31.5 31.8125C39.37 31.8125 45.75 38.1925 45.75 46.0625V48.9125"
-                        stroke="black"
-                        strokeWidth="6"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M31.5 31.8125C36.2221 31.8125 40.05 27.9847 40.05 23.2625C40.05 18.5405 36.2221 14.7125 31.5 14.7125C26.7778 14.7125 22.95 18.5405 22.95 23.2625C22.95 27.9847 26.7778 31.8125 31.5 31.8125Z"
-                        stroke="black"
-                        strokeWidth="6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M31.5 60.3125C47.2401 60.3125 60 47.5526 60 31.8125C60 16.0724 47.2401 3.3125 31.5 3.3125C15.7599 3.3125 3 16.0724 3 31.8125C3 47.5526 15.7599 60.3125 31.5 60.3125Z"
-                        stroke="black"
-                        strokeWidth="6"
-                      />
-                    </svg>
-                  </div>
-                  <div className="user-dropdown-content rounded px-3 py-2 bg-red/50">
-                    <form
-                      onSubmit={handleLogout}
-                      method="POST"
-                      className="flex border-1 justify-between"
-                    >
-                      <button
-                        className="font-bold w-28 cursor-pointer flex justify-between"
-                        type="submit"
-                      >
-                        Logout
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                        >
-                          <path
-                            d="M11.8518 12.0195H21.7037M21.7037 12.0195L17.4814 15.3594M21.7037 12.0195L17.4814 8.67969"
-                            stroke="black"
-                            strokeWidth="3"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M21.7037 5.33984V4.22656C21.7037 2.99687 20.4435 2 18.8889 2H4.81481C3.26023 2 2 2.99687 2 4.22656V19.8125C2 21.0422 3.26023 22.0391 4.81481 22.0391H18.8889C20.4435 22.0391 21.7037 21.0422 21.7037 19.8125V18.6992"
-                            stroke="black"
-                            strokeWidth="3"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </button> */}
           </div>
         </div>
       </header>

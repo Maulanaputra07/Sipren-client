@@ -9,7 +9,7 @@ export const useAxios = () => {
 
   const token = getDecryptedData("token");
   return axios.create({
-    baseURL: `${api_url}:${port}`,
+    baseURL: `${api_url}`,
     headers: {
       Authorization: "Bearer " + token,
     },
