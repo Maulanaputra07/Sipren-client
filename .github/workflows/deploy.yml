@@ -32,4 +32,4 @@ jobs:
     steps:
       - name: Setup Automation to Server
         run: |
-          sh /home/github_runner/actions-runner/test_deploy.sh
+          sh /home/github_runner/actions-runner/deploy.sh
