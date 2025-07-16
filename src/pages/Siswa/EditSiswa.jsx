@@ -109,18 +109,19 @@ export const EditSiswa = () => {
             </h1>
 
             <div className="flex flex-col mb-5">
-              <label htmlFor="rfid" className="p-2">
-                RFID :
+              <label htmlFor="nis" className="p-2">
+                NIS :
               </label>
               <input
                 type="text"
-                id="rfid"
-                name="rfid"
-                value={current.rfid || ""}
-                onChange={(e) => setCurrent({ ...current, rfid: e.target.value })}
+                id="nis"
+                name="nis"
+                value={current.nis || ""}
+                onChange={(e) => setCurrent({ ...current, nis: e.target.value })}
                 className="text-blue_dark rounded p-2 px-3"
               />
             </div>
+
             <div className="flex flex-col mb-5">
               <label htmlFor="nama" className="p-2">
                 Nama :
@@ -136,18 +137,19 @@ export const EditSiswa = () => {
             </div>
 
             <div className="flex flex-col mb-5">
-              <label htmlFor="nis" className="p-2">
-                NIS :
+              <label htmlFor="rfid" className="p-2">
+                RFID :
               </label>
               <input
                 type="text"
-                id="nis"
-                name="nis"
-                value={current.nis || ""}
-                onChange={(e) => setCurrent({ ...current, nis: e.target.value })}
+                id="rfid"
+                name="rfid"
+                value={current.rfid || ""}
+                onChange={(e) => setCurrent({ ...current, rfid: e.target.value })}
                 className="text-blue_dark rounded p-2 px-3"
               />
             </div>
+            
             <div className="flex w-full justify-end gap-3">
               <Link to={"/admin/kelas/detail/" + (id ? id : current.id_kelas)}  className="p-4 py-2 rounded bg-red">
                 Kembali

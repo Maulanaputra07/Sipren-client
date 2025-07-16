@@ -23,12 +23,21 @@ export function PresensiStarted() {
       keterangan: current.keterangan
     })
     .then((res) => {
+      const ketMap = {
+        "T": { text: "Terlambat", icon: "warning", color: "#ef4444" },
+        "S": { text: "Sakit", icon: "error", color: "#f97316" },
+        "H": { text: "Hadir", icon: "success", color: "#22c55e" },
+        "I": { text: "Izin", icon: "info", color: "#3b82f6" },
+    };
+
+    const ket = ketMap[current.keterangan] || { text: "Unknown", icon: "question", color: "#6b7280" };
+
         Swal.fire({
-            title: "Success!",
-            text: `${res.data?.message}`,
-            icon: "success",
+            title: ket.text,
+            text: res.data?.message,
+            icon: ket.icon,
+            confirmButtonColor: ket.color,
         }).then(() => {
-            // window.location.reload();
             fetchSiswa();
         });
     }).catch((err) => {
@@ -55,17 +64,21 @@ export function PresensiStarted() {
   function handleEnded() {
     localStorage.removeItem("sedangPresensi");
 
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Presensi has been saved",
-      showConfirmButton: true,
-      timer: 1500,
-    }).then(res => {
-      window.location = '/guru/data_presensi' 
-    });
-  }
-
+    axios.post(`/presensi/${id}/end`)
+      .then((res) => {
+        console.log("berakhir");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Presensi has been saved",
+          showConfirmButton: true,
+          timer: 1500,
+        }).then(res => {
+          window.location = '/guru/data_presensi' 
+        });
+      })
+    }
+    
   const handleKeterangan = (e) => {
     setCurrent({ ...current, keterangan: e.target.value });
     console.log("Value Keterangan : " + e.target.value);
@@ -104,8 +117,14 @@ export function PresensiStarted() {
             rfid: buffer,
           })
           .then((res) => {
-            fetchSiswa();
-            // window.location.reload();
+            Swal.fire({
+            title: "Hadir",
+            text: res.data?.message,
+            icon: "Success",
+            confirmButtonColor: "#22c55e",
+        }).then(()=> {
+          fetchSiswa();
+        })
           })
           .catch((err) => {
             console.log(err);

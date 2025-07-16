@@ -9,7 +9,7 @@ export const useAxios = () => {
 
   const token = getDecryptedData("token");
   return axios.create({
-    baseURL: `${api_url}`,
+    baseURL: `${api_url}:${port}`,
     headers: {
       Authorization: "Bearer " + token,
     },
@@ -44,6 +44,7 @@ export function formatDate(date) {
   const options = { day: "numeric", month: "long", year: "numeric" };
   return date.toLocaleDateString("id-ID", options);
 }
+
 export function formatDateTime(date) {
   const options = {
     hour: "numeric",

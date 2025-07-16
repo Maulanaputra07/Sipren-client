@@ -134,11 +134,9 @@ function Guru() {
                       <>
                       <div className="flex relative gap-4 p-2 overflow-y-hidden">
                         {jadwal.map((item) => (
-                          <div key={item.id_jadwal} className="relative">
-                            <div className={`absolute hover:cursor-pointer z-30 right-2.5 top-2 rounded-full ${item.status === true ? "bg-blue_light" : "bg-transparent"} border border-gray/50`}>
-                              <Link to="">
-                                <img src={arrowUp} width={35} alt="" />
-                              </Link>
+                          <div key={item.id_jadwal} className="relative cursor-pointer">
+                            <div className={`absolute z-30 right-2.5 top-2 rounded-full ${item.status === true ? "bg-blue_light" : "bg-[#F2F2F0]"}`}>
+                                <img src={arrowUp} width={35} alt="" className={`${item.status === true ? "" : "opacity-20"}`}/>
                             </div>
                             <div className={`w-[12rem] h-40 rounded-md ${item.status === true ? "bg-blue_light text-black" : "bg-[#F2F2F0] text-gray"}`}
                               style={{
@@ -178,13 +176,13 @@ function Guru() {
                   </div>
                 </div>
                 <div className="w-1/2 shadow-md">
-                  <p className="text-2xl bg-orange_fade rounded py-3 px-4 font-semibold font-poppins">HISTORY</p>
+                  <p className="text-2xl bg-orange_fade rounded py-3 px-4 font-semibold font-poppins">HISTORY HARI INI</p>
                   <div className="h-64 bg-white">
                       {historyToday.length !== 0 ? (
                         <>
-                          <div className="relative flex w-full h-[12.5rem] justify-center items-center">
+                          <div className="relative flex overflow-x-auto w-full h-[12.5rem] justify-center gap-2 items-center">
                             {historyToday.map((item, i) => (
-                              <div className="p-3 bg-blue_light text-xl rounded-lg w-fit h-2/3 font-poppins flex flex-col">
+                              <div key={i} className="p-3 bg-blue_light text-xl rounded-lg w-2/5 h-2/3 font-poppins">
                                 <p className="font-semibold">{item.tingkat + " " + item.akronim + " " + item.no_kelas}</p>
                                 <div className="w-full h-full flex flex-col justify-center items-start p-2">
                                   <p className="font-semibold">{item.nama_mapel}</p>

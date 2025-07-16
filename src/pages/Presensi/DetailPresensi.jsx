@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar";
 import { formatDateTime, useAxios } from "../../utils/Provider";
 import { AuthGuard } from "../../utils/AuthGuard";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export function DetailPresensi() {
     const axios = useAxios();
@@ -36,6 +37,11 @@ export function DetailPresensi() {
         keterangan: current.keterangan
       })
       .then((res) => {
+        Swal.fire({
+            title: "Success!",
+            text: "Berhsil edit keterangan siswa",
+            icon: "success",
+        })
           fetchSiswa();
       }).catch((err) => {
           console.log("error saat post : " + err.response?.data?.message || err.message);
@@ -108,7 +114,7 @@ export function DetailPresensi() {
                                 <td className="border px-4 py-2">{index + 1}</td>
                                 <td className="border px-4 py-2">{siswa.nama}</td>
                                 <td className="border px-4 py-2">{siswa.keterangan}</td>
-                                <td className="border px-4 py-2">{formatDateTime(new Date(siswa.present_at))}</td>
+                                <td className="border px-4 py-2">{ siswa.present_at == null ? "-" : formatDateTime(new Date(siswa.present_at))}</td>
                                 <td className="border px-4 py-2">
                                   <button onClick={() => { setShowModel(true); setSelectedIdDet(siswa.id_det);}}  className="bg-orange_scale p-2 px-3 rounded">Edit</button>
                                 </td>

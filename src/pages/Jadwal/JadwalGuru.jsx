@@ -147,7 +147,7 @@ return (
                                 </div>
                                 <div>
                                     <label className="block text-md font-medium" >Deskripsi Materi</label>
-                                    <textarea name="deskripsi_materi" id="deskripsi_materi" onChange={handleChange} className="border rounded w-full block"></textarea>
+                                    <textarea name="deskripsi_materi" id="deskripsi_materi" onChange={handleChange} className="border rounded w-full block px-3 py-2"></textarea>
                                 </div>
                                 <div className="flex justify-end w-full">
                                     <button type="button" onClick={() => setShowModel(false)} className="px-4 py-2 rounded">Kembali</button>

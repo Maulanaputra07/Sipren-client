@@ -198,6 +198,7 @@ export const EditKelas = () => {
                   setCurrent({ ...current, no_kelas: e.target.value })
                 }
                 className="text-blue_dark rounded p-2 px-3"
+                required
               />
             </div>
 
