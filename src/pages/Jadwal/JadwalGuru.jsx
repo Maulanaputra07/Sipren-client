@@ -84,13 +84,16 @@ export function JadwalGuru() {
 return (
     <AuthGuard>
         <div className="hero">
-            <div className="w-full flex flex-col gap-5 h-full">
-                <div className="flex gap-3 flex-wrap">
+            <div className="w-full gap-5 h-full">
+                <div className="flex gap-3 flex-wrap justify-center items-center">
                     {jadwal?.length !== 0 ? (
                         jadwal.map((item, i) => (
                             <div
+                            key={i}
                             onClick={() => {
-                                if(item.status !== false){
+                                console.log("item.status", item.status)
+                                console.log("item.presensi_selesai", item.presensi_selesai)
+                                if(item.status === true && item.presensi_selesai === null){
                                     const presensi = JSON.parse(localStorage.getItem("sedangPresensi"));
     
                                     if(presensi && presensi.status && presensi.id_presensi){
@@ -109,7 +112,7 @@ return (
                                     });
                                 }
                             }}
-                            className={`w-[15rem] h-40 rounded-md ${item.status === false ? "text-black/50" : "text-[#273248] hover:cursor-pointer hover:scale-105 hover:brightness-105 transition-all duration-200"}`}
+                            className={`w-[15rem] h-40 m-5 rounded-md ${item.status === false ? "text-black/50" : "text-[#273248] hover:cursor-pointer hover:scale-105 hover:brightness-105 transition-all duration-200"}`}
                                 style={{
                                     maskImage: 'url(/images/folder3.png)',
                                     WebkitMaskImage: 'url(/images/folder3.png)',
@@ -120,7 +123,8 @@ return (
                                 }}>
                                     <p className={`pl-8 font-bold p-1 ${item.status === false ? "bg-gray" : "bg-orange-300"}`}>{item.tingkat} {item.akronim} {item.no_kelas}</p>
                                     <div className={`flex flex-col ${item.status === false ? "bg-gray/30" : "bg-[#FEFAE0]"} font-poppins font-semibold text-lg w-full h-[80%] justify-center items-center`}>
-                                        <p>{item.nama_mapel}</p>
+                                        <p className="font-bold">{item.nama_mapel}</p>
+                                        <p>{item.pecahan_absen === "semua" ?  "" : `(${item.pecahan_absen})`}</p>
                                         <p>{item.nama_ruang}</p>
                                     </div>
                             </div>

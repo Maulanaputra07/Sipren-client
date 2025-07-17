@@ -104,6 +104,7 @@ export function DetailPresensi() {
                               <th className="border px-4 py-2 text-left">No</th>
                               <th className="border px-4 py-2 text-left">Nama</th>
                               <th className="border px-4 py-2 text-left">Keterangan</th>
+                              <th className="border px-4 py-2 text-left">Deskripsi keterangan</th>
                               <th className="border px-4 py-2 text-left">Hadir pada</th>
                               <th className="border px-4 py-2 text-left">Aksi</th>
                             </tr>
@@ -114,6 +115,7 @@ export function DetailPresensi() {
                                 <td className="border px-4 py-2">{index + 1}</td>
                                 <td className="border px-4 py-2">{siswa.nama}</td>
                                 <td className="border px-4 py-2">{siswa.keterangan}</td>
+                                <td className="border px-4 py-2">{siswa.deskripsi_keterangan}</td>
                                 <td className="border px-4 py-2">{ siswa.present_at == null ? "-" : formatDateTime(new Date(siswa.present_at))}</td>
                                 <td className="border px-4 py-2">
                                   <button onClick={() => { setShowModel(true); setSelectedIdDet(siswa.id_det);}}  className="bg-orange_scale p-2 px-3 rounded">Edit</button>

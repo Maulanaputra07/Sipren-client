@@ -44,6 +44,10 @@ export function EditJadwal(){
         setCurrent({...current, id_kelas: e.target ? e.target.value : e});
     }
 
+    const handleChangePecahanAbsen = (e) => {
+        setCurrent({...current, pecahan_absen: e.target ? e.target.value : e})
+    }
+
     const handleChangeMapel = (e) => {
         setCurrent({...current, id_mapel: e.target.value})
     }
@@ -68,6 +72,7 @@ export function EditJadwal(){
                 hari: current.hari,
                 jadwal_mulai: mulai,
                 jadwal_selesai: selesai,
+                pecahan_absen: current.pecahan_absen,
                 id_mapel: current.id_mapel,
                 id_ruang: current.id_ruang,
                 id_user: current.id_user
@@ -88,6 +93,7 @@ export function EditJadwal(){
                 hari: e.target.hari.value,
                 jadwal_mulai: e.target.jadwal_dimulai.value,
                 jadwal_selesai: e.target.jadwal_selesai.value,
+                pecahan_absen: e.target.pecahan_absen.value,
                 id_mapel: e.target.mapel.value,
                 id_ruang: e.target.ruang.value,
                 id_user: e.target.user.value
@@ -308,6 +314,12 @@ export function EditJadwal(){
                                             )
                                             }
                                         </select>
+                                        <select name="pecahan_absen" id="pecahan_absen" value={current.pecahan_absen} onChange={handleChangePecahanAbsen} className="w-full block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
+                                            <option value="" disabled hidden>Pilih absensi</option>
+                                            <option value="semua">Semua</option>
+                                            <option value="besar">Besar</option>
+                                            <option value="kecil">Kecil</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -335,6 +347,7 @@ export function EditJadwal(){
                                         ))}
                                     </select>
                                 </div>
+
                                 {/* Jam Selesai */}
                                 <div className="w-full">
                                     <p className="font-poppins font-semibold mb-1">Jam Selesai <span className="text-red/65 select-none">*</span></p>

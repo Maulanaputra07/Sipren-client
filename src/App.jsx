@@ -24,11 +24,13 @@ import { JadwalGuru } from "./pages/Jadwal/JadwalGuru.jsx";
 import { Jadwal } from "./pages/Jadwal/Jadwal.jsx";
 import { EditJadwal } from "./pages/Jadwal/editJadwal.jsx";
 import { Profile } from "./pages/Guru/profile.jsx";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+          <Toaster reverseOrder={false} />
         <Routes>
           <Route path="/" element={<Login />} />
           <Route

@@ -14,7 +14,7 @@ import booksIcon from "/icons/booksIcon.svg";
 import mapelIcon from "/icons/mapelIcon.svg";
 import scheduleIcon from "/icons/scheduleIcon.svg";
 import { all } from "axios";
-
+import { Toaster, toast } from "react-hot-toast";
 
 function Guru() {
   const today = new Date().toLocaleDateString("sv-SE", { timeZone: "Asia/Jakarta" });
@@ -94,6 +94,7 @@ function Guru() {
   }
 
   useEffect(() => {
+    // toast.success('Berhasil disimpan!');
     if(!auth?.user?.level){
       fetchJadwal();
       fetchHistory();
@@ -108,6 +109,7 @@ function Guru() {
   return (
     <AuthGuard>
       <div className="hero">
+        <Toaster position="top-right" reverseOrder={false}/>
         <div className="w-full">
           <div className="flex w-full gap-5 justify-between items-center mb-5">
             <div className="bg-blue_scale text-white w-full max-w-md rounded-md h-24 flex">
@@ -126,37 +128,41 @@ function Guru() {
         {!auth?.user?.level ? (
           <div>
             <div className="jadwal">
-              <div className="w-full h-full flex rounded-md gap-2">
+              <div className="max-w-full h-full flex rounded-md gap-2">
                 <div className="w-1/2 shadow-md">
                   <p className="text-2xl bg-orange_fade rounded py-3 px-4 font-semibold font-poppins">JADWAL HARI INI</p>
-                  <div className="h-64 bg-white p-5 ">
+                  <div className="h-64 w-[30rem] bg-white p-5 ">
                     {jadwal && jadwal.length !== 0 ? (
                       <>
-                      <div className="flex relative gap-4 p-2 overflow-y-hidden">
+                      <div className="flex gap-4 p-2 overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
                         {jadwal.map((item) => (
-                          <div key={item.id_jadwal} className="relative cursor-pointer">
-                            <div className={`absolute z-30 right-2.5 top-2 rounded-full ${item.status === true ? "bg-blue_light" : "bg-[#F2F2F0]"}`}>
-                                <img src={arrowUp} width={35} alt="" className={`${item.status === true ? "" : "opacity-20"}`}/>
-                            </div>
-                            <div className={`w-[12rem] h-40 rounded-md ${item.status === true ? "bg-blue_light text-black" : "bg-[#F2F2F0] text-gray"}`}
-                              style={{
-                                  maskImage: 'url(/images/cardLayout1.png)',
-                                  WebkitMaskImage: 'url(/images/cardLayout1.png)',
-                                  maskRepeat: 'no-repeat',
-                                  WebkitMaskRepeat: 'no-repeat',
-                                  maskSize: 'cover',
-                                  WebkitMaskSize: 'cover',
-                              }}>
-                                <div className="flex-col justify-between">
-                                      <p className="pl-3 pt-5 text-2xl font-poppins font-semibold">{item.tingkat} {item.akronim} {item.no_kelas}</p>
-                                      <p className="pl-3 text-sm font-poppins">{item.jadwal_mulai} - {item.jadwal_selesai}</p>
-                                </div>
-                                <div className="flex-col w-full h-[80%] p-5">
-                                      <p className="font-poppins font-semibold text-md">{item.nama_mapel}</p>
-                                      <p className="font-poppins text-end font-normal text-lg">{item.nama_ruang}</p>
-                                </div>
-                            </div>
-                          </div>
+                          <>
+                          <Link to={"/guru/jadwal_guru"}>
+                            <div key={item.id_jadwal} className="relative cursor-pointer">
+                              <div className={`absolute z-30 right-2.5 top-2 rounded-full ${item.status === true ? "bg-blue_light" : "bg-[#F2F2F0]"}`}>
+                                  <img src={arrowUp} width={35} alt="" className={`${item.status === true ? "" : "opacity-20"}`}/>
+                              </div>
+                              <div className={`w-[12rem] h-40 rounded-md ${item.status === true ? "bg-blue_light text-black" : "bg-[#F2F2F0] text-gray"}`}
+                                style={{
+                                    maskImage: 'url(/images/cardLayout1.png)',
+                                    WebkitMaskImage: 'url(/images/cardLayout1.png)',
+                                    maskRepeat: 'no-repeat',
+                                    WebkitMaskRepeat: 'no-repeat',
+                                    maskSize: 'cover',
+                                    WebkitMaskSize: 'cover',
+                                }}>
+                                  <div className="flex-col justify-between">
+                                        <p className="pl-3 pt-5 text-2xl font-poppins font-semibold">{item.tingkat} {item.akronim} {item.no_kelas}</p>
+                                        <p className="pl-3 text-sm font-poppins">{item.jadwal_mulai} - {item.jadwal_selesai}</p>
+                                  </div>
+                                  <div className="flex-col w-full h-[80%] p-5">
+                                        <p className="font-poppins font-semibold text-md">{item.nama_mapel}</p>
+                                        <p className="font-poppins text-end font-normal text-lg">{item.nama_ruang}</p>
+                                  </div>
+                              </div>
+                            </div>                          
+                          </Link>
+                          </>
                         ))} 
                       </div>
                       <div className="pt-5 justify-end w-full flex">
@@ -177,34 +183,36 @@ function Guru() {
                 </div>
                 <div className="w-1/2 shadow-md">
                   <p className="text-2xl bg-orange_fade rounded py-3 px-4 font-semibold font-poppins">HISTORY HARI INI</p>
-                  <div className="h-64 bg-white">
-                      {historyToday.length !== 0 ? (
-                        <>
-                          <div className="relative flex overflow-x-auto w-full h-[12.5rem] justify-center gap-2 items-center">
-                            {historyToday.map((item, i) => (
-                              <div key={i} className="p-3 bg-blue_light text-xl rounded-lg w-2/5 h-2/3 font-poppins">
-                                <p className="font-semibold">{item.tingkat + " " + item.akronim + " " + item.no_kelas}</p>
-                                <div className="w-full h-full flex flex-col justify-center items-start p-2">
-                                  <p className="font-semibold">{item.nama_mapel}</p>
-                                  <p className="font-normal">{item.nama_materi}</p>
-                                </div>
+                  <div className="h-64 w-[30rem] bg-white p-5 ">
+                    {historyToday && historyToday.length !== 0 ? (
+                      <>
+                      <div className="flex gap-4 p-2 overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+                        {historyToday.map((item, i) => (
+                          <Link to={`/guru/data_presensi/update/${item.id_presensi}`}>
+                            <div key={i} className="p-3 bg-blue_light text-xl rounded-lg w-[12rem] h-[10rem] font-poppins flex-shrink-0">
+                              <p className="font-semibold">{item.tingkat + " " + item.akronim + " " + item.no_kelas}</p>
+                              <div className="w-full h-full flex flex-col justify-center items-start p-2">
+                                <p className="font-semibold">{item.nama_mapel}</p>
+                                <p className="font-normal">{item.nama_materi}</p>
                               </div>
-                            ))}
-                          </div>
-                          <div className="justify-end p-3 w-full flex">
-                            <Link to={"/guru/data_presensi"}>
-                              <p className="font-poppins text-lg flex items-center">Detail <img src={arrow} width={30} alt="" /> </p>
-                            </Link>
-                          </div>
-                        </>
-                      ) : (
+                            </div>
+                          </Link>
+                        ))} 
+                      </div>
+                      <div className="pt-5 justify-end w-full flex">
+                        <Link to={"/guru/data_presensi"}>
+                          <p className="font-poppins text-lg flex items-center">Detail <img src={arrow} width={30} alt="" /> </p>
+                        </Link>
+                      </div>
+                      </>
+                    ): (
                         <div className="w-full h-full flex justify-center items-center">
                             <div className="bg-gray/10 p-10 shadow-lg flex flex-col items-center select-none rounded-lg w-fit gap-4 justify-center">
-                                <img src={presenceIcon} alt="" width={100} />
-                                <h1 className="text-xl font-semibold">Anda belum memiliki history presensi hari ini</h1>
+                                <img src={emptyFolderIcon} alt="" width={100} />
+                                <h1 className="text-xl font-semibold">Anda tidak memiliki jadwal hari ini</h1>
                             </div>
                         </div>
-                      ) }
+                    )}
                   </div>
                 </div>
               </div>

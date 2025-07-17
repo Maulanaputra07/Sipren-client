@@ -5,6 +5,7 @@ import { AuthGuard } from "../../utils/AuthGuard";
 import { useAuth, useAxios } from "../../utils/Provider";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Toaster, toast } from "react-hot-toast";
 
 export function PresensiStarted() {
   const { id } = useParams();
@@ -12,7 +13,7 @@ export function PresensiStarted() {
   const axios = useAxios();
   const [showModel, setShowModel] = useState();
   const [detPres, setDetPres] = useState();
-  const [current, setCurrent] = useState({keterangan: "T"});
+  const [current, setCurrent] = useState({keterangan: "T", deskripsi_keterangan: ""});
   const [selectedIdDet, setSelectedIdDet] = useState(null);  
 
   const handleUpdateketerangan = (e) => {
@@ -20,29 +21,37 @@ export function PresensiStarted() {
     console.log("id_det : " + selectedIdDet);
     axios
     .put(`detail_presensi/${selectedIdDet}`, {
-      keterangan: current.keterangan
+      keterangan: current.keterangan,
+      deskripsi_keterangan: current.deskripsi_keterangan
     })
     .then((res) => {
       const ketMap = {
-        "T": { text: "Terlambat", icon: "warning", color: "#ef4444" },
-        "S": { text: "Sakit", icon: "error", color: "#f97316" },
-        "H": { text: "Hadir", icon: "success", color: "#22c55e" },
-        "I": { text: "Izin", icon: "info", color: "#3b82f6" },
+        "T": { text: "Terlambat", color: "#ef4444" },
+        "S": { text: "Sakit",  color: "#f97316" },
+        "H": { text: "Hadir", color: "#22c55e" },
+        "I": { text: "Izin", color: "#3b82f6" },
     };
 
     const ket = ketMap[current.keterangan] || { text: "Unknown", icon: "question", color: "#6b7280" };
 
         Swal.fire({
+            position: "center",
             title: ket.text,
             text: res.data?.message,
-            icon: ket.icon,
-            confirmButtonColor: ket.color,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1000,
         }).then(() => {
             fetchSiswa();
         });
     }).catch((err) => {
         console.log("error saat post : " + err.response?.data?.message || err.message);
     });
+
+    setCurrent({
+    keterangan: "",
+    deskripsi_keterangan: "",
+  });
 
     setShowModel(false);
   }
@@ -51,7 +60,7 @@ export function PresensiStarted() {
     axios
       .get(`/presensi/${id}`)
       .then((res) => {
-        console.log( "data :" +res.data.data);
+        console.log( "data :" +res.data.data?.detail_presensi.length);
         setDetPres(res.data.data);
       })
       .catch((err) => {
@@ -80,9 +89,21 @@ export function PresensiStarted() {
     }
     
   const handleKeterangan = (e) => {
-    setCurrent({ ...current, keterangan: e.target.value });
-    console.log("Value Keterangan : " + e.target.value);
+    const value = e.target.value;
+
+    if(value === "H"){
+      setCurrent({ ...current, keterangan: value, deskripsi_keterangan: "-" });
+    }else{
+      setCurrent({ ...current, keterangan: value, deskripsi_keterangan: "" });
+    }
   };
+
+  const handleDeskripsiChange = (e) => {
+  setCurrent({
+    ...current,
+    deskripsi_keterangan: e.target.value,
+  });
+};
 
   useEffect(() => {
     const presensi = JSON.parse(localStorage.getItem("sedangPresensi"));
@@ -121,13 +142,23 @@ export function PresensiStarted() {
             title: "Hadir",
             text: res.data?.message,
             icon: "Success",
-            confirmButtonColor: "#22c55e",
+            showConfirmButton: false,
+            timer: 1000,
         }).then(()=> {
           fetchSiswa();
         })
           })
           .catch((err) => {
             console.log(err);
+            
+            Swal.fire({
+            title: "Error",
+            text: err.response?.data?.message,
+            icon: "error",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+
           });
         buffer = "";
       } else {
@@ -146,6 +177,9 @@ export function PresensiStarted() {
   return (
     <AuthGuard>
       <div className="hero">
+        <div className="w-fit sticky top-0 z-50 border bg-orange_main mb-3 text-[#333333] border-gray/40 px-5 py-2 text-xl font-semibold rounded-md shadow-md">
+          <h1>{detPres?.tingkat} {detPres?.akronim} {detPres?.no_kelas} | {detPres?.mapel}</h1>
+        </div>
         <div className="flex-col gap-1">
           <h1 className="font-semibold font-poppins text-2xl px-5">Telah presensi</h1>
           <table className="table">
@@ -153,14 +187,16 @@ export function PresensiStarted() {
               <tr>
                 <th>Nama Siswa</th>
                 <th>Keterangan</th>
+                <th>Deskripsi keterangan</th>
                 <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
               {Array.isArray(detPres?.detail_presensi) && detPres.detail_presensi.length > 0 ? (
-                  detPres.detail_presensi.map((det, index) => {
-                    if (det.keterangan !== "T") {
-                  return (
+                  detPres.detail_presensi
+                  .filter((det) => det.keterangan !== "T")
+                  .sort((a, b) => new Date(b.present_at) - new Date(a.present_at))
+                  .map((det, index) => (
                     <tr key={index}>
                       <td>{det.nama}</td>
                       <td>
@@ -172,16 +208,19 @@ export function PresensiStarted() {
                           ? "Sakit"
                           : "Hadir"}
                       </td>
+                      <td>{det.deskripsi_keterangan}</td>
                       <td>
                         <div className="flex justify-center">
                           <button onClick={() => { setShowModel(true); setSelectedIdDet(det.id_det);}}  className="bg-orange_scale p-2 px-8 rounded">Edit</button>
                         </div>
                       </td>
                     </tr>
-                  );
-                    }
-                    return null;
-                  })
+                  //   if (det.keterangan !== "T") {
+                  // return (
+                  // );
+                  //   }
+                  //   return null;
+                  ))
                 ) : (
                 <tr>
                 <td colSpan="3" className="text-center text-gray-500 py-4">
@@ -197,6 +236,7 @@ export function PresensiStarted() {
               <tr>
                 <th>Nama Siswa</th>
                 <th>Keterangan</th>
+                <th>Deskripsi keterangan</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -216,6 +256,7 @@ export function PresensiStarted() {
                           ? "Sakit"
                           : "Hadir"}
                       </td>
+                      <td>{det.deskripsi_keterangan === null ? "Belum melakukan presensi" : det.deskripsi_keterangan}</td>
                       <td>
                         <div className="flex justify-center">
                           <button onClick={() => { setShowModel(true); setSelectedIdDet(det.id_det);}}  className="bg-orange_scale p-2 px-8 rounded">Edit</button>
@@ -256,12 +297,27 @@ export function PresensiStarted() {
                     required
                   >
                     <option value="">Keterangan</option>
-                    <option value="H">H</option>
-                    <option value="T">T</option>
-                    <option value="S">S</option>
-                    <option value="I">I</option>
+                    <option value="H">H - Hadir</option>
+                    <option value="T">T - Tanpa Keterangan</option>
+                    <option value="S">S - Sakit</option>
+                    <option value="I">I - Izin</option>
                   </select>
                 </div>
+
+                {current.keterangan !== "H" && current.keterangan !== "" && (
+                  <div>
+                    <label className="block text-sm font-medium">Deskripsi Keterangan</label>
+                    <input
+                      type="text"
+                      name="deskripsi_keterangan"
+                      value={current.deskripsi_keterangan}
+                      onChange={handleDeskripsiChange}
+                      className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
+                      required
+                    />
+                  </div>
+                )}
+
                 <div className="flex justify-end gap-2">
                   <button
                     type="button"
