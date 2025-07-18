@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { AuthGuard } from "../../utils/AuthGuard";
 import { useAuth, useAxios } from "../../utils/Provider";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Toaster, toast } from "react-hot-toast";
 
@@ -106,15 +106,18 @@ export function PresensiStarted() {
 };
 
   useEffect(() => {
-    const presensi = JSON.parse(localStorage.getItem("sedangPresensi"));
+    // const presensi = JSON.parse(localStorage.getItem("sedangPresensi"));
 
-    if(presensi && presensi.status && presensi.detail_presensi) {
-      console.log("Sedang presensi dengan ID: ", presensi.id_presensi);
+    // if(presensi && presensi.status && presensi.detail_presensi) {
+    //   console.log("Sedang presensi dengan ID: ", presensi.id_presensi);
 
-      if(window.location.pathname !== `/presensi/${presensi.id_presensi}`){
-        window.location = `/presensi/${presensi.id_presensi}`
-      }
-    }
+    //   if(window.location.pathname !== `/presensi/${presensi.id_presensi}`){
+    //     window.location = `/presensi/${presensi.id_presensi}`
+    //   }
+    // }
+
+    // cek validasi
+    // if()
 
     
     fetchSiswa();
@@ -180,108 +183,107 @@ export function PresensiStarted() {
         <div className="w-fit sticky top-0 z-50 border bg-orange_main mb-3 text-[#333333] border-gray/40 px-5 py-2 text-xl font-semibold rounded-md shadow-md">
           <h1>{detPres?.tingkat} {detPres?.akronim} {detPres?.no_kelas} | {detPres?.mapel}</h1>
         </div>
-        <div className="flex-col gap-1">
-          <h1 className="font-semibold font-poppins text-2xl px-5">Telah presensi</h1>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Nama Siswa</th>
-                <th>Keterangan</th>
-                <th>Deskripsi keterangan</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(detPres?.detail_presensi) && detPres.detail_presensi.length > 0 ? (
-                  detPres.detail_presensi
-                  .filter((det) => det.keterangan !== "T")
-                  .sort((a, b) => new Date(b.present_at) - new Date(a.present_at))
-                  .map((det, index) => (
-                    <tr key={index}>
-                      <td>{det.nama}</td>
-                      <td>
-                        {det.keterangan === "T"
-                          ? "Tanpa Keterangan"
-                          : det.keterangan === "I"
-                          ? "Izin"
-                          : det.keterangan === "S"
-                          ? "Sakit"
-                          : "Hadir"}
-                      </td>
-                      <td>{det.deskripsi_keterangan}</td>
-                      <td>
-                        <div className="flex justify-center">
-                          <button onClick={() => { setShowModel(true); setSelectedIdDet(det.id_det);}}  className="bg-orange_scale p-2 px-8 rounded">Edit</button>
-                        </div>
-                      </td>
-                    </tr>
-                  //   if (det.keterangan !== "T") {
-                  // return (
-                  // );
-                  //   }
-                  //   return null;
-                  ))
-                ) : (
+        <div className="flex gap-1">
+          <div>
+            <h1 className="font-semibold font-poppins text-2xl px-5">Telah presensi</h1>
+            <table className="table">
+              <thead>
                 <tr>
-                <td colSpan="3" className="text-center text-gray-500 py-4">
-                  Belum terdapat siswa.
-                </td>
+                  <th colSpan={2}>Nama Siswa</th>
+                  <th>Keterangan</th>
+                  <th>Deskripsi keterangan</th>
+                  <th>Aksi</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-          <h1 className="font-semibold text-black text-2xl px-5">Belum presensi</h1>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Nama Siswa</th>
-                <th>Keterangan</th>
-                <th>Deskripsi keterangan</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(detPres?.detail_presensi) && detPres.detail_presensi.length > 0 ? (
-                  detPres.detail_presensi.map((det, index) => {
-                    if (det.keterangan === "T") {
-                  return (
-                    <tr key={index}>
-                      <td>{det.nama}</td>
-                      <td>
-                        {det.keterangan === "T"
-                          ? "Tanpa Keterangan"
-                          : det.keterangan === "I"
-                          ? "Izin"
-                          : det.keterangan === "S"
-                          ? "Sakit"
-                          : "Hadir"}
-                      </td>
-                      <td>{det.deskripsi_keterangan === null ? "Belum melakukan presensi" : det.deskripsi_keterangan}</td>
-                      <td>
-                        <div className="flex justify-center">
-                          <button onClick={() => { setShowModel(true); setSelectedIdDet(det.id_det);}}  className="bg-orange_scale p-2 px-8 rounded">Edit</button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                    }
-                    return null;
-                  })
-                ) : (
+              </thead>
+              <tbody className="text-sm">
+                {Array.isArray(detPres?.detail_presensi) && detPres.detail_presensi.length > 0 ? (
+                    detPres.detail_presensi
+                    .filter((det) => det.keterangan !== "T")
+                    .sort((a, b) => new Date(b.present_at) - new Date(a.present_at))
+                    .map((det, index) => (
+                      <tr key={index}>
+                        <td className="px-3" colSpan={2}>{det.nama}</td>
+                        <td>
+                          {det.keterangan === "T"
+                            ? "Tanpa Keterangan"
+                            : det.keterangan === "I"
+                            ? "Izin"
+                            : det.keterangan === "S"
+                            ? "Sakit"
+                            : "Hadir"}
+                        </td>
+                        <td>{det.deskripsi_keterangan}</td>
+                        <td>
+                          <div className="flex justify-center">
+                            <button onClick={() => { setShowModel(true); setSelectedIdDet(det.id_det);}}  className="bg-orange_scale p-2 px-8 rounded">Edit</button>
+                          </div>
+                        </td>
+                      </tr>
+                    //   if (det.keterangan !== "T") {
+                    // return (
+                    // );
+                    //   }
+                    //   return null;
+                    ))
+                  ) : (
+                  <tr>
+                  <td colSpan="3" className="text-center text-gray-500 py-4">
+                    Belum terdapat siswa.
+                  </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h1 className="font-semibold text-black text-2xl px-5">Belum presensi</h1>
+            <table className="table text-sm">
+              <thead>
                 <tr>
-                <td colSpan="3" className="text-center text-gray-500 py-4">
-                  Belum terdapat siswa.
-                </td>
+                  <th>Nama Siswa</th>
+                  <th>Keterangan</th>
+                  <th>Deskripsi keterangan</th>
+                  <th>Aksi</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-          <button
-            className="bg-red sticky bottom-5 left-full text-white p-5 py-2 rounded"
-            onClick={handleEnded}
-          >
-            Akhiri
-          </button>
+              </thead>
+              <tbody>
+                {Array.isArray(detPres?.detail_presensi) && detPres.detail_presensi.length > 0 ? (
+                    detPres.detail_presensi.map((det, index) => {
+                      if (det.keterangan === "T") {
+                    return (
+                      <tr key={index}>
+                        <td>{det.nama}</td>
+                        <td>
+                          {det.keterangan === "T"
+                            ? "Tanpa Keterangan"
+                            : det.keterangan === "I"
+                            ? "Izin"
+                            : det.keterangan === "S"
+                            ? "Sakit"
+                            : "Hadir"}
+                        </td>
+                        <td>{det.deskripsi_keterangan === null ? "Belum melakukan presensi" : det.deskripsi_keterangan}</td>
+                        <td>
+                          <div className="flex justify-center">
+                            <button onClick={() => { setShowModel(true); setSelectedIdDet(det.id_det);}}  className="bg-orange_scale p-2 px-8 rounded">Edit</button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                      }
+                      return null;
+                    })
+                  ) : (
+                  <tr>
+                  <td colSpan="3" className="text-center text-gray-500 py-4">
+                    Belum terdapat siswa.
+                  </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+          
 
           {showModel && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -338,6 +340,12 @@ export function PresensiStarted() {
                 </div>
             )}
         </div>
+        <button
+            className="w-fit fixed bottom-0 right-10 z-50 border bg-red mb-3 text-[#FAFAFA] border-gray/40 px-5 py-2 text-xl font-semibold rounded-md shadow-md"
+            onClick={handleEnded}
+          >
+            Akhiri
+          </button>
       </div>
     </AuthGuard>
   );

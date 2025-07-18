@@ -135,14 +135,16 @@ function Guru() {
                     {jadwal && jadwal.length !== 0 ? (
                       <>
                       <div className="flex gap-4 p-2 overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-                        {jadwal.map((item) => (
+                        {jadwal
+                        // .filter((item) => item.status !== false)
+                        .map((item) => (
                           <>
                           <Link to={"/guru/jadwal_guru"}>
                             <div key={item.id_jadwal} className="relative cursor-pointer">
-                              <div className={`absolute z-30 right-2.5 top-2 rounded-full ${item.status === true ? "bg-blue_light" : "bg-[#F2F2F0]"}`}>
-                                  <img src={arrowUp} width={35} alt="" className={`${item.status === true ? "" : "opacity-20"}`}/>
+                              <div className={`absolute z-30 right-2.5 top-2 rounded-full ${item.status === true && item.presensi_selesai === null ? "bg-blue_light" : "bg-[#F2F2F0]"}`}>
+                                  <img src={arrowUp} width={35} alt="" className={`${item.status === true && item.presensi_selesai === null ? "" : "opacity-20"}`}/>
                               </div>
-                              <div className={`w-[12rem] h-40 rounded-md ${item.status === true ? "bg-blue_light text-black" : "bg-[#F2F2F0] text-gray"}`}
+                              <div className={`w-[12rem] h-40 rounded-md ${item.status === true && item.presensi_selesai === null ? "bg-blue_light text-black" : "bg-[#F2F2F0] text-gray"}`}
                                 style={{
                                     maskImage: 'url(/images/cardLayout1.png)',
                                     WebkitMaskImage: 'url(/images/cardLayout1.png)',

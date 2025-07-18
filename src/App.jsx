@@ -59,7 +59,8 @@ function App() {
           }>
 
             <Route index element={<Guru/>} />
-            {/* <Route path="data_presensi" element={<DataPresensi />} /> */}
+            <Route path="data_presensi" element={<DataPresensi />} />
+            <Route path="data_presensi/update/:id" element={<DetailPresensi />} />
             <Route path="guru" element={<Guru />} />
             <Route path="presensi" element={<Presensi />} />
             <Route path="data_user" element={<DataUser />} />

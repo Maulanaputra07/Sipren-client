@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { formatDateTime, useAxios } from "../../utils/Provider";
 import { AuthGuard } from "../../utils/AuthGuard";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export function DetailPresensi() {
@@ -16,6 +16,10 @@ export function DetailPresensi() {
     const totalSiswa = detailPresensi?.detail_presensi?.length || 0;
     const hadirCount = detailPresensi?.detail_presensi?.filter(s => s.keterangan === 'H').length;
     const tidakHadirCount = detailPresensi?.detail_presensi?.filter(s => s.keterangan === 'T').length;
+    const location = useLocation();
+    const pathname = location.pathname;
+
+
 
     const fetchSiswa = () => {
       axios
@@ -106,20 +110,26 @@ export function DetailPresensi() {
                               <th className="border px-4 py-2 text-left">Keterangan</th>
                               <th className="border px-4 py-2 text-left">Deskripsi keterangan</th>
                               <th className="border px-4 py-2 text-left">Hadir pada</th>
-                              <th className="border px-4 py-2 text-left">Aksi</th>
+                              {pathname.includes('/guru/data_presensi') && (
+                                <th className="border px-4 py-2 text-left">Aksi</th>
+                              )}
                             </tr>
                           </thead>
                           <tbody>
-                            {detailPresensi.detail_presensi.map((siswa, index) => (
+                            {detailPresensi.detail_presensi
+                            .sort((a, b) => a.nama.localeCompare(b.nama))
+                            .map((siswa, index) => (
                               <tr key={index} className="hover:bg-gray-100">
                                 <td className="border px-4 py-2">{index + 1}</td>
                                 <td className="border px-4 py-2">{siswa.nama}</td>
                                 <td className="border px-4 py-2">{siswa.keterangan}</td>
                                 <td className="border px-4 py-2">{siswa.deskripsi_keterangan}</td>
                                 <td className="border px-4 py-2">{ siswa.present_at == null ? "-" : formatDateTime(new Date(siswa.present_at))}</td>
-                                <td className="border px-4 py-2">
-                                  <button onClick={() => { setShowModel(true); setSelectedIdDet(siswa.id_det);}}  className="bg-orange_scale p-2 px-3 rounded">Edit</button>
-                                </td>
+                                {pathname.includes('/guru/data_presensi') && (
+                                  <td className="border px-4 py-2">
+                                    <button onClick={() => { setShowModel(true); setSelectedIdDet(siswa.id_det);}}  className="bg-orange_scale p-2 px-3 rounded">Edit</button>
+                                  </td>
+                                )}
                               </tr>
                             ))}
                           </tbody>
