@@ -33,12 +33,20 @@ export function DetailPresensi() {
       });
     }
 
+    const handleDeskripsiChange = (e) => {
+  setCurrent({
+    ...current,
+    deskripsi_keterangan: e.target.value,
+  });
+};
+
   const handleUpdateketerangan = (e) => {
       e.preventDefault();
       // console.log("id_det : " + selectedIdDet);
       axios
       .put(`detail_presensi/${selectedIdDet}`, {
-        keterangan: current.keterangan
+        keterangan: current.keterangan,
+        deskripsi_keterangan: current.deskripsi_keterangan
       })
       .then((res) => {
         Swal.fire({
@@ -50,13 +58,23 @@ export function DetailPresensi() {
       }).catch((err) => {
           console.log("error saat post : " + err.response?.data?.message || err.message);
       });
+
+      setCurrent({
+    keterangan: "",
+    deskripsi_keterangan: "",
+  });
   
       setShowModel(false);
   }
 
   const handleKeterangan = (e) => {
-    setCurrent({ ...current, keterangan: e.target.value });
-    // console.log("Value Keterangan : " + e.target.value);
+    const value = e.target.value;
+
+    if(value === "H"){
+      setCurrent({ ...current, keterangan: value, deskripsi_keterangan: "-" });
+    }else{
+      setCurrent({ ...current, keterangan: value, deskripsi_keterangan: "" });
+    }
   };
 
   useEffect(() => {
@@ -155,13 +173,28 @@ export function DetailPresensi() {
                     className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
                     required
                   >
-                    <option value="">Pilih Keterangan</option>
-                    <option value="H">H</option>
-                    <option value="T">T</option>
-                    <option value="S">S</option>
-                    <option value="I">I</option>
+                    <option value="">Keterangan</option>
+                    <option value="H">H - Hadir</option>
+                    <option value="T">T - Tanpa Keterangan</option>
+                    <option value="S">S - Sakit</option>
+                    <option value="I">I - Izin</option>
                   </select>
                 </div>
+
+                {current.keterangan !== "H" && current.keterangan !== "" && (
+                  <div>
+                    <label className="block text-sm font-medium">Deskripsi Keterangan</label>
+                    <input
+                      type="text"
+                      name="deskripsi_keterangan"
+                      value={current.deskripsi_keterangan}
+                      onChange={handleDeskripsiChange}
+                      className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
+                      required
+                    />
+                  </div>
+                )}
+
                 <div className="flex justify-end gap-2">
                   <button
                     type="button"
