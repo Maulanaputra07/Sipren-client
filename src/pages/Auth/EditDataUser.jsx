@@ -46,7 +46,13 @@ export const EditDataUser = () => {
           level: role,
         })
         .then((res) => {
-          window.location = "/admin/data_user";
+          Swal.fire({
+            title: "Success!!",
+            text: "Berhsil update user.",
+            icon: "success",
+          }).then(() => {
+            window.location = "/admin/data_user";
+          })
           console.log(res);
         })
         .catch((err) => {

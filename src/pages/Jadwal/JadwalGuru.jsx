@@ -9,6 +9,8 @@ import emptyFolderIcon from "/icons/emptyFolder.svg";
 
 export function JadwalGuru() {
     const axios = useAxios();
+    const now = new Date();
+    const currentTime = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}`;
     const [showModel, setShowModel] = useState(false);
     const [jadwal, setJadwal] = useState([]);
     const [selectedJadwal, setSelectedJadwal] = useState(null);
@@ -43,6 +45,7 @@ export function JadwalGuru() {
             axios
             .post('/presensi', payload)
             .then((res) => {
+                console.log("berhasil input presensi: ", res.data.data)
                 const presensiData = {
                     status: true,
                     id_presensi: res.data.data.id_presensi,
@@ -78,6 +81,7 @@ export function JadwalGuru() {
     }
 
     useEffect(() => {
+        console.log("Current Time: ", currentTime);
         fetchJadwal();
     }, [])
 
@@ -93,11 +97,10 @@ return (
                             onClick={() => {
                                 console.log("item.status", item.status)
                                 console.log("item.presensi_selesai", item.presensi_selesai)
+                                
                                 if(item.status === true && item.presensi_selesai === null){
-                                    // const presensi = JSON.parse(localStorage.getItem("sedangPresensi"));
-    
-                                    if(presensi && presensi.status && presensi.id_presensi){
-                                        window.location = `presensi/${presensi.id_presensi}`
+                                    if(currentTime >= item.jadwal_mulai && currentTime <= item.jadwal_selesai && item.presensi_selesai === null){
+                                        window.location = `presensi/${jadwal.id_presensi}`
                                     }else{
                                         setSelectedJadwal(item)
                                         setShowModel(true)

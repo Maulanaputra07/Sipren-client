@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { formatDateTime, useAxios } from "../../utils/Provider";
 import { AuthGuard } from "../../utils/AuthGuard";
+import emptyFolderIcon from "/icons/emptyFolder.svg";
 import { Link, useLocation } from "react-router-dom";
 
 export function DataPresensi() {
@@ -117,7 +118,12 @@ export function DataPresensi() {
               </div>
             ));
           })() ) : (
-            <p>Belum terdapat daftar presensi</p>
+            <div className="w-full h-[80vh] flex justify-center items-center">
+                <div className="bg-gray/10 p-10 shadow-lg flex flex-col items-center select-none rounded-lg w-fit gap-4 justify-center">
+                    <img src={emptyFolderIcon} alt="" width={100} />
+                    <h1 className="text-2xl font-semibold">Anda tidak memiliki history presensi</h1>
+                </div>
+            </div>
           )}
         </div>
       </div>

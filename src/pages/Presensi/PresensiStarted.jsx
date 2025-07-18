@@ -144,7 +144,7 @@ export function PresensiStarted() {
             Swal.fire({
             title: "Hadir",
             text: res.data?.message,
-            icon: "Success",
+            icon: "success",
             showConfirmButton: false,
             timer: 1000,
         }).then(()=> {
