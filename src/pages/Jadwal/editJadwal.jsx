@@ -54,9 +54,9 @@ export function EditJadwal(){
     }
 
     const handleJenisChange = (e) => {
-        console.log("clicked")
+        // console.log("clicked")
         setIsProduktif(Number(e.target.value));
-        console.log("value mapel : " + e.target.value);
+        // console.log("value mapel : " + e.target.value);
     };
 
 
@@ -67,18 +67,16 @@ export function EditJadwal(){
     const handleSubmit = (e) => {
         e.preventDefault();
         if(pathname.includes("/update")){
-            console.log({
-                id_kelas: current.id_kelas,
-                hari: current.hari,
-                jadwal_mulai: mulai,
-                jadwal_selesai: selesai,
-                pecahan_absen: current.pecahan_absen,
-                id_mapel: current.id_mapel,
-                id_ruang: current.id_ruang,
-                id_user: current.id_user,
-            });
-
-
+            // console.log({
+            //     id_kelas: current.id_kelas,
+            //     hari: current.hari,
+            //     jadwal_mulai: mulai,
+            //     jadwal_selesai: selesai,
+            //     pecahan_absen: current.pecahan_absen,
+            //     id_mapel: current.id_mapel,
+            //     id_ruang: current.id_ruang,
+            //     id_user: current.id_user,
+            // });
 
             axios
             .put(`/jadwal/${id}`, {
@@ -210,7 +208,7 @@ export function EditJadwal(){
                 setMulai(res.data?.data?.jadwal_mulai?.substring(0, 5));
                 setSelesai(res.data?.data?.jadwal_selesai?.substring(0, 5));
 
-                console.log("data update: " + res?.data?.data?.id_kelas)
+                // console.log("data update: " + res?.data?.data?.id_kelas)
             })
             .catch((err) => {
                 Swal.fire({
@@ -362,7 +360,7 @@ export function EditJadwal(){
                                 {/* Jam Dimulai */}
                                 <div className="w-full">
                                     <p className="font-poppins font-semibold mb-1">Jam Dimulai <span className="text-red/65 select-none">*</span></p>
-                                    <select name="jadwal_dimulai" id="jadwal_dimulai" value={mulai} onChange={(e) => {setMulai(e.target.value); console.log("jam dimulai: " + e.target.value)}} className="w-full block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
+                                    <select name="jadwal_dimulai" id="jadwal_dimulai" value={mulai} onChange={(e) => {setMulai(e.target.value);}} className="w-full block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
                                         <option value="" disabled hidden>Pilih jam mulai</option>
                                         {jamBoundary.map((jam, i) => (
                                             <option key={i} value={jam}>{jam}</option>
@@ -373,7 +371,7 @@ export function EditJadwal(){
                                 {/* Jam Selesai */}
                                 <div className="w-full">
                                     <p className="font-poppins font-semibold mb-1">Jam Selesai <span className="text-red/65 select-none">*</span></p>
-                                    <select name="jadwal_selesai" id="jadwal_selesai" value={selesai} onChange={(e) => {setSelesai(e.target.value); console.log("jam selesai: " + e.target.value)}} className="w-full block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
+                                    <select name="jadwal_selesai" id="jadwal_selesai" value={selesai} onChange={(e) => {setSelesai(e.target.value);}} className="w-full block font-poppins p-2 border border-gray/100 rounded-lg bg-white px-4 py-2 text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition focus:border-blue/20 duration-200">
                                         <option value="" disabled hidden>Pilih jam Selesai</option>
                                         {filteredSelesai.map((jam, i) => (
                                             <option key={i} value={jam}>{jam}</option>

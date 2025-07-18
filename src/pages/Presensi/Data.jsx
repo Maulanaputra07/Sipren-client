@@ -16,7 +16,7 @@ export function DataPresensi() {
       .get("/presensi/mine")
       .then((res) => {
         setPresensi(res.data.data);
-        console.log("presensi: " + res.data?.data?.length);
+        // console.log("presensi: " + res.data?.data?.length);
       })
       .catch((err) => {
         console.log(err);
@@ -24,7 +24,7 @@ export function DataPresensi() {
   }
 
   const handleChangeGuru = (e) => {
-    console.log("value guru: ", e.target ? e.target.value : e);
+    // console.log("value guru: ", e.target ? e.target.value : e);
     setSelectedGuru(e.target ? e.target.value : e)
   }
 
@@ -43,7 +43,7 @@ export function DataPresensi() {
       .get("/presensi/")
       .then((res) => {
         setPresensi(res.data.data);
-        console.log("presensi: " + res.data?.data?.length);
+        // console.log("presensi: " + res.data?.data?.length);
       })
       .catch((err) => {
         console.log(err);

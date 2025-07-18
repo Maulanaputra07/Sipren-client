@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export const AuthGuard = ({ children, allowedLevels }) => {
   const auth = useAuth();
-  console.log(auth.user);
+  // console.log(auth.user);
 
   if (!auth.user) {
     return <Navigate to="/" />;

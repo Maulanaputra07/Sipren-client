@@ -58,7 +58,7 @@ export function DetailKelas() {
 //   }
 
 const handleImport = async () => {
-  console.log("handle clicked")
+  // console.log("handle clicked")
   setLoading(true);
   try{
     const payload = {
@@ -70,7 +70,7 @@ const handleImport = async () => {
       })),
     };
 
-    console.log("data payload: ", JSON.stringify(payload, null, 2));
+    // console.log("data payload: ", JSON.stringify(payload, null, 2));
 
     await axios.post("/siswa/lots", payload)
     .then((res) => {
@@ -103,7 +103,7 @@ const handleFileUpload = (e) => {
     const wsname = workbook.SheetNames[0];
     const ws = workbook.Sheets[wsname];
     const jsonData = XLSX.utils.sheet_to_json(ws, {header: 0});
-    console.log("data excel " + jsonData);
+    // console.log("data excel " + jsonData);
     setData(jsonData);
   }
 
@@ -147,7 +147,7 @@ const fetchKelas = () => {
       .get(`/kelas/${id}`)
       .then((res) => {
         setKelas(res.data.data);
-        console.log("data kelas: " + res.data.data)
+        // console.log("data kelas: " + res.data.data)
       })
       .catch((err) => {
         console.log(err);
@@ -183,7 +183,7 @@ const fetchKelas = () => {
       fetchKelas();
       })
       .catch((err) => {
-        console.log("payload :" + payload);
+        // console.log("payload :" + payload);
         Swal.fire({
           title: "Error!",
           text: err.response?.data?.message || "Terjadi kesalahan",

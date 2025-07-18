@@ -19,7 +19,7 @@ export function Jadwal(){
         axios.get('/jadwal')
         .then((res) => {
             setJadwal(res.data.data)
-            console.log("jadwal: "+ res.data?.data?.length);
+            // console.log("jadwal: "+ res.data?.data?.length);
 
             const count = res.data?.data?.reduce((acc, curr) => {
                 acc[curr.nama_guru] = (acc[curr.nama_guru] || 0) + 1;
@@ -43,7 +43,7 @@ export function Jadwal(){
         axios.get('/users')
         .then((res) => {
             setGuru(res.data?.data);
-            console.log("data guru: " + res.data?.data?.length);
+            // console.log("data guru: " + res.data?.data?.length);
         })
     }
 
@@ -51,11 +51,11 @@ export function Jadwal(){
         setActiveGuru(nama_guru);
         const filtered = jadwal.filter((item) => item.nama_guru === nama_guru);
         setSelectedJadwal(filtered);
-        console.log("data fliter: " + filtered);
+        // console.log("data fliter: " + filtered);
     }
 
     function handleDeleteJadwal(e) {
-        console.log("deleted button")
+        // console.log("deleted button")
 
         Swal.fire({
             title: "Yakin Ingin Menghapus Jadwal?",

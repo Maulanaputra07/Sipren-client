@@ -18,7 +18,7 @@ function Login() {
         password: e.target.password.value,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setEncryptedData("token", res.data.accessToken);
         setEncryptedData("user", res.data.user); // simpan user langsung
         if(res.data.user.level){

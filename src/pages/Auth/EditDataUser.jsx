@@ -23,7 +23,7 @@ export const EditDataUser = () => {
           const user = res.data;
           setCurrentUser(user);
           setRole(user.level); // Atur role berdasarkan level dari data user
-          console.log(user);
+          // console.log(user);
         })
         .catch((err) => {
           console.log(err);
@@ -53,7 +53,7 @@ export const EditDataUser = () => {
           }).then(() => {
             window.location = "/admin/data_user";
           })
-          console.log(res);
+          // console.log(res);
         })
         .catch((err) => {
           Swal.fire({

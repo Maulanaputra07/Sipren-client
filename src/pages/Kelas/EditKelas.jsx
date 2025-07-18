@@ -29,11 +29,11 @@ export const EditKelas = () => {
   const handleSubmitForm = (e) => {
     e.preventDefault();
 
-    console.log({
-      id_jurusan: parseInt(current.jurusan),
-      tingkat: current.tingkat,
-      no_kelas: parseInt(current.no_kelas),
-    });
+    // console.log({
+    //   id_jurusan: parseInt(current.jurusan),
+    //   tingkat: current.tingkat,
+    //   no_kelas: parseInt(current.no_kelas),
+    // });
     if (pathname.includes("/update")) {
       axios
         .put(`/kelas/${id}`, {
@@ -59,7 +59,7 @@ export const EditKelas = () => {
         )
         .then((res) => {
           if (res.data.data[0]) {
-            console.log("lolos");
+            // console.log("lolos");
 
             Swal.fire({
               title: "Error!",
@@ -88,7 +88,7 @@ export const EditKelas = () => {
           }
         })
         .catch((err) => {
-          console.log("error");
+          // console.log("error");
           Swal.fire({
             title: "Error!",
             text: err.response.data.message,
@@ -129,7 +129,7 @@ export const EditKelas = () => {
       .get("/jurusan")
       .then((res) => {
         setJurusan(res.data.data);
-        console.log("data jurusan : " +res.data.data);
+        // console.log("data jurusan : " +res.data.data);
       })
       .catch((err) => {
         console.log(err);

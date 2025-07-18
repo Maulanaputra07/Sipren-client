@@ -18,7 +18,7 @@ export function PresensiStarted() {
 
   const handleUpdateketerangan = (e) => {
     e.preventDefault();
-    console.log("id_det : " + selectedIdDet);
+    // console.log("id_det : " + selectedIdDet);
     axios
     .put(`detail_presensi/${selectedIdDet}`, {
       keterangan: current.keterangan,
@@ -60,7 +60,7 @@ export function PresensiStarted() {
     axios
       .get(`/presensi/${id}`)
       .then((res) => {
-        console.log( "data :" +res.data.data?.detail_presensi.length);
+        // console.log( "data :" +res.data.data?.detail_presensi.length);
         setDetPres(res.data.data);
       })
       .catch((err) => {
@@ -75,7 +75,7 @@ export function PresensiStarted() {
 
     axios.post(`/presensi/${id}/end`)
       .then((res) => {
-        console.log("berakhir");
+        // console.log("berakhir");
         Swal.fire({
           position: "center",
           icon: "success",
@@ -134,7 +134,7 @@ export function PresensiStarted() {
       const key = event.key;
 
       if (key === "Enter") {
-        console.log(buffer);
+        // console.log(buffer);
         setRfidData(buffer);
         axios
           .put(`/detail_presensi/${id}/present`, {

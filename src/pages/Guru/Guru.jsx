@@ -32,7 +32,7 @@ function Guru() {
     axios.get('/jadwal/mine')
     .then((res) => {
       setJadwal(res.data);
-      console.log("jadwal hari ini : " + res.data.length);
+      // console.log("jadwal hari ini : " + res.data.length);
     })
     .catch((err) => {
       console.log(err?.message);
@@ -86,7 +86,7 @@ function Guru() {
       .get("/presensi/mine")
       .then((res) => {
         setHistory(res.data.data);
-        console.log("presensi: " + res.data?.data?.length);
+        // console.log("presensi: " + res.data?.data?.length);
       })
       .catch((err) => {
         console.log(err);

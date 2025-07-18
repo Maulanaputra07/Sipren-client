@@ -32,12 +32,12 @@ function Presensi() {
 
   const handleChangeKelas = (e) => {
     setCurrent({ ...current, id_kelas: e.target.value });
-    console.log( "id_kelas: " + e.target.value);
+    // console.log( "id_kelas: " + e.target.value);
   };
 
   const handleJenisChange = (e) => {
     setIsProduktif(Number(e.target.value));
-    console.log("value mapel : " + e.target.value);
+    // console.log("value mapel : " + e.target.value);
   };
 
   const handleChangeMapel = (e) => {
@@ -75,9 +75,9 @@ function Presensi() {
     axios
       .get("/kelas")
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setKelas(res.data.data);
-        console.log(res.data.data);
+        // console.log(res.data.data);
         if (!res.data.data.length) {
           Swal.fire({
             icon: "error",

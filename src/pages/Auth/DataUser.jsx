@@ -13,8 +13,8 @@ export function DataUser() {
 
   function handleDeleteUser(e) {
     e.preventDefault();
-    console.log(e.target.id_user.value);
-    console.log(e.target.username.value);
+    // console.log(e.target.id_user.value);
+    // console.log(e.target.username.value);
     Swal.fire({
       title: `Yakin Ingin Menghapus User "${e.target.username.value}"? `,
       text: "User yang dihapus tidak bisa dikembalikan!",
@@ -56,10 +56,10 @@ export function DataUser() {
       })
       .then((res) => {
         setUsers(res.data.data);
-        console.log(res.data.data)
+        // console.log(res.data.data)
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
 

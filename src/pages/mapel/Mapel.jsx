@@ -24,7 +24,7 @@ export function Mapel(){
             confirmButtonText: "Yes, delete it!",
             }).then((result) => {
               if (result.isConfirmed) {
-                console.log("id_mapel: "+ e.target.value);
+                // console.log("id_mapel: "+ e.target.value);
                 axios
                   .delete(`/mapel/${e.target.value}`)
                   .then((res) => {
@@ -50,7 +50,7 @@ export function Mapel(){
 
     const handleJenisMapel = (e) => {
         setCurrent({ ...current, produktif: parseInt(e.target.value) });
-        console.log("Value jenis mapel : " + e.target.value);
+        // console.log("Value jenis mapel : " + e.target.value);
     };
 
 

@@ -38,14 +38,14 @@ export function JadwalGuru() {
                 deskripsi_materi: formData.deskripsi_materi
             };
 
-            console.log('id_mapel: ' + selectedJadwal.id_mapel);
-            console.log('materi: ' + formData.materi);
-            console.log("Payload: " + payload);
+            // console.log('id_mapel: ' + selectedJadwal.id_mapel);
+            // console.log('materi: ' + formData.materi);
+            // console.log("Payload: " + payload);
 
             axios
             .post('/presensi', payload)
             .then((res) => {
-                console.log("berhasil input presensi: ", res.data.data)
+                // console.log("berhasil input presensi: ", res.data.data)
                 const presensiData = {
                     status: true,
                     id_presensi: res.data.data.id_presensi,
@@ -76,12 +76,12 @@ export function JadwalGuru() {
         .get('/jadwal/mine')
         .then((res) => {
             setJadwal(res.data);
-            console.log("jadwal guru: " + res.data?.length);
+            // console.log("jadwal guru: " + res.data?.length);
         })
     }
 
     useEffect(() => {
-        console.log("Current Time: ", currentTime);
+        // console.log("Current Time: ", currentTime);
         fetchJadwal();
     }, [])
 
@@ -95,11 +95,11 @@ return (
                             <div
                             key={i}
                             onClick={() => {
-                                console.log("item.status", item.status)
-                                console.log("item.presensi_selesai", item.presensi_selesai)
+                                // console.log("item.status", item.status)
+                                // console.log("item.presensi_selesai", item.presensi_selesai.presensi_selesai)
                                 
-                                if(item.status === true && item.presensi_selesai === null){
-                                    if(currentTime >= item.jadwal_mulai && currentTime <= item.jadwal_selesai && item.presensi_selesai === null){
+                                if(item.status === true && item.presensi_selesai.presensi_selesai === null){
+                                    if(currentTime >= item.presensi_selesai.jadwal_mulai && currentTime <= item.presensi_selesai.jadwal_selesai && item.presensi_selesai.presensi_mulai){
                                         window.location = `presensi/${jadwal.id_presensi}`
                                     }else{
                                         setSelectedJadwal(item)

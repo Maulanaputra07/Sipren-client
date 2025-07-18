@@ -57,7 +57,7 @@ export const EditSiswa = () => {
           window.location = `/admin/kelas/detail/${id}`;
         })
         .catch((err) => {
-          console.log("payload :" + payload);
+          // console.log("payload :" + payload);
           Swal.fire({
             title: "Error!",
             text: err.response?.data?.message || "Terjadi kesalahan",

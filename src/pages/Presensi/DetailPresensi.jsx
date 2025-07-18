@@ -26,7 +26,7 @@ export function DetailPresensi() {
       .get(`/presensi/${id}`)
       .then((res) => {
         setDetailPresensi(res.data.data);
-        console.log(res.data.data);
+        // console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -35,7 +35,7 @@ export function DetailPresensi() {
 
   const handleUpdateketerangan = (e) => {
       e.preventDefault();
-      console.log("id_det : " + selectedIdDet);
+      // console.log("id_det : " + selectedIdDet);
       axios
       .put(`detail_presensi/${selectedIdDet}`, {
         keterangan: current.keterangan
@@ -56,7 +56,7 @@ export function DetailPresensi() {
 
   const handleKeterangan = (e) => {
     setCurrent({ ...current, keterangan: e.target.value });
-    console.log("Value Keterangan : " + e.target.value);
+    // console.log("Value Keterangan : " + e.target.value);
   };
 
   useEffect(() => {
