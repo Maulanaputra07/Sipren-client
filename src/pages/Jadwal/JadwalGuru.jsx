@@ -115,7 +115,7 @@ return (
                                     });
                                 }
                             }}
-                            className={`w-[15rem] h-40 m-5 rounded-md ${item.status === false || item.presensi_selesai !== null ? "text-black/50" : "text-[#273248] hover:cursor-pointer hover:scale-105 hover:brightness-105 transition-all duration-200"}`}
+                            className={`w-[15rem] h-40 m-5 rounded-md ${item.status === false && item.presensi_selesai !== null ? "text-black/50" : "text-[#273248] hover:cursor-pointer hover:scale-105 hover:brightness-105 transition-all duration-200"}`}
                                 style={{
                                     maskImage: 'url(/images/folder3.png)',
                                     WebkitMaskImage: 'url(/images/folder3.png)',
@@ -124,8 +124,8 @@ return (
                                     maskSize: 'cover',
                                     WebkitMaskSize: 'cover',
                                 }}>
-                                    <p className={`pl-8 font-bold p-1 ${item.status === false || item.presensi_selesai !== null ? "bg-gray" : "bg-orange-300"}`}>{item.tingkat} {item.akronim} {item.no_kelas}</p>
-                                    <div className={`flex flex-col ${item.status === false || item.presensi_selesai !== null ? "bg-gray/30" : "bg-[#FEFAE0]"} font-poppins font-semibold text-lg w-full h-[80%] justify-center items-center`}>
+                                    <p className={`pl-8 font-bold p-1 ${item.status === false && item.presensi_selesai !== null ? "bg-gray" : "bg-orange-300"}`}>{item.tingkat} {item.akronim} {item.no_kelas}</p>
+                                    <div className={`flex flex-col ${item.status === false && item.presensi_selesai !== null ? "bg-gray/30" : "bg-[#FEFAE0]"} font-poppins font-semibold text-lg w-full h-[80%] justify-center items-center`}>
                                         <p className="font-bold">{item.nama_mapel}</p>
                                         <p>{item.pecahan_absen === "semua" ?  "" : `(${item.pecahan_absen})`}</p>
                                         <p>{item.nama_ruang}</p>

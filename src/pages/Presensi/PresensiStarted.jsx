@@ -141,15 +141,7 @@ export function PresensiStarted() {
             rfid: buffer,
           })
           .then((res) => {
-            Swal.fire({
-            title: "Hadir",
-            text: res.data?.message,
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1000,
-        }).then(()=> {
-          fetchSiswa();
-        })
+            fetchSiswa();
           })
           .catch((err) => {
             console.log(err);
