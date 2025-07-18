@@ -32,4 +32,25 @@ jobs:
     steps:
       - name: Setup Automation to Server
         run: |
-          sh /home/github_runner/actions-runner/test_deploy.sh
+          #!/bin/bash
+
+          set -e  # Stop jika ada error
+          
+          cd /var/www/html/Sipren-client
+          
+          echo "Git Pull"
+          git config --global --add safe.directory /var/www/html/Sipren-client
+          git fetch origin
+          git reset --hard origin/master
+          git clean -fd
+          
+          echo "Copy .env"
+          cp /home/github_runner/actions-runner/.env_sipren_fe .env
+          
+          echo "Install dependencies"
+          npm install
+          
+          echo "Build React App"
+          npm run build
+          
+          echo "Deploy complete"
