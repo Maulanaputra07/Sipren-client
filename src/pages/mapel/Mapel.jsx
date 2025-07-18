@@ -116,7 +116,6 @@ export function Mapel(){
                             <td colSpan={1}>{count++}</td>
                             <td colSpan={4}>
                                 {mpl.nama_mapel}
-                                {mpl.id_mapel}
                             </td>
                             <td colSpan={3}>
                                 {mpl.produktif === 1 ? "Produktif" : "Normada"}
