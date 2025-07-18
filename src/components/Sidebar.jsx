@@ -141,7 +141,7 @@ function Sidebar() {
               {isGuru && (
                 <>
                 <li>
-                  <Link to="jadwal_guru" className={`group flex item-center gap-3 transition-all py-2 duration-300 ease-in-out ${pathname === "/guru/presensi" ? "active py-2 rounded-lg bg-white" : "py-2 hover:bg-white hover:rounded-lg"}`}>
+                  <Link to="jadwal_guru" className={`group flex item-center gap-3 transition-all py-2 duration-300 ease-in-out ${pathname === "/guru/jadwal_guru" ? "active py-2 rounded-lg bg-white" : "py-2 hover:bg-white hover:rounded-lg"}`}>
                   <img src={presensiIcon} className={`transition-all duration-300 group-hover:scale-110 ${widthSidebar > 220 ? "w-[35px]" : "w-[40px]"}`} color="" alt="presensiIcon" />
                   {widthSidebar > 220 && ( <span>Jadwal</span> )}
                   </Link>

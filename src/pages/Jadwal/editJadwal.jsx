@@ -13,7 +13,8 @@ export function EditJadwal(){
     const [mapel, setMapel] = useState();
     const [isProduktif, setIsProduktif] = useState(null);
     const [current, setCurrent] = useState({
-        id_user: ""
+        id_user: "",
+        pecahan_absen: "semua",
     });
     const jamBoundary = ["07:00", "07:45", "08:30", "09:15", "10:00", "10:45",
                         "11:30", "12:15", "13:00", "13:45", "14:30", "15:15", "16:00",
@@ -66,6 +67,19 @@ export function EditJadwal(){
     const handleSubmit = (e) => {
         e.preventDefault();
         if(pathname.includes("/update")){
+            console.log({
+                id_kelas: current.id_kelas,
+                hari: current.hari,
+                jadwal_mulai: mulai,
+                jadwal_selesai: selesai,
+                pecahan_absen: current.pecahan_absen,
+                id_mapel: current.id_mapel,
+                id_ruang: current.id_ruang,
+                id_user: current.id_user,
+            });
+
+
+
             axios
             .put(`/jadwal/${id}`, {
                 id_kelas: current.id_kelas,
@@ -85,6 +99,13 @@ export function EditJadwal(){
                 }).then(() => {
                     window.location = "/admin/jadwal"
                 })
+            }).catch((err) => {
+                Swal.fire({
+                    title: "Error!",
+                    text: err.response?.data?.message,
+                    icon: "error",
+                    confirmButtonText: "Tutup",
+                });
             })
         }else{
             axios
@@ -180,6 +201,7 @@ export function EditJadwal(){
                     hari: res.data?.data?.hari,
                     jadwal_mulai: res.data?.data?.jadwal_mulai,
                     jadwal_selesai: res.data?.data?.jadwal_selesai,
+                    pecahan_absen: res.data?.data?.pecahan_absen,
                     id_mapel: res.data?.data?.id_mapel,
                     id_ruang: res.data?.data?.id_ruang,
                     id_user: res.data?.data?.id_user
