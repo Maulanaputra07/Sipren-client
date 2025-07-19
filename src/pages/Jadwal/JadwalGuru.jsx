@@ -95,12 +95,28 @@ return (
                             <div
                             key={i}
                             onClick={() => {
-                                // console.log("item.status", item.status)
-                                // console.log("item.presensi_selesai", item.presensi_selesai.presensi_selesai)
+                                // console.log(currentTime);
+                                // console.log("item.latest_presensi", item.latest_presensi);
+                                // console.log(JSON.stringify(item.latest_presensi.jadwal_mulai))
+                                // if(item?.jadwal_mulai){
+                                //     const jadwalMulai = item.latest_presensi.jadwal_mulai.trim();
+                                //     if(currentTime >= jadwalMulai){
+                                //         console.log("bisa")
+                                //     }else{
+                                //         console.log("tidak bisa")
+                                //     }
+                                // }else{
+                                //     console.log("jadwal_mulai undefined");
+                                // }
+                                // console.log("item.presensi_selesai", item.latest_presensi?.presensi_selesai)
                                 
-                                if(item.status === true && item.presensi_selesai.presensi_selesai === null){
-                                    if(currentTime >= item.presensi_selesai.jadwal_mulai && currentTime <= item.presensi_selesai.jadwal_selesai && item.presensi_selesai.presensi_mulai){
-                                        window.location = `presensi/${jadwal.id_presensi}`
+                                if(item.status === true && !item.latest_presensi.presensi_selesai){
+                                    if(
+                                        !item.latest_presensi?.presensi_selesai && 
+                                        currentTime >= item?.jadwal_mulai && 
+                                        currentTime <= item?.jadwal_selesai
+                                    ){
+                                        window.location = `presensi/${item.latest_presensi?.id_presensi}`
                                     }else{
                                         setSelectedJadwal(item)
                                         setShowModel(true)
