@@ -33,17 +33,17 @@ export function PresensiStarted() {
     };
 
     const ket = ketMap[current.keterangan] || { text: "Unknown", icon: "question", color: "#6b7280" };
+    fetchSiswa();
 
-        Swal.fire({
-            position: "center",
-            title: ket.text,
-            text: res.data?.message,
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1000,
-        }).then(() => {
-            fetchSiswa();
-        });
+        // Swal.fire({
+        //     position: "center",
+        //     title: ket.text,
+        //     text: res.data?.message,
+        //     icon: "success",
+        //     showConfirmButton: false,
+        //     timer: 1000,
+        // }).then(() => {
+        // });
     }).catch((err) => {
         console.log("error saat post : " + err.response?.data?.message || err.message);
     });
