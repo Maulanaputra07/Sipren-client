@@ -110,13 +110,23 @@ return (
                                 // }
                                 // console.log("item.presensi_selesai", item.latest_presensi?.presensi_selesai)
                                 
-                                if(item.status === true && !item.latest_presensi.presensi_selesai){
-                                    if(
-                                        !item.latest_presensi?.presensi_selesai && 
-                                        currentTime >= item?.jadwal_mulai && 
-                                        currentTime <= item?.jadwal_selesai
-                                    ){
-                                        window.location = `presensi/${item.latest_presensi?.id_presensi}`
+                                if(item.status === true){
+                                    if(item.latest_presensi){
+                                        if(
+                                            !item?.latest_presensi?.presensi_selesai && 
+                                            currentTime >= item?.jadwal_mulai && 
+                                            currentTime <= item?.jadwal_selesai
+                                        ){
+                                            window.location = `presensi/${item?.latest_presensi?.id_presensi}`
+                                        }else{
+                                            Swal.fire({
+                                        icon: "info",
+                                        title: `Tidak dapat mengakses pembelajaran ${item.nama_mapel}`,
+                                        text: "Pembelajaran ini hanya dapat diakses sesuai jadwal yang ditentukan.",
+                                        confirmButtonColor: "#3085d6",
+                                        confirmButtonText: "OK",
+                                    });
+                                        }
                                     }else{
                                         setSelectedJadwal(item)
                                         setShowModel(true)
@@ -131,7 +141,7 @@ return (
                                     });
                                 }
                             }}
-                            className={`w-[15rem] h-40 m-5 rounded-md ${item.status === false && item.presensi_selesai !== null ? "text-black/50" : "text-[#273248] hover:cursor-pointer hover:scale-105 hover:brightness-105 transition-all duration-200"}`}
+                            className={`w-[15rem] h-40 m-5 rounded-md ${item.status === false && item?.latest_presensi?.presensi_selesai !== null ? "text-black/50" : "text-[#273248] hover:cursor-pointer hover:scale-105 hover:brightness-105 transition-all duration-200"}`}
                                 style={{
                                     maskImage: 'url(/images/folder3.png)',
                                     WebkitMaskImage: 'url(/images/folder3.png)',
@@ -140,8 +150,8 @@ return (
                                     maskSize: 'cover',
                                     WebkitMaskSize: 'cover',
                                 }}>
-                                    <p className={`pl-8 font-bold p-1 ${item.status === false && item.presensi_selesai !== null ? "bg-gray" : "bg-orange-300"}`}>{item.tingkat} {item.akronim} {item.no_kelas}</p>
-                                    <div className={`flex flex-col ${item.status === false && item.presensi_selesai !== null ? "bg-gray/30" : "bg-[#FEFAE0]"} font-poppins font-semibold text-lg w-full h-[80%] justify-center items-center`}>
+                                    <p className={`pl-8 font-bold p-1 ${item.status === false && item?.latest_presensi?.presensi_selesai !== null ? "bg-gray" : "bg-orange-300"}`}>{item.tingkat} {item.akronim} {item.no_kelas}</p>
+                                    <div className={`flex flex-col ${item.status === false && item?.latest_presensi?.presensi_selesai !== null ? "bg-gray/30" : "bg-[#FEFAE0]"} font-poppins font-semibold text-lg w-full h-[80%] justify-center items-center`}>
                                         <p className="font-bold">{item.nama_mapel}</p>
                                         <p>{item.pecahan_absen === "semua" ?  "" : `(${item.pecahan_absen})`}</p>
                                         <p>{item.nama_ruang}</p>
