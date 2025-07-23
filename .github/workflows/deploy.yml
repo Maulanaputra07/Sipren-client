@@ -14,43 +14,42 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Setup Dependencies
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install Dependencies
-        run: | 
+      - name: Install & Build Frontend
+        run: |
+          cd frontend-sipren
           npm ci
           npm run build
 
   deploy:
-    name: Deploy To Production
+    name: Deploy Dockerized App
     runs-on: self-hosted
     needs: test
 
     steps:
-      - name: Setup Automation to Server
+      - name: Pull latest code
         run: |
-          #!/bin/bash
-
-          set -e  # Stop jika ada error
-          
-          cd /var/www/html/Sipren-client
-          
-          echo "Git Pull"
-          git config --global --add safe.directory /var/www/html/Sipren-client
+          cd /var/www/html/SIPREN
+          git config --global --add safe.directory /var/www/html/SIPREN
           git fetch origin
           git reset --hard origin/master
           git clean -fd
-          
-          echo "Copy .env"
-          cp /home/github_runner/actions-runner/.env_sipren_fe .env
-          
-          echo "Install dependencies"
-          npm install
-          
-          echo "Build React App"
-          npm run build
-          
-          echo "Deploy complete"
+
+      - name: Copy .env files
+        run: |
+          cp /home/github_runner/actions-runner/.env_sipren_fe frontend-sipren/.env
+          cp /home/github_runner/actions-runner/.env_sipren_be backend-sipren/.env
+          cp /home/github_runner/actions-runner/.env_sipren_db .env
+
+      - name: Stop and Remove Old Containers
+        run: docker-compose down -v
+
+      - name: Build and Start New Containers
+        run: docker-compose up -d --build
+
+      - name: Show Running Containers
+        run: docker ps
